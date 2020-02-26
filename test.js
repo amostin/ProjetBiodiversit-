@@ -1,8 +1,12 @@
+
+
 var express = require("express");
 var cors = require("cors");
 var mysql = require("mysql");
 
 var app = express();
+
+//Connection DB
 
 const SELECT_ALL_PLACES_QUERY = "SELECT * FROM places;";
 const connection = mysql.createConnection({
@@ -21,6 +25,8 @@ connection.connect(err => {
 console.log(connection);
 
 app.use(cors());
+
+//Routage
 
 app.get("/", (req, res) => {
   res.send("Go to /connexion to connect");
