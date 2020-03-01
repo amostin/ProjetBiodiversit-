@@ -3,7 +3,8 @@ const mysql = require("mysql");
 
 const app = express();
 
-const SELECT_ALL_PLACES_QUERY = "SELECT * FROM places;";
+const SELECT_ALL_PLACES_QUERY =
+  "SELECT idPlaces, nom, nomLatin, localisation, categorie, DATE_FORMAT(startVisibilite, '%d/%m/%Y') AS startVisibilite, DATE_FORMAT(stopVisibilite, '%d/%m/%Y') AS stopVisibilite, accessibilite FROM places;";
 const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
