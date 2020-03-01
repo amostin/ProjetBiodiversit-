@@ -6,6 +6,7 @@ import Admin from "./Admin";
 import Login from "./Login";
 import Itineraire from "./Itineraire";
 import Categorie from "./Categorie";
+import PointDetail from "./PointDetail";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -16,9 +17,9 @@ function App() {
         <Switch>
           <Route path="/" exact component={Home}></Route>
           <Route path="/login" component={Login}></Route>
-          <Route path="/admin" exact component={Admin}></Route>
-          <Route path="/pointInteret" component={Places} />
-          <Route path="/pointInteret/:id" component={Places} />
+          <Route path="/admin" component={Admin}></Route>
+          <Route path="/pointInteret" exact component={Places} />
+          <Route path="/pointInteret/:idPlaces" component={PointDetail} />
           <Route path="/itineraire" component={Itineraire} />
           <Route path="/categorie" component={Categorie} />
         </Switch>

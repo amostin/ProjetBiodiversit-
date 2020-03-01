@@ -6,14 +6,17 @@ function Login() {
   return (
     <div>
       <h1>Page de connexion</h1>
-      <div id="connectBox">
-          <label for='pseudo'>Pseudo</label>
-          <input name="pseudo" id="pseudo" type="text" /><br/>
-          <label for='mdp'>Mot de passe</label>
-          <input name="mdp" id="mdp" type="password" /><br />
-          <Link to="/admin"><input type="submit" value="Connexion"/></Link>
-          
-      </div>
+      <form id="connectBox">
+        <label htmlFor="pseudo">Pseudo</label>
+        <input name="pseudo" id="pseudo" type="text" />
+        <br />
+        <label htmlFor="mdp">Mot de passe</label>
+        <input name="mdp" id="mdp" type="password" />
+        <br />
+        <Link to="/admin">
+          <input type="submit" value="Connexion" />
+        </Link>
+      </form>
     </div>
   );
 }

@@ -31,6 +31,20 @@ app.get("/api/places", (req, res) => {
   });
 });
 
+app.get("/api/get", (req, res) => {
+  const { idPlaces } = req.query;
+  const GET_ID_QUERY = `SELECT * FROM Places WHERE idPlaces = ${idPlaces}`;
+  connection.query(GET_ID_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.json({
+        data: results
+      });
+    }
+  });
+});
+
 app.get("/api/add", (req, res) => {
   const {
     nom,
@@ -51,6 +65,19 @@ app.get("/api/add", (req, res) => {
   });
 });
 
+app.get("/api/categorie", (req, res) => {
+  const { categorie } = req.query;
+  const SELECT_CATEGORY_QUERY = `SELECT idPlaces, nom FROM Places WHERE categorie='${categorie}'`;
+  connection.query(SELECT_CATEGORY_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.json({
+        data: results
+      });
+    }
+  });
+});
 const port = 5000;
 
 app.listen(port, () => console.log(`Server start on port ${port}`));
