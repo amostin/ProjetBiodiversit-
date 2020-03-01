@@ -1,26 +1,23 @@
 {
-  "name": "ProjetBiodiversit-",
+  "name": "reactexpress",
   "version": "1.0.0",
-  "description": "Projet lancé dans le cadre du cours de Développement Web. Le but est de fournir des informations aux promeneurs dans Louvain-la-Neuve via un scan de QR code à différents points importants dans la ville.",
-  "main": "test.js",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "Clement Miesse",
+  "license": "MIT",
   "dependencies": {
-    "cors": "^2.8.5",
+    "concurrently": "^5.1.0",
     "express": "^4.17.1",
     "mysql": "^2.18.1"
   },
-  "devDependencies": {},
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Cyril-Etyk/ProjetBiodiversit-.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Cyril-Etyk/ProjetBiodiversit-/issues"
-  },
-  "homepage": "https://github.com/Cyril-Etyk/ProjetBiodiversit-#readme"
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
