@@ -2,115 +2,181 @@ import React, { Component } from "react";
 import "./Admin.css";
 
 class Admin extends Component {
-  constructor() {
-    super();
-    this.state = {
-      places: [],
-      point: {
-        nom: "nom",
-        nomLatin: "nomLatin",
-        localisation: "localisation",
-        categorie: "nature",
-        startVisibilite: "2020-01-01",
-        stopVisibilite: "2020-12-31",
-        accessibilite: 1
-      }
-    };
-  }
+  state = {
+    places: [],
+    point: {
+      nom: "nom",
+      nomLatin: "nomLatin",
+      localisation: "localisation",
+      categorie: "nature",
+      startVisibilite: "2020-01-01",
+      stopVisibilite: "2020-12-31",
+      accessibilite: 1
+    }
+  };
 
   componentDidMount() {
+    this.getPlaces();
+  }
+
+  getPlaces = _ => {
     fetch("/api/places")
       .then(res => res.json())
-      .then(res =>
-        this.setState({ places: res.data }, () =>
-          console.log("Places fetched...", res.data)
-        )
-      );
-  }
+      .then(res => this.setState({ places: res.data }))
+      .catch(err => console.log(err));
+  };
 
   addPoint = _ => {
     const { point } = this.state;
     fetch(
-      `/api/add?nom=${point.nom}&nomLatin=${point.nomLatin}&localisation=${point.localisation}&categorie=${point.categorie}&stopVisibilite=${point.stopVisibilite}&accessibilite=${point.accessibilite}`
+      `/api/add?nom=${point.nom}&nomLatin=${point.nomLatin}&localisation=${point.localisation}&categorie=${point.categorie}&startVisibilite=${point.startVisibilite}&stopVisibilite=${point.stopVisibilite}&accessibilite=${point.accessibilite}`
     )
-      .then(this.componentDidMount)
-      .catch(err => console.log(err));
+      .then(this.getPlaces)
+      .catch(err => console.error(err));
   };
+
+  renderPlaces = ({
+    idPlaces,
+    nom,
+    nomLatin,
+    localisation,
+    categorie,
+    startVisibilite,
+    stopVisibilite,
+    accessibilite
+  }) => (
+    <tr key={idPlaces}>
+      <td>{idPlaces}</td>
+      <td>{nom}</td>
+      <td>{nomLatin}</td>
+      <td>{localisation}</td>
+      <td>{categorie}</td>
+      <td>{startVisibilite}</td>
+      <td>{stopVisibilite}</td>
+      <td>{accessibilite}</td>
+    </tr>
+  );
+
   render() {
+    const { places, point } = this.state;
     return (
       <div>
         <h1>Page admin</h1>
         <table align="center">
-          <tr>
-            <th>id</th>
-            <th>nom</th>
-            <th>nomLatin</th>
-            <th>localisation</th>
-            <th>catégorie</th>
-            <th>début</th>
-            <th>fin</th>
-            <th>accessible</th>
-          </tr>
-          {this.state.places.map(place => (
-            <tr key={place.idPlaces}>
-              <td>{place.idPlaces}</td>
-              <td>{place.nom}</td>
-              <td>{place.nomLatin}</td>
-              <td>{place.localisation}</td>
-              <td>{place.categorie}</td>
-              <td>{place.startVisibilite}</td>
-              <td>{place.stopVisibilite}</td>
-              <td>{place.accessibilite}</td>
+          <thead>
+            <tr>
+              <th>id</th>
+              <th>nom</th>
+              <th>nomLatin</th>
+              <th>localisation</th>
+              <th>catégorie</th>
+              <th>début</th>
+              <th>fin</th>
+              <th>accessible</th>
             </tr>
-          ))}
+          </thead>
+          <tbody>{places.map(this.renderPlaces)}</tbody>
         </table>
         <br />
         <div id="addEntry">
-          <label for="nom">Nom</label>
+          <label htmlFor="nom">Nom</label>
           <br />
-          <input name="nom" id="nom" type="text" />
+          <input
+            name="nom"
+            id="nom"
+            type="text"
+            value={point.nom}
+            onChange={e =>
+              this.setState({ point: { ...point, nom: e.target.value } })
+            }
+          />
           <br />
-          <label for="nomLatin">Nom latin</label>
+          <label htmlFor="nomLatin">Nom latin</label>
           <br />
-          <input name="nomLatin" id="nomLatin" type="text" />
+          <input
+            name="nomLatin"
+            id="nomLatin"
+            type="text"
+            value={point.nomLatin}
+            onChange={e =>
+              this.setState({ point: { ...point, nomLatin: e.target.value } })
+            }
+          />
           <br />
-          <label for="localisation">Localisation</label>
+          <label htmlFor="localisation">Localisation</label>
           <br />
-          <input name="localisation" id="localisation" type="text" />
+          <input
+            name="localisation"
+            id="localisation"
+            type="text"
+            value={point.localisation}
+            onChange={e =>
+              this.setState({
+                point: { ...point, localisation: e.target.value }
+              })
+            }
+          />
           <br />
-          <label for="categorie">Catégorie</label>
+          <label htmlFor="categorie">Catégorie</label>
           <br />
-          <select name="categorie" id="nom" type="text">
+          <select
+            name="categorie"
+            id="nom"
+            type="text"
+            value={point.categorie}
+            onChange={e =>
+              this.setState({ point: { ...point, categorie: e.target.value } })
+            }
+          >
             <option value="nature">Nature</option>
             <option value="animaux">Animaux</option>
           </select>
           <br />
-          <label for="startVisibilite">Début</label>
+          <label htmlFor="startVisibilite">Début</label>
           <br />
           <input
             name="startVisibilite"
             id="startVisibilite"
             type="text"
-            placeholder="2019-01-01"
+            value={point.startVisibilite}
+            onChange={e =>
+              this.setState({
+                point: { ...point, startVisibilite: e.target.value }
+              })
+            }
           />
           <br />
-          <label for="stopVisibilite">Fin</label>
+          <label htmlFor="stopVisibilite">Fin</label>
           <br />
           <input
             name="stopVisibilite"
             id="stopVisibilite"
             type="text"
-            placeholder="2019-12-31"
+            value={point.stopVisibilite}
+            onChange={e =>
+              this.setState({
+                point: { ...point, stopVisibilite: e.target.value }
+              })
+            }
           />
           <br />
-          <label for="accessibilite">Accessible</label>
+          <label htmlFor="accessibilite">Accessible</label>
           <br />
-          <select name="accessibilite" id="accessibilite">
+          <select
+            name="accessibilite"
+            id="accessibilite"
+            value={point.accessibilite}
+            onChange={e =>
+              this.setState({
+                point: { ...point, accessibilite: e.target.value }
+              })
+            }
+          >
             <option value="0">Non</option>
             <option value="1">Oui</option>
           </select>
           <br />
-          <button>Ajouter point</button>
+          <button onClick={this.addPoint}>Ajouter point</button>
         </div>
       </div>
     );
