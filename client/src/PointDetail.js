@@ -15,20 +15,15 @@ class PointDetail extends Component {
   render() {
     return (
       <div>
-        <div>
           {this.state.points.map(point => (
-            <h1 key={point.idPlaces}>
-              {point.nom}
-              <br />
-              {point.nomLatin}
-              <br />
-              {point.localisation}
-              <br />
-              {point.categorie}
-              <br />
-            </h1>
+            <div>
+            <h1>{point.nom}</h1>
+          <h2>{point.nomLatin}</h2>
+          <p>Le point se situe à : {point.localisation}</p>
+          <p>Il est de catégorie {point.categorie}</p>
+          <p>Il est visitable entre le {point.startVisibilite} au {point.stopVisibilite}</p>
+            </div>
           ))}
-        </div>
       </div>
     );
   }

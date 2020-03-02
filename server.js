@@ -33,7 +33,7 @@ app.get("/api/places", (req, res) => {
 
 app.get("/api/get", (req, res) => {
   const { idPlaces } = req.query;
-  const GET_ID_QUERY = `SELECT * FROM Places WHERE idPlaces = ${idPlaces}`;
+  const GET_ID_QUERY = `SELECT idPlaces, nom, nomLatin, localisation, categorie, DATE_FORMAT(startVisibilite, '%d/%m/%Y') AS startVisibilite, DATE_FORMAT(stopVisibilite, '%d/%m/%Y') AS stopVisibilite, accessibilite FROM Places WHERE idPlaces = ${idPlaces}`;
   connection.query(GET_ID_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
