@@ -1,8 +1,8 @@
 import React, { Component } from "react";
-import "./places.css";
+import "./Points.css";
 import { Link } from "react-router-dom";
 
-class Places extends Component {
+class Points extends Component {
   constructor() {
     super();
     this.state = {
@@ -35,4 +35,4 @@ class Places extends Component {
   }
 }
 
-export default Places;
+export default Points;

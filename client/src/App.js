@@ -1,12 +1,12 @@
 import React from "react";
 import "./App.css";
-import Places from "./components/places/places";
-import Nav from "./Nav";
-import Admin from "./Admin";
-import Login from "./Login";
-import Itineraire from "./Itineraire";
-import Categorie from "./Categorie";
-import PointDetail from "./PointDetail";
+import Points from "./components/Points/Points";
+import Nav from "./components/Nav/Nav";
+import Admin from "./components/Admin/Admin";
+import Login from "./components/Login/Login";
+import Itineraire from "./components/Itineraire/Itineraire";
+import Categorie from "./components/Categorie/Categorie";
+import PointDetail from "./components/PointDetails/PointDetail";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -18,7 +18,7 @@ function App() {
           <Route path="/" exact component={Home}></Route>
           <Route path="/login" component={Login}></Route>
           <Route path="/admin" component={Admin}></Route>
-          <Route path="/pointInteret" exact component={Places} />
+          <Route path="/pointInteret" exact component={Points} />
           <Route path="/pointInteret/:idPlaces" component={PointDetail} />
           <Route path="/itineraire" component={Itineraire} />
           <Route path="/categorie" component={Categorie} />
