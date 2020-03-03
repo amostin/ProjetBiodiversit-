@@ -130,6 +130,7 @@ class Admin extends Component {
           >
             <option value="nature">Nature</option>
             <option value="animaux">Animaux</option>
+            <option value="batiment">Batiment</option>
           </select>
           <br />
           <label htmlFor="startVisibilite">Début</label>

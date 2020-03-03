@@ -8,6 +8,7 @@ import Itineraire from "./components/Itineraire/Itineraire";
 import Categorie from "./components/Categorie/Categorie";
 import PointDetail from "./components/PointDetails/PointDetail";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import carte from "./map.JPG";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
 const Home = () => (
   <div>
     <h1>Page d'accueil</h1>
+    <img id="carte" src={carte} alt="carte exemple" />
   </div>
 );
 export default App;

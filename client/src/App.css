@@ -18,3 +18,7 @@ nav {
   align-items: center;
   list-style: none;
 }
+
+#carte {
+  width: 60%;
+}
