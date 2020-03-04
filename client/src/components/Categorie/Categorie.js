@@ -22,7 +22,6 @@ class Categorie extends Component {
     const { places, categorie } = this.state;
     return (
       <div>
-        <h1>Catégories</h1>
         <label htmlFor="categorie">Catégorie </label>
         <select
           name="categorie"

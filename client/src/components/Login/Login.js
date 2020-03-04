@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 function Login() {
   return (
-    <div>
+    <div class="center">
       <h1>Page de connexion</h1>
       <form id="connectBox">
         <label htmlFor="pseudo">Pseudo</label>

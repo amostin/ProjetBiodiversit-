@@ -60,7 +60,7 @@ class Admin extends Component {
   render() {
     const { places, point } = this.state;
     return (
-      <div>
+      <div class="center">
         <h1>Page admin</h1>
         <table align="center">
           <thead>

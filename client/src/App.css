@@ -1,5 +1,4 @@
 .App {
-  text-align: center;
 }
 
 nav {
@@ -19,6 +18,22 @@ nav {
   list-style: none;
 }
 
+.center {
+  text-align: center;
+}
+
+.right {
+  text-align: right;
+}
 #carte {
   width: 60%;
+}
+
+#login {
+  width: 5%;
+  margin: 5px 5px 0 0;
+}
+
+#calcul {
+  width: 40%;
 }
