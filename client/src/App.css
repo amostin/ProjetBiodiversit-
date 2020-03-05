@@ -25,8 +25,8 @@ nav {
 .right {
   text-align: right;
 }
-#carte {
-  width: 60%;
+#map {
+  justify-content: center;
 }
 
 #login {
