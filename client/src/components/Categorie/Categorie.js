@@ -42,8 +42,8 @@ class Categorie extends Component {
         </select>
         <ul>
           {places.map(place => (
-            <li key={place.idPlaces}>
-              <Link to={`/pointInteret/${place.idPlaces}`}>{place.nom}</Link>
+            <li key={place.idPoint}>
+              <Link to={`/pointInteret/${place.idPoint}`}>{place.nom}</Link>
             </li>
           ))}
         </ul>

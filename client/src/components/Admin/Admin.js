@@ -7,10 +7,12 @@ class Admin extends Component {
     point: {
       nom: "nom",
       nomLatin: "nomLatin",
-      localisation: "localisation",
+      adresse: "adresse",
+      longitude: 50.6,
+      latitude: 4.6,
       categorie: "nature",
-      startVisibilite: "2020-01-01",
-      stopVisibilite: "2020-12-31",
+      debut: "2020-01-01",
+      fin: "2020-12-31",
       accessibilite: 1
     }
   };
@@ -29,30 +31,34 @@ class Admin extends Component {
   addPoint = _ => {
     const { point } = this.state;
     fetch(
-      `/api/add?nom=${point.nom}&nomLatin=${point.nomLatin}&localisation=${point.localisation}&categorie=${point.categorie}&startVisibilite=${point.startVisibilite}&stopVisibilite=${point.stopVisibilite}&accessibilite=${point.accessibilite}`
+      `/api/add?nom=${point.nom}&nomLatin=${point.nomLatin}&adresse=${point.adresse}}&longitude=${point.longitude}}&latitude=${point.latitude}&categorie=${point.categorie}&debut=${point.debut}&fin=${point.fin}&accessibilite=${point.accessibilite}`
     )
       .then(this.getPlaces)
       .catch(err => console.error(err));
   };
 
   renderPlaces = ({
-    idPlaces,
+    idPoint,
     nom,
     nomLatin,
-    localisation,
+    adresse,
+    longitude,
+    latitude,
     categorie,
-    startVisibilite,
-    stopVisibilite,
+    debut,
+    fin,
     accessibilite
   }) => (
-    <tr key={idPlaces}>
-      <td>{idPlaces}</td>
+    <tr key={idPoint}>
+      <td>{idPoint}</td>
       <td>{nom}</td>
       <td>{nomLatin}</td>
-      <td>{localisation}</td>
+      <td>{adresse}</td>
+      <td>{longitude}</td>
+      <td>{latitude}</td>
       <td>{categorie}</td>
-      <td>{startVisibilite}</td>
-      <td>{stopVisibilite}</td>
+      <td>{debut}</td>
+      <td>{fin}</td>
       <td>{accessibilite}</td>
     </tr>
   );
@@ -68,7 +74,9 @@ class Admin extends Component {
               <th>id</th>
               <th>nom</th>
               <th>nomLatin</th>
-              <th>localisation</th>
+              <th>adresse</th>
+              <th>longitude</th>
+              <th>latitude</th>
               <th>catégorie</th>
               <th>début</th>
               <th>fin</th>
@@ -103,16 +111,44 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="localisation">Localisation</label>
+          <label htmlFor="adresse">adresse</label>
           <br />
           <input
-            name="localisation"
-            id="localisation"
+            name="adresse"
+            id="adresse"
             type="text"
-            value={point.localisation}
+            value={point.adresse}
             onChange={e =>
               this.setState({
-                point: { ...point, localisation: e.target.value }
+                point: { ...point, adresse: e.target.value }
+              })
+            }
+          />
+          <br />
+          <label htmlFor="longitude">Longitude</label>
+          <br />
+          <input
+            name="longitude"
+            id="longitude"
+            type="text"
+            value={point.longitude}
+            onChange={e =>
+              this.setState({
+                point: { ...point, longitude: e.target.value }
+              })
+            }
+          />
+          <br />
+          <label htmlFor="latitude">Début</label>
+          <br />
+          <input
+            name="latitude"
+            id="latitude"
+            type="text"
+            value={point.latitude}
+            onChange={e =>
+              this.setState({
+                point: { ...point, latitude: e.target.value }
               })
             }
           />
@@ -133,30 +169,30 @@ class Admin extends Component {
             <option value="batiment">Batiment</option>
           </select>
           <br />
-          <label htmlFor="startVisibilite">Début</label>
+          <label htmlFor="debut">Début</label>
           <br />
           <input
-            name="startVisibilite"
-            id="startVisibilite"
+            name="debut"
+            id="debut"
             type="text"
-            value={point.startVisibilite}
+            value={point.debut}
             onChange={e =>
               this.setState({
-                point: { ...point, startVisibilite: e.target.value }
+                point: { ...point, debut: e.target.value }
               })
             }
           />
           <br />
-          <label htmlFor="stopVisibilite">Fin</label>
+          <label htmlFor="fin">Fin</label>
           <br />
           <input
-            name="stopVisibilite"
-            id="stopVisibilite"
+            name="fin"
+            id="fin"
             type="text"
-            value={point.stopVisibilite}
+            value={point.fin}
             onChange={e =>
               this.setState({
-                point: { ...point, stopVisibilite: e.target.value }
+                point: { ...point, fin: e.target.value }
               })
             }
           />

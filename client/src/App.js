@@ -19,7 +19,7 @@ function App() {
           <Route path="/login" component={Login}></Route>
           <Route path="/admin" component={Admin}></Route>
           <Route path="/pointInteret" exact component={Points} />
-          <Route path="/pointInteret/:idPlaces" component={PointDetail} />
+          <Route path="/pointInteret/:idPoint" component={PointDetail} />
           <Route path="/itineraire" component={Itineraire} />
           <Route path="/categorie" component={Categorie} />
         </Switch>

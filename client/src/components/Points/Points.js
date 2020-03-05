@@ -25,8 +25,8 @@ class Points extends Component {
         <h1>Page des points d'intérêt</h1>
         <ul>
           {this.state.places.map(place => (
-            <li key={place.idPlaces}>
-              <Link to={`/pointInteret/${place.idPlaces}`}>{place.nom}</Link>
+            <li key={place.idPoint}>
+              <Link to={`/pointInteret/${place.idPoint}`}>{place.nom}</Link>
             </li>
           ))}
         </ul>
