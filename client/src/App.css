@@ -38,3 +38,8 @@ nav {
 ul li {
   list-style: none;
 }
+
+.App {
+  display: flex;
+  justify-content: center;
+}

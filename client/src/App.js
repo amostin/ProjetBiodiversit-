@@ -14,24 +14,29 @@ export default class App extends React.Component {
       <Router>
         <div className="App">
           <Switch>
-            <Route path="/login" component={Login}></Route>
             <Route
-              path="/pointInteret/:idPoint"
-              component={PointDetail}
-            ></Route>
-            <Route path="/itineraire" component={Itineraire}></Route>
-          </Switch>
-          <div className="right">
-            <Link to="login">
-              <img id="login" src={login} alt="" title="Connexion" />
-            </Link>
-          </div>
+              path="/"
+              exact
+              render={() => (
+                <div>
+                  <div className="right">
+                    <Link to="login">
+                      <img id="login" src={login} alt="" title="Connexion" />
+                    </Link>
+                  </div>
 
-          <div className="center">
-            <Categorie />
-            <br />
-            <Map />
-          </div>
+                  <div className="center">
+                    <Categorie />
+                    <Map />
+                  </div>
+                </div>
+              )}
+            />
+            <Route path="/login" component={Login} />
+            <Route path="/admin" component={Login} />
+            <Route path="/pointInteret/:idPoint" component={PointDetail} />
+            <Route path="/itineraire" component={Itineraire} />
+          </Switch>
         </div>
       </Router>
     );
