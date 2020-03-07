@@ -1,6 +1,3 @@
-.App {
-}
-
 nav {
   display: flex;
   justify-content: space-around;
@@ -36,4 +33,8 @@ nav {
 
 #calcul {
   width: 40%;
+}
+
+ul li {
+  list-style: none;
 }
