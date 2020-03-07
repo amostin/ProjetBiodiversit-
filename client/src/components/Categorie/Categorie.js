@@ -1,6 +1,15 @@
 import React, { Component } from "react";
 import "./../../App.css";
 import { Link } from "react-router-dom";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import style from "styled-components";
+import "./../../App.css";
+
+const Wrapper = style.div`
+width: ${props => props.width};
+height: ${props => props.height};
+`;
 
 class Categorie extends Component {
   state = {
@@ -8,8 +17,28 @@ class Categorie extends Component {
     categorie: "nature"
   };
   componentDidMount() {
+    this.map = L.map("map", {
+      center: [50.668081, 4.6118324],
+      zoom: 14,
+      zoomControl: false
+    });
+
+    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+      detectRetin: true,
+      minZoom: 14,
+      maxZoom: 18,
+      maxNativeZoom: 17
+    }).addTo(this.map);
     this.getPlacesByCategory();
   }
+  /*
+  changeMarkers = _ => {
+    {this.state.places.map(point => (
+      L.marker([${point.longitude', '{point.latitude}']).addTo(map)
+    .bindPopup('{point.nom}');
+    )}
+  }
+*/
   getPlacesByCategory = _ => {
     const { categorie } = this.state;
     fetch(`/api/categorie?categorie=${categorie}`)
@@ -47,6 +76,7 @@ class Categorie extends Component {
             </li>
           ))}
         </ul>
+        <Wrapper width="1280px" height="700px" id="map" />
       </div>
     );
   }

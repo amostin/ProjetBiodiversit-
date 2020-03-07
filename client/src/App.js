@@ -1,7 +1,6 @@
 import React from "react";
 import "./App.css";
 import Categorie from "./components/Categorie/Categorie";
-import Map from "./components/Map/Map";
 import Login from "./components/Login/Login";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import login from "./login.png";
@@ -27,7 +26,6 @@ export default class App extends React.Component {
 
                   <div className="center">
                     <Categorie />
-                    <Map />
                   </div>
                 </div>
               )}
