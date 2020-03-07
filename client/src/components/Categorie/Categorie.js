@@ -2,14 +2,11 @@ import React, { Component } from "react";
 import "./../../App.css";
 import { Link } from "react-router-dom";
 import L from "leaflet";
-import "leaflet/dist/leaflet.css";
-import style from "styled-components";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import "./../../App.css";
+import "./Categorie.css";
 
-const Wrapper = style.div`
-width: ${props => props.width};
-height: ${props => props.height};
-`;
+L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
 class Categorie extends Component {
   state = {
@@ -17,18 +14,6 @@ class Categorie extends Component {
     categorie: "nature"
   };
   componentDidMount() {
-    this.map = L.map("map", {
-      center: [50.668081, 4.6118324],
-      zoom: 14,
-      zoomControl: false
-    });
-
-    L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-      detectRetin: true,
-      minZoom: 14,
-      maxZoom: 18,
-      maxNativeZoom: 17
-    }).addTo(this.map);
     this.getPlacesByCategory();
   }
   /*
@@ -48,6 +33,8 @@ class Categorie extends Component {
   };
 
   render() {
+    const center = ["50.668081", "4.6118324"];
+    var zoom = 14;
     const { places, categorie } = this.state;
     return (
       <div>
@@ -76,7 +63,16 @@ class Categorie extends Component {
             </li>
           ))}
         </ul>
-        <Wrapper width="1280px" height="700px" id="map" />
+        <Map zoom={zoom} center={center}>
+          <TileLayer
+            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+
+          <Marker position={center}>
+            <Popup>Premier marqueur</Popup>
+          </Marker>
+        </Map>
       </div>
     );
   }
