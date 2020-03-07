@@ -69,7 +69,7 @@ app.get("/api/add", (req, res) => {
 
 app.get("/api/categorie", (req, res) => {
   const { categorie } = req.query;
-  const SELECT_CATEGORY_QUERY = `SELECT idPoint, nom FROM Points WHERE categorie='${categorie}'`;
+  const SELECT_CATEGORY_QUERY = `SELECT idPoint, nom, longitude, latitude FROM Points WHERE categorie='${categorie}'`;
   connection.query(SELECT_CATEGORY_QUERY, (err, results) => {
     if (err) {
       return res.send(err);

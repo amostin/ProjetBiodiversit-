@@ -14,7 +14,7 @@ class PointDetail extends Component {
   }
   render() {
     return (
-      <div class="center">
+      <div className="center">
         {this.state.points.map(point => (
           <div key={point.idPoint}>
             <h1>{point.nom}</h1>
