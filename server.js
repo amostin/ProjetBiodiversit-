@@ -50,12 +50,14 @@ app.get("/api/add", (req, res) => {
     nom,
     nomLatin,
     adresse,
+    longitude,
+    latitude,
     categorie,
     debut,
     fin,
     accessibilite
   } = req.query;
-  const INSERT_PLACES_QUERY = `INSERT INTO Points (nom, nomLatin, adresse, longitude, latitude, categorie, debut, fin, accessibilite) VALUES('${nom}', '${nomLatin}', '${adresse}', ${longitude}, ${latitude}, '${categorie}', '${debut}', '${fin}', '${accessibilite}')`;
+  const INSERT_PLACES_QUERY = `INSERT INTO Points (nom, nomLatin, adresse, longitude, latitude, categorie, debut, fin, accessibilite) VALUES('${nom}', '${nomLatin}', '${adresse}', '${longitude}', '${latitude}', '${categorie}', '${debut}', '${fin}', '${accessibilite}')`;
   connection.query(INSERT_PLACES_QUERY, (err, results) => {
     if (err) {
       return res.send(err);

@@ -31,7 +31,7 @@ class Admin extends Component {
   addPoint = _ => {
     const { point } = this.state;
     fetch(
-      `/api/add?nom=${point.nom}&nomLatin=${point.nomLatin}&adresse=${point.adresse}}&longitude=${point.longitude}}&latitude=${point.latitude}&categorie=${point.categorie}&debut=${point.debut}&fin=${point.fin}&accessibilite=${point.accessibilite}`
+      `/api/add?nom=${point.nom}&nomLatin=${point.nomLatin}&adresse=${point.adresse}&longitude=${point.longitude}&latitude=${point.latitude}&categorie=${point.categorie}&debut=${point.debut}&fin=${point.fin}&accessibilite=${point.accessibilite}`
     )
       .then(this.getPlaces)
       .catch(err => console.error(err));
@@ -66,7 +66,7 @@ class Admin extends Component {
   render() {
     const { places, point } = this.state;
     return (
-      <div class="center">
+      <div className="center">
         <h1>Page admin</h1>
         <table align="center">
           <thead>
@@ -130,7 +130,8 @@ class Admin extends Component {
           <input
             name="longitude"
             id="longitude"
-            type="text"
+            type="number"
+            step="0.1"
             value={point.longitude}
             onChange={e =>
               this.setState({
@@ -139,12 +140,13 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="latitude">Début</label>
+          <label htmlFor="latitude">Latitude</label>
           <br />
           <input
             name="latitude"
             id="latitude"
-            type="text"
+            type="number"
+            step="0.1"
             value={point.latitude}
             onChange={e =>
               this.setState({
@@ -157,7 +159,7 @@ class Admin extends Component {
           <br />
           <select
             name="categorie"
-            id="nom"
+            id="categorie"
             type="text"
             value={point.categorie}
             onChange={e =>
