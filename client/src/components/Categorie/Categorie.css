@@ -4,5 +4,5 @@ body,
 #root,
 .leaflet-container {
   height: 70vh;
-  width: 90vw;
+  width: 100%;
 }
