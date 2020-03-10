@@ -27,6 +27,10 @@ export default class App extends React.Component {
 
                   <div className="center">
                     <Categorie />
+                    <br />
+                    <Link to="/itineraire">
+                      <button>Calculer un itinéraire</button>
+                    </Link>
                   </div>
                 </div>
               )}
