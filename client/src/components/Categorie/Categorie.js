@@ -34,7 +34,7 @@ class Categorie extends Component {
 
   render() {
     const center = ["50.668081", "4.6118324"];
-    var zoom = 14;
+    var zoom = 13;
     const { places, categorie } = this.state;
     return (
       <div>
@@ -63,15 +63,16 @@ class Categorie extends Component {
             </li>
           ))}
         </ul>
-        <Map zoom={zoom} center={center}>
+        <Map zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-
-          <Marker position={center}>
-            <Popup>Premier marqueur</Popup>
-          </Marker>
+{places.map(place => (
+          <Marker key ={ place.idPoint} position={[place.longitude, place.latitude]}>
+            <Popup><Link to={`/pointInteret/${place.idPoint}`}>{place.nom}</Link></Popup>
+            </Marker>
+          ))}
         </Map>
       </div>
     );
