@@ -60,6 +60,8 @@ class Admin extends Component {
       <td>{debut}</td>
       <td>{fin}</td>
       <td>{accessibilite}</td>
+      <td><button onClick={this.addPoint}>Supprimer point</button></td>
+      <td><button onClick={this.addPoint}>Modifier point</button></td>
     </tr>
   );
 
