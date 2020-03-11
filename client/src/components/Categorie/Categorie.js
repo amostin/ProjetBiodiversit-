@@ -63,12 +63,12 @@ class Categorie extends Component {
             </li>
           ))}
         </ul>
-        <Map zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
+        <Map id='map' zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-{places.map(place => (
+          {places.map(place => (
           <Marker key ={ place.idPoint} position={[place.longitude, place.latitude]}>
             <Popup><Link to={`/pointInteret/${place.idPoint}`}>{place.nom}</Link></Popup>
             </Marker>
