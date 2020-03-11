@@ -9,10 +9,10 @@ function Itineraire() {
   var zoom = 14;
   return (
     <div>
-      <h1>
+      <h3>
         Grâce à cette page, calculez un itinéraire pour visiter les points
         d'intérêts
-      </h1>
+      </h3>
       <div className="center">
         <Map zoom={zoom} center={center}>
           <TileLayer
