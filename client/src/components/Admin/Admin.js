@@ -82,7 +82,7 @@ class Admin extends Component {
       <td>{fin}</td>
       <td>{accessibilite}</td>
       <td><button className="deleteButton" onClick={() => this.deletePoint({idPoint})}>Supprimer point</button></td>
-      <td><button className="modifyButton" onClick={this.addPoint}>Modifier point</button></td>
+      <td><button className="modifyButton" onClick={this.updatePoint}>Modifier point</button></td>
     </tr>
   );
 
