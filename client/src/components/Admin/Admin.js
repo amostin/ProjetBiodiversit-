@@ -46,6 +46,16 @@ class Admin extends Component {
       .catch(err => console.error(err));
   };
 
+  updatePoint = idPoint => {
+    console.log(idPoint.idPoint);
+    /*
+    fetch(
+      `/api/delete?idPoint=${idPoint.idPoint}`
+    )
+      .then(this.getPlaces)
+      .catch(err => console.error(err));
+      */
+  };
 
 
   renderPlaces = ({

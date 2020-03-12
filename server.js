@@ -67,6 +67,29 @@ app.get("/api/add", (req, res) => {
   });
 });
 
+app.get("/api/update", (req, res) => {
+  const {
+    idPoint,
+    nom,
+    nomLatin,
+    adresse,
+    longitude,
+    latitude,
+    categorie,
+    debut,
+    fin,
+    accessibilite
+  } = req.query;
+  const UPDATE_PLACES_QUERY = `UPDATE Points SET nom = '${nom}',  nomLatin = '${nomLatin}', adresse = '${adresse}', longitude = '${longitude}', latitude = '${latitude}', categorie = '${categorie}', debut = '${debut}', fin = '${fin}', accessibilite = '${accessibilite}' where idPoint = '${idPoint}'`;
+  connection.query(UPDATE_PLACES_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.send("successfully updated place");
+    }
+  });
+});
+
 app.get("/api/delete", (req, res) => {
   const { idPoint } = req.query;
   const DELETE_PLACES_QUERY = `DELETE FROM Points WHERE idPoint=${idPoint}`;
