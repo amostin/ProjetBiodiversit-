@@ -22,9 +22,6 @@ nav {
 .right {
   text-align: right;
 }
-#map {
-  justify-content: center;
-}
 
 #login {
   width: 5%;
@@ -38,8 +35,21 @@ nav {
 ul li {
   list-style: none;
 }
-
-.App {
-  display: flex;
-  justify-content: center;
+#newItinerary{
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  border: 2px solid #4CAF50; /* Green */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+}
+#newItinerary:hover {
+  background-color: #4CAF50; /* Green */
+  color: white;
+  border: 2px solid lightgreen;
 }

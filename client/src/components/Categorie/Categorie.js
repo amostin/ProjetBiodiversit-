@@ -38,7 +38,9 @@ class Categorie extends Component {
     const { places, categorie } = this.state;
     return (
       <div>
-        <label htmlFor="categorie">Catégorie </label>
+
+      <label className="labelCategorie" htmlFor="categorie">Choisissez une catégorie : </label>
+      <div className="rechercheCategorie">
         <select
           name="categorie"
           id="nom"
@@ -56,6 +58,8 @@ class Categorie extends Component {
           <option value="animaux">Animaux</option>
           <option value="batiment">Batiment</option>
         </select>
+      </div>
+      <div id="listeCategorie">
         <ul>
           {places.map(place => (
             <li key={place.idPoint}>
@@ -63,6 +67,7 @@ class Categorie extends Component {
             </li>
           ))}
         </ul>
+      </div>
         <Map id='map' zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

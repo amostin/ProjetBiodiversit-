@@ -29,7 +29,7 @@ export default class App extends React.Component {
                     <Categorie />
                     <br />
                     <Link to="/itineraire">
-                      <button>Calculer un itinéraire</button>
+                      <button id="newItinerary">Calculer un itinéraire</button>
                     </Link>
                   </div>
                 </div>
