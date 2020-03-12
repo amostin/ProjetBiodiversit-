@@ -59,15 +59,13 @@ class Categorie extends Component {
           <option value="batiment">Batiment</option>
         </select>
       </div>
-      <div id="listeCategorie">
-        <ul>
+        <ul className='listeCategorie'>
           {places.map(place => (
             <li key={place.idPoint}>
               <Link to={`/pointInteret/${place.idPoint}`}>{place.nom}</Link>
             </li>
           ))}
         </ul>
-      </div>
         <Map id='map' zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
