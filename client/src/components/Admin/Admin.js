@@ -111,6 +111,8 @@ class Admin extends Component {
           <tbody>{places.map(this.renderPlaces)}</tbody>
         </table>
         <br />
+
+
         <div id="addUpdateEntry">
         <h3>Ajouter un point d'intérêt</h3>
           <label htmlFor="nom">Nom</label>
@@ -232,7 +234,7 @@ class Admin extends Component {
             <option value="1">Oui</option>
           </select>
           <br />
-          <button id='ajouterPoint' onClick={this.addPoint}>Ajouter un point d'intérêt</button>
+          <button id='ajouterPoint' onClick={this.addPoint}>Ajouter</button>
 
 
 
@@ -357,7 +359,7 @@ class Admin extends Component {
             <option value="1">Oui</option>
           </select>
           <br />
-          <button id='modifyEntry' onClick={this.updatePoint}>Modifier un point d'intérêt</button>
+          <button id='modifyEntry' onClick={this.updatePoint}>Modifier</button>
         </div>
         </div>
       </div>
