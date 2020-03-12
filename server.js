@@ -67,6 +67,18 @@ app.get("/api/add", (req, res) => {
   });
 });
 
+app.get("/api/delete", (req, res) => {
+  const { idPoint } = req.query;
+  const DELETE_PLACES_QUERY = `DELETE FROM Points WHERE idPoint=${idPoint}`;
+  connection.query(DELETE_PLACES_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.send("successfully deleted place");
+    }
+  });
+});
+
 app.get("/api/categorie", (req, res) => {
   const { categorie } = req.query;
   const SELECT_CATEGORY_QUERY = `SELECT idPoint, nom, longitude, latitude FROM Points WHERE categorie='${categorie}'`;
