@@ -5,7 +5,6 @@ class Admin extends Component {
   state = {
     places: [],
     point: {
-      idPoint: "16",
       nom: "nom",
       nomLatin: "nomLatin",
       adresse: "adresse",
@@ -37,20 +36,16 @@ class Admin extends Component {
       .then(this.getPlaces)
       .catch(err => console.error(err));
   };
-/*
+
   deletePoint = idPoint => {
     console.log(idPoint.idPoint);
-    //setState idPoint a l'id correspondant
-    //const { point } = this.state;
-    //this.setState({ point: { ...point, idPoint: this.tr.key } })
-
     fetch(
       `/api/delete?idPoint=${idPoint.idPoint}`
     )
       .then(this.getPlaces)
       .catch(err => console.error(err));
   };
-*/
+
 
 
   renderPlaces = ({
@@ -76,7 +71,7 @@ class Admin extends Component {
       <td>{debut}</td>
       <td>{fin}</td>
       <td>{accessibilite}</td>
-      <td><button onClick={this.addPoint}>Supprimer point</button></td>
+      <td><button onClick={() => this.deletePoint({idPoint})}>Supprimer point</button></td>
       <td><button onClick={this.addPoint}>Modifier point</button></td>
     </tr>
   );
@@ -107,7 +102,6 @@ class Admin extends Component {
         </table>
         <br />
         <div id="addEntry">
-        <div id="Left">
           <label htmlFor="nom">Nom</label>
           <br />
           <input
@@ -132,7 +126,7 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="adresse">Adresse</label>
+          <label htmlFor="adresse">adresse</label>
           <br />
           <input
             name="adresse"
@@ -176,8 +170,7 @@ class Admin extends Component {
             }
           />
           <br />
-          </div>
-          <label htmlFor="categorie" className="Right">Catégorie</label>
+          <label htmlFor="categorie">Catégorie</label>
           <br />
           <select
             name="categorie"
@@ -193,7 +186,7 @@ class Admin extends Component {
             <option value="batiment">Batiment</option>
           </select>
           <br />
-          <label htmlFor="debut" className="Right">Début</label>
+          <label htmlFor="debut">Début</label>
           <br />
           <input
             name="debut"
@@ -207,7 +200,7 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="fin" className="Right">Fin</label>
+          <label htmlFor="fin">Fin</label>
           <br />
           <input
             name="fin"
@@ -221,7 +214,7 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="accessibilite" className="Right">Accessible</label>
+          <label htmlFor="accessibilite">Accessible</label>
           <br />
           <select
             name="accessibilite"
