@@ -1,3 +1,18 @@
 table, th, td {
     border: 1px solid black;
   }
+
+#Left{
+
+  padding :5px;
+  margin: 5px;
+}
+.Right{
+  text-align: right;
+  padding :1px;
+  margin: 1px;
+}
+#addEntry{
+  column-count: 2;
+  column-width: 15px;
+}

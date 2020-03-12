@@ -89,6 +89,7 @@ class Admin extends Component {
         </table>
         <br />
         <div id="addEntry">
+        <div id="Left">
           <label htmlFor="nom">Nom</label>
           <br />
           <input
@@ -113,7 +114,7 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="adresse">adresse</label>
+          <label htmlFor="adresse">Adresse</label>
           <br />
           <input
             name="adresse"
@@ -157,7 +158,8 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="categorie">Catégorie</label>
+          </div>
+          <label htmlFor="categorie" className="Right">Catégorie</label>
           <br />
           <select
             name="categorie"
@@ -173,7 +175,7 @@ class Admin extends Component {
             <option value="batiment">Batiment</option>
           </select>
           <br />
-          <label htmlFor="debut">Début</label>
+          <label htmlFor="debut" className="Right">Début</label>
           <br />
           <input
             name="debut"
@@ -187,7 +189,7 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="fin">Fin</label>
+          <label htmlFor="fin" className="Right">Fin</label>
           <br />
           <input
             name="fin"
@@ -201,7 +203,7 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="accessibilite">Accessible</label>
+          <label htmlFor="accessibilite" className="Right">Accessible</label>
           <br />
           <select
             name="accessibilite"
