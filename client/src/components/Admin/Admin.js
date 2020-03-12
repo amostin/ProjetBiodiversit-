@@ -50,12 +50,16 @@ class Admin extends Component {
     console.log(idPoint.idPoint);
     /*
     fetch(
-      `/api/delete?idPoint=${idPoint.idPoint}`
+      `/api/update?nom=${point.nom}&nomLatin=${point.nomLatin}&adresse=${point.adresse}&longitude=${point.longitude}&latitude=${point.latitude}&categorie=${point.categorie}&debut=${point.debut}&fin=${point.fin}&accessibilite=${point.accessibilite}&idPoint=36idPoint=${idPoint.idPoint}`
     )
       .then(this.getPlaces)
       .catch(err => console.error(err));
       */
   };
+
+  showUpdate = idPoint => {
+
+  }
 
 
   renderPlaces = ({
@@ -82,7 +86,7 @@ class Admin extends Component {
       <td>{fin}</td>
       <td>{accessibilite}</td>
       <td><button className="deleteButton" onClick={() => this.deletePoint({idPoint})}>Supprimer point</button></td>
-      <td><button className="modifyButton" onClick={() => this.updatePoint({idPoint})}>Modifier point</button></td>
+      <td><button className="modifyButton" onClick={() => this.showUpdate({idPoint})}>Modifier point</button></td>
     </tr>
   );
 
@@ -236,8 +240,9 @@ class Admin extends Component {
 
 
 
+
+        <div id="FormModifyEntry" hidden>
         <h3>Modifier point d'intérêt</h3>
-        <div id="FormModifyEntry">
           <label htmlFor="nom">Nom</label>
           <input
             name="nom"
