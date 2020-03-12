@@ -1,6 +1,7 @@
 import React from "react";
 import "./../../App.css";
 import { Link } from "react-router-dom";
+import "./Login.css";
 
 function Login() {
   return (
@@ -14,7 +15,7 @@ function Login() {
         <input name="mdp" id="mdp" type="password" />
         <br />
         <Link to="/admin">
-          <input type="submit" value="Connexion" />
+          <input id="loginButton" type="submit" value="Se connecter" />
         </Link>
       </form>
     </div>

@@ -71,8 +71,8 @@ class Admin extends Component {
       <td>{debut}</td>
       <td>{fin}</td>
       <td>{accessibilite}</td>
-      <td><button onClick={() => this.deletePoint({idPoint})}>Supprimer point</button></td>
-      <td><button onClick={this.addPoint}>Modifier point</button></td>
+      <td><button className="deleteButton" onClick={() => this.deletePoint({idPoint})}>Supprimer point</button></td>
+      <td><button className="modifyButton" onClick={this.addPoint}>Modifier point</button></td>
     </tr>
   );
 
@@ -103,7 +103,6 @@ class Admin extends Component {
         <br />
         <div id="addEntry">
           <label htmlFor="nom">Nom</label>
-          <br />
           <input
             name="nom"
             id="nom"
@@ -115,7 +114,6 @@ class Admin extends Component {
           />
           <br />
           <label htmlFor="nomLatin">Nom latin</label>
-          <br />
           <input
             name="nomLatin"
             id="nomLatin"
@@ -126,8 +124,7 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="adresse">adresse</label>
-          <br />
+          <label htmlFor="adresse">Adresse</label>
           <input
             name="adresse"
             id="adresse"
@@ -141,7 +138,6 @@ class Admin extends Component {
           />
           <br />
           <label htmlFor="longitude">Longitude</label>
-          <br />
           <input
             name="longitude"
             id="longitude"
@@ -156,7 +152,6 @@ class Admin extends Component {
           />
           <br />
           <label htmlFor="latitude">Latitude</label>
-          <br />
           <input
             name="latitude"
             id="latitude"
@@ -171,7 +166,6 @@ class Admin extends Component {
           />
           <br />
           <label htmlFor="categorie" className="Right">Catégorie</label>
-          <br />
           <select
             name="categorie"
             id="categorie"
@@ -187,7 +181,6 @@ class Admin extends Component {
           </select>
           <br />
           <label htmlFor="debut">Début</label>
-          <br />
           <input
             name="debut"
             id="debut"
@@ -201,7 +194,6 @@ class Admin extends Component {
           />
           <br />
           <label htmlFor="fin">Fin</label>
-          <br />
           <input
             name="fin"
             id="fin"
@@ -215,7 +207,6 @@ class Admin extends Component {
           />
           <br />
           <label htmlFor="accessibilite">Accessible</label>
-          <br />
           <select
             name="accessibilite"
             id="accessibilite"
