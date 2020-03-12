@@ -89,7 +89,6 @@ class Admin extends Component {
         </table>
         <br />
         <div id="addEntry">
-        <div id="Left">
           <label htmlFor="nom">Nom</label>
           <br />
           <input
@@ -158,7 +157,6 @@ class Admin extends Component {
             }
           />
           <br />
-          </div>
           <label htmlFor="categorie" className="Right">Catégorie</label>
           <br />
           <select
@@ -219,7 +217,7 @@ class Admin extends Component {
             <option value="1">Oui</option>
           </select>
           <br />
-          <button onClick={this.addPoint}>Ajouter point</button>
+          <button id='ajouterPoint' onClick={this.addPoint}>Ajouter point</button>
         </div>
       </div>
     );
