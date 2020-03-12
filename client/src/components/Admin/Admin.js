@@ -46,6 +46,16 @@ class Admin extends Component {
       .catch(err => console.error(err));
   };
 
+  updatePoint = idPoint => {
+    console.log(idPoint.idPoint);
+    /*
+    fetch(
+      `/api/delete?idPoint=${idPoint.idPoint}`
+    )
+      .then(this.getPlaces)
+      .catch(err => console.error(err));
+      */
+  };
 
 
   renderPlaces = ({
@@ -72,7 +82,7 @@ class Admin extends Component {
       <td>{fin}</td>
       <td>{accessibilite}</td>
       <td><button onClick={() => this.deletePoint({idPoint})}>Supprimer point</button></td>
-      <td><button onClick={this.addPoint}>Modifier point</button></td>
+      <td><button onClick={() => this.updatePoint({idPoint})}>Modifier point</button></td>
     </tr>
   );
 
