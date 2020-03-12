@@ -170,7 +170,7 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="categorie">Catégorie</label>
+          <label htmlFor="categorie" className="Right">Catégorie</label>
           <br />
           <select
             name="categorie"
@@ -230,7 +230,7 @@ class Admin extends Component {
             <option value="1">Oui</option>
           </select>
           <br />
-          <button onClick={this.addPoint}>Ajouter point</button>
+          <button id='ajouterPoint' onClick={this.addPoint}>Ajouter point</button>
         </div>
       </div>
     );
