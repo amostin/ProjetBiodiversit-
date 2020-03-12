@@ -5,6 +5,7 @@ class Admin extends Component {
   state = {
     places: [],
     point: {
+      idPoint: "16",
       nom: "nom",
       nomLatin: "nomLatin",
       adresse: "adresse",
@@ -36,6 +37,21 @@ class Admin extends Component {
       .then(this.getPlaces)
       .catch(err => console.error(err));
   };
+/*
+  deletePoint = idPoint => {
+    console.log(idPoint.idPoint);
+    //setState idPoint a l'id correspondant
+    //const { point } = this.state;
+    //this.setState({ point: { ...point, idPoint: this.tr.key } })
+
+    fetch(
+      `/api/delete?idPoint=${idPoint.idPoint}`
+    )
+      .then(this.getPlaces)
+      .catch(err => console.error(err));
+  };
+*/
+
 
   renderPlaces = ({
     idPoint,
@@ -64,6 +80,8 @@ class Admin extends Component {
       <td><button onClick={this.addPoint}>Modifier point</button></td>
     </tr>
   );
+
+//this.deletePoint({idPoint})
 
   render() {
     const { places, point } = this.state;
