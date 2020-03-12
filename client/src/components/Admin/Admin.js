@@ -5,6 +5,7 @@ class Admin extends Component {
   state = {
     places: [],
     point: {
+      idPoint: 36,
       nom: "nom",
       nomLatin: "nomLatin",
       adresse: "adresse",
@@ -46,21 +47,15 @@ class Admin extends Component {
       .catch(err => console.error(err));
   };
 
-  updatePoint = idPoint => {
-    console.log(idPoint.idPoint);
-    /*
+  updatePoint = _=> {
+    const { point } = this.state;
+    console.log(point.idPoint);
     fetch(
-      `/api/update?nom=${point.nom}&nomLatin=${point.nomLatin}&adresse=${point.adresse}&longitude=${point.longitude}&latitude=${point.latitude}&categorie=${point.categorie}&debut=${point.debut}&fin=${point.fin}&accessibilite=${point.accessibilite}&idPoint=36idPoint=${idPoint.idPoint}`
+      `/api/update?nom=${point.nom}&nomLatin=${point.nomLatin}&adresse=${point.adresse}&longitude=${point.longitude}&latitude=${point.latitude}&categorie=${point.categorie}&debut=${point.debut}&fin=${point.fin}&accessibilite=${point.accessibilite}&idPoint=${point.idPoint}`
     )
       .then(this.getPlaces)
       .catch(err => console.error(err));
-      */
   };
-
-  showUpdate = idPoint => {
-
-  }
-
 
   renderPlaces = ({
     idPoint,
@@ -86,7 +81,6 @@ class Admin extends Component {
       <td>{fin}</td>
       <td>{accessibilite}</td>
       <td><button className="deleteButton" onClick={() => this.deletePoint({idPoint})}>Supprimer point</button></td>
-      <td><button className="modifyButton" onClick={() => this.showUpdate({idPoint})}>Modifier point</button></td>
     </tr>
   );
 
@@ -243,8 +237,19 @@ class Admin extends Component {
 
 
 
-        <div id="FormModifyEntry" hidden>
+        <div id="FormModifyEntry">
         <h3>Modifier point d'intérêt</h3>
+        <label htmlFor="identifiant">Identifiant</label>
+        <input
+          name="identifiant"
+          id="identifiant"
+          type="text"
+          value={point.idPoint}
+          onChange={e =>
+            this.setState({ point: { ...point, idPoint: e.target.value } })
+          }
+        />
+        <br />
           <label htmlFor="nom">Nom</label>
           <input
             name="nom"
