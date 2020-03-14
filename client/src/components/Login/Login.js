@@ -1,25 +1,59 @@
-import React from "react";
+import React, { useState } from "react";
 import "./../../App.css";
 import { Link } from "react-router-dom";
 import "./Login.css";
 
-function Login() {
+import axios from 'axios';
+import { setUserSession } from '../../Utils/Common';
+
+function Login(props) {
+  const [loading, setLoading] = useState(false);
+  const username = useFormInput('');
+  const password = useFormInput('');
+  const [error, setError] = useState(null);
+
+  // handle button click of login form
+  const handleLogin = () => {
+    setError(null);
+    setLoading(true);
+    axios.post('http://localhost:5000/users/signin', { username: username.value, password: password.value }).then(response => {
+      setLoading(false);
+      setUserSession(response.data.token, response.data.user);
+      props.history.push('/admin');
+    }).catch(error => {
+      setLoading(false);
+      if (error.response.status === 401) setError(error.response.data.message);
+      else setError("Something went wrong. Please try again later.");
+    });
+  }
+
   return (
-    <div className="center">
-      <h1>Page de connexion</h1>
-      <form id="connectBox">
-        <label htmlFor="pseudo">Pseudo</label>
-        <input name="pseudo" id="pseudo" type="text" />
-        <br />
-        <label htmlFor="mdp">Mot de passe</label>
-        <input name="mdp" id="mdp" type="password" />
-        <br />
-        <Link to="/admin">
-          <input id="loginButton" type="submit" value="Se connecter" />
-        </Link>
-      </form>
+    <div>
+      Login<br /><br />
+      <div>
+        Username<br />
+        <input type="text" {...username} autoComplete="new-password" />
+      </div>
+      <div style={{ marginTop: 10 }}>
+        Password<br />
+        <input type="password" {...password} autoComplete="new-password" />
+      </div>
+      {error && <><small style={{ color: 'red' }}>{error}</small><br /></>}<br />
+      <input type="button" value={loading ? 'Loading...' : 'Login'} onClick={handleLogin} disabled={loading} /><br />
     </div>
   );
+}
+
+const useFormInput = initialValue => {
+  const [value, setValue] = useState(initialValue);
+
+  const handleChange = e => {
+    setValue(e.target.value);
+  }
+  return {
+    value,
+    onChange: handleChange
+  }
 }
 
 export default Login;
