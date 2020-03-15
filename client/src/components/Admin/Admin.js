@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./Admin.css";
+import { getUser, removeUserSession } from "./../../Utils/Common";
 
 class Admin extends Component {
   state = {
@@ -40,14 +41,12 @@ class Admin extends Component {
 
   deletePoint = idPoint => {
     console.log(idPoint.idPoint);
-    fetch(
-      `/api/delete?idPoint=${idPoint.idPoint}`
-    )
+    fetch(`/api/delete?idPoint=${idPoint.idPoint}`)
       .then(this.getPlaces)
       .catch(err => console.error(err));
   };
 
-  updatePoint = _=> {
+  updatePoint = _ => {
     const { point } = this.state;
     console.log(point.idPoint);
     fetch(
@@ -80,17 +79,36 @@ class Admin extends Component {
       <td>{debut}</td>
       <td>{fin}</td>
       <td>{accessibilite}</td>
-      <td><button className="deleteButton" onClick={() => this.deletePoint({idPoint})}>Supprimer point</button></td>
+      <td>
+        <button
+          className="deleteButton"
+          onClick={() => this.deletePoint({ idPoint })}
+        >
+          Supprimer point
+        </button>
+      </td>
     </tr>
   );
 
-//this.deletePoint({idPoint})
+  //this.deletePoint({idPoint})
 
   render() {
     const { places, point } = this.state;
+    const user = getUser();
+    const handleLogout = () => {
+      removeUserSession();
+      this.props.history.push("/login");
+    };
+
     return (
       <div className="center">
         <h1>Page admin</h1>
+        <p>Welcome {user.name}!</p>
+        <button type="button" id="disconnectButton" onClick={handleLogout}>
+          Se déconnecter
+        </button>
+        <br />
+        <br />
         <table align="center">
           <thead>
             <tr>
@@ -109,10 +127,8 @@ class Admin extends Component {
           <tbody>{places.map(this.renderPlaces)}</tbody>
         </table>
         <br />
-
-
         <div id="addUpdateEntry">
-        <h3>Ajouter un point d'intérêt</h3>
+          <h3>Ajouter un point d'intérêt</h3>
           <label htmlFor="nom">Nom</label>
           <input
             name="nom"
@@ -176,7 +192,9 @@ class Admin extends Component {
             }
           />
           <br />
-          <label htmlFor="categorie" className="Right">Catégorie</label>
+          <label htmlFor="categorie" className="Right">
+            Catégorie
+          </label>
           <select
             name="categorie"
             id="categorie"
@@ -232,145 +250,150 @@ class Admin extends Component {
             <option value="1">Oui</option>
           </select>
           <br />
-          <button id='ajouterPoint' onClick={this.addPoint}>Ajouter</button>
+          <button id="ajouterPoint" onClick={this.addPoint}>
+            Ajouter
+          </button>
 
-
-
-
-        <div id="FormModifyEntry">
-        <h3>Modifier point d'intérêt</h3>
-        <label htmlFor="identifiant">Identifiant</label>
-        <input
-          name="identifiant"
-          id="identifiant"
-          type="text"
-          value={point.idPoint}
-          onChange={e =>
-            this.setState({ point: { ...point, idPoint: e.target.value } })
-          }
-        />
-        <br />
-          <label htmlFor="nom">Nom</label>
-          <input
-            name="nom"
-            id="nom"
-            type="text"
-            value={point.nom}
-            onChange={e =>
-              this.setState({ point: { ...point, nom: e.target.value } })
-            }
-          />
-          <br />
-          <label htmlFor="nomLatin">Nom latin</label>
-          <input
-            name="nomLatin"
-            id="nomLatin"
-            type="text"
-            value={point.nomLatin}
-            onChange={e =>
-              this.setState({ point: { ...point, nomLatin: e.target.value } })
-            }
-          />
-          <br />
-          <label htmlFor="adresse">Adresse</label>
-          <input
-            name="adresse"
-            id="adresse"
-            type="text"
-            value={point.adresse}
-            onChange={e =>
-              this.setState({
-                point: { ...point, adresse: e.target.value }
-              })
-            }
-          />
-          <br />
-          <label htmlFor="longitude">Longitude</label>
-          <input
-            name="longitude"
-            id="longitude"
-            type="number"
-            step="0.1"
-            value={point.longitude}
-            onChange={e =>
-              this.setState({
-                point: { ...point, longitude: e.target.value }
-              })
-            }
-          />
-          <br />
-          <label htmlFor="latitude">Latitude</label>
-          <input
-            name="latitude"
-            id="latitude"
-            type="number"
-            step="0.1"
-            value={point.latitude}
-            onChange={e =>
-              this.setState({
-                point: { ...point, latitude: e.target.value }
-              })
-            }
-          />
-          <br />
-          <label htmlFor="categorie" className="Right">Catégorie</label>
-          <select
-            name="categorie"
-            id="categorie"
-            type="text"
-            value={point.categorie}
-            onChange={e =>
-              this.setState({ point: { ...point, categorie: e.target.value } })
-            }
-          >
-            <option value="nature">Nature</option>
-            <option value="animaux">Animaux</option>
-            <option value="batiment">Batiment</option>
-          </select>
-          <br />
-          <label htmlFor="debut">Début</label>
-          <input
-            name="debut"
-            id="debut"
-            type="text"
-            value={point.debut}
-            onChange={e =>
-              this.setState({
-                point: { ...point, debut: e.target.value }
-              })
-            }
-          />
-          <br />
-          <label htmlFor="fin">Fin</label>
-          <input
-            name="fin"
-            id="fin"
-            type="text"
-            value={point.fin}
-            onChange={e =>
-              this.setState({
-                point: { ...point, fin: e.target.value }
-              })
-            }
-          />
-          <br />
-          <label htmlFor="accessibilite">Accessible</label>
-          <select
-            name="accessibilite"
-            id="accessibilite"
-            value={point.accessibilite}
-            onChange={e =>
-              this.setState({
-                point: { ...point, accessibilite: e.target.value }
-              })
-            }
-          >
-            <option value="0">Non</option>
-            <option value="1">Oui</option>
-          </select>
-          <br />
-          <button id='modifyEntry' onClick={this.updatePoint}>Modifier</button>
-        </div>
+          <div id="FormModifyEntry">
+            <h3>Modifier point d'intérêt</h3>
+            <label htmlFor="identifiant">Identifiant</label>
+            <input
+              name="identifiant"
+              id="identifiant"
+              type="text"
+              value={point.idPoint}
+              onChange={e =>
+                this.setState({ point: { ...point, idPoint: e.target.value } })
+              }
+            />
+            <br />
+            <label htmlFor="nom">Nom</label>
+            <input
+              name="nom"
+              id="nom"
+              type="text"
+              value={point.nom}
+              onChange={e =>
+                this.setState({ point: { ...point, nom: e.target.value } })
+              }
+            />
+            <br />
+            <label htmlFor="nomLatin">Nom latin</label>
+            <input
+              name="nomLatin"
+              id="nomLatin"
+              type="text"
+              value={point.nomLatin}
+              onChange={e =>
+                this.setState({ point: { ...point, nomLatin: e.target.value } })
+              }
+            />
+            <br />
+            <label htmlFor="adresse">Adresse</label>
+            <input
+              name="adresse"
+              id="adresse"
+              type="text"
+              value={point.adresse}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, adresse: e.target.value }
+                })
+              }
+            />
+            <br />
+            <label htmlFor="longitude">Longitude</label>
+            <input
+              name="longitude"
+              id="longitude"
+              type="number"
+              step="0.1"
+              value={point.longitude}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, longitude: e.target.value }
+                })
+              }
+            />
+            <br />
+            <label htmlFor="latitude">Latitude</label>
+            <input
+              name="latitude"
+              id="latitude"
+              type="number"
+              step="0.1"
+              value={point.latitude}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, latitude: e.target.value }
+                })
+              }
+            />
+            <br />
+            <label htmlFor="categorie" className="Right">
+              Catégorie
+            </label>
+            <select
+              name="categorie"
+              id="categorie"
+              type="text"
+              value={point.categorie}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, categorie: e.target.value }
+                })
+              }
+            >
+              <option value="nature">Nature</option>
+              <option value="animaux">Animaux</option>
+              <option value="batiment">Batiment</option>
+            </select>
+            <br />
+            <label htmlFor="debut">Début</label>
+            <input
+              name="debut"
+              id="debut"
+              type="text"
+              value={point.debut}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, debut: e.target.value }
+                })
+              }
+            />
+            <br />
+            <label htmlFor="fin">Fin</label>
+            <input
+              name="fin"
+              id="fin"
+              type="text"
+              value={point.fin}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, fin: e.target.value }
+                })
+              }
+            />
+            <br />
+            <label htmlFor="accessibilite">Accessible</label>
+            <select
+              name="accessibilite"
+              id="accessibilite"
+              value={point.accessibilite}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, accessibilite: e.target.value }
+                })
+              }
+            >
+              <option value="0">Non</option>
+              <option value="1">Oui</option>
+            </select>
+            <br />
+            <button id="modifyEntry" onClick={this.updatePoint}>
+              Modifier
+            </button>
+          </div>
         </div>
       </div>
     );
