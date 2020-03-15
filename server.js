@@ -40,18 +40,30 @@ app.get("/api/get", (req, res) => {
 
 app.get("/api/add", (req, res) => {
   const {
-    nom,
-    nomLatin,
-    adresse,
-    longitude,
-    latitude,
-    categorie,
-    debut,
-    fin,
-    accessibilite
+    NomScientifique,
+    Nom,
+    FamilleID,
+    ParcoursID,
+    Longitude,
+    Latitude,
+    CategorieID,
+    Accessibilite,
+    Debut,
+    Fin
   } = req.query;
-  const INSERT_PLACES_QUERY = `INSERT INTO Points (nom, nomLatin, adresse, longitude, latitude, categorie, debut, fin, accessibilite) VALUES('${nom}', '${nomLatin}', '${adresse}', '${longitude}', '${latitude}', '${categorie}', '${debut}', '${fin}', '${accessibilite}')`;
-  connection.query(INSERT_PLACES_QUERY, (err, results) => {
+  const INSERT_PLACES_QUERY = `INSERT INTO Points (
+    NomScientifique,
+    Nom,
+    FamilleID,
+    ParcoursID,
+    Longitude,
+    Latitude,
+    CategorieID,
+    Accessibilite,
+    Debut,
+    Fin
+    ) VALUES('${NomScientifique}', '${Nom}', '${FamilleID}', '${ParcoursID}', '${Longitude}', '${Latitude}', '${CategorieID}', '${Accessibilite}', '${Debut}', '${Fin}')`;
+  connection.query(INSERT_PLACES_QUERY, (err, res) => {
     if (err) {
       return res.send(err);
     } else {
@@ -62,19 +74,20 @@ app.get("/api/add", (req, res) => {
 
 app.get("/api/update", (req, res) => {
   const {
-    idPoint,
-    nom,
-    nomLatin,
-    adresse,
-    longitude,
-    latitude,
-    categorie,
-    debut,
-    fin,
-    accessibilite
+    PointInteretID,
+    NomScientifique,
+    Nom,
+    FamilleID,
+    ParcoursID,
+    Longitude,
+    Latitude,
+    CategorieID,
+    Accessibilite,
+    Debut,
+    Fin
   } = req.query;
-  const UPDATE_PLACES_QUERY = `UPDATE Points SET nom = '${nom}',  nomLatin = '${nomLatin}', adresse = '${adresse}', longitude = '${longitude}', latitude = '${latitude}', categorie = '${categorie}', debut = '${debut}', fin = '${fin}', accessibilite = '${accessibilite}' where idPoint = '${idPoint}'`;
-  connection.query(UPDATE_PLACES_QUERY, (err, results) => {
+  const UPDATE_INTEREST_POINT_QUERY = `UPDATE pointsinteret SET NomScientifique = '${NomScientifique}', Nom = '${Nom}', nomLatin = '${nomLatin}', FamilleID = '${FamilleID}', ParcoursID = '${ParcoursID}', Longitude = '${Longitude}', Latitude = '${Latitude}', CategorieID = '${CategorieID}', Debut = '${Debut}', Fin = '${Fin}', Accessibilite = '${Accessibilite}' where PointInteretID = '${PointInteretID}'`;
+  connection.query(UPDATE_INTEREST_POINT_QUERY, (err, res) => {
     if (err) {
       return res.send(err);
     } else {
@@ -84,9 +97,9 @@ app.get("/api/update", (req, res) => {
 });
 
 app.get("/api/delete", (req, res) => {
-  const { idPoint } = req.query;
-  const DELETE_PLACES_QUERY = `DELETE FROM Points WHERE idPoint=${idPoint}`;
-  connection.query(DELETE_PLACES_QUERY, (err, results) => {
+  const { PointInteretID } = req.query;
+  const DELETE_INTEREST_POINT_QUERY = `DELETE FROM pointsinteret WHERE PointInteretID=${PointInteretID}`;
+  connection.query(DELETE_INTEREST_POINT_QUERY, (err, res) => {
     if (err) {
       return res.send(err);
     } else {
@@ -95,10 +108,13 @@ app.get("/api/delete", (req, res) => {
   });
 });
 
-app.get("/api/categorie", (req, res) => {
-  const { categorie } = req.query;
-  const SELECT_CATEGORY_QUERY = `SELECT idPoint, nom, longitude, latitude FROM Points WHERE categorie='${categorie}'`;
-  connection.query(SELECT_CATEGORY_QUERY, (err, results) => {
+app.get("/api/parcours", (req, res) => {
+  const { ParcoursID } = req.query;
+  const SELECT_PARCOURS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom 
+  FROM pointsinteret pi, familles f, parcours p, categories c 
+  WHERE pi.ParcoursID = ${ParcoursID} and pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID
+  ORDER BY pi.PointInteretID`;
+  connection.query(SELECT_PARCOURS_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
     } else {
@@ -136,7 +152,7 @@ app.post("/users/signin", function(req, res) {
   if (!user || !pwd) {
     return res.status(400).json({
       error: true,
-      message: "Username or Password required."
+      message: "Le pseudo et le mot de passe sont obligatoires."
     });
   }
 
@@ -144,7 +160,7 @@ app.post("/users/signin", function(req, res) {
   if (user !== userData.username || pwd !== userData.password) {
     return res.status(401).json({
       error: true,
-      message: "Username or Password is Wrong."
+      message: "Le pseudo et le mot de passe sont incorrects."
     });
   }
 
@@ -163,7 +179,7 @@ app.get("/verifyToken", function(req, res) {
   if (!token) {
     return res.status(400).json({
       error: true,
-      message: "Token is required."
+      message: "Token est nécessaire."
     });
   }
   // check token that was passed by decoding token using secret
@@ -171,14 +187,14 @@ app.get("/verifyToken", function(req, res) {
     if (err)
       return res.status(401).json({
         error: true,
-        message: "Invalid token."
+        message: "Token non valide."
       });
 
     // return 401 status if the userId does not match.
     if (user.userId !== userData.userId) {
       return res.status(401).json({
         error: true,
-        message: "Invalid user."
+        message: "Utilisateur non valide."
       });
     }
     // get basic user details
@@ -199,7 +215,7 @@ app.use(function(req, res, next) {
     if (err) {
       return res.status(401).json({
         error: true,
-        message: "Invalid user."
+        message: "Utilisateur non valide."
       });
     } else {
       req.user = user; //set the user to req so other routes can use it

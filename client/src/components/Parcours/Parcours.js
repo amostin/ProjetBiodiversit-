@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import L from "leaflet";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import "./../../App.css";
-import "./Categorie.css";
+import "./Parcours.css";
 
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
