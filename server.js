@@ -7,7 +7,10 @@ const jwt = require("jsonwebtoken");
 const utils = require("./utils");
 
 const app = express();
-
+const SELECT_ALL_POINTS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom 
+  FROM pointsinteret pi, familles f, parcours p, categories c 
+  WHERE pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID
+  ORDER BY pi.PointInteretID`;
 const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
@@ -20,6 +23,16 @@ connection.connect(err => {
     return err;
   }
   console.log("connecté");
+});
+
+app.get("/api/pointsInteret", (req, res) => {
+  connection.query(SELECT_ALL_POINTS_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.json({ data: results });
+    }
+  });
 });
 
 app.get("/api/get", (req, res) => {
@@ -38,7 +51,7 @@ app.get("/api/get", (req, res) => {
   });
 });
 
-app.get("/api/add", (req, res) => {
+app.get("/api/add", (req, results) => {
   const {
     NomScientifique,
     Nom,
@@ -87,7 +100,7 @@ app.get("/api/update", (req, res) => {
     Fin
   } = req.query;
   const UPDATE_INTEREST_POINT_QUERY = `UPDATE pointsinteret SET NomScientifique = '${NomScientifique}', Nom = '${Nom}', nomLatin = '${nomLatin}', FamilleID = '${FamilleID}', ParcoursID = '${ParcoursID}', Longitude = '${Longitude}', Latitude = '${Latitude}', CategorieID = '${CategorieID}', Debut = '${Debut}', Fin = '${Fin}', Accessibilite = '${Accessibilite}' where PointInteretID = '${PointInteretID}'`;
-  connection.query(UPDATE_INTEREST_POINT_QUERY, (err, res) => {
+  connection.query(UPDATE_INTEREST_POINT_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
     } else {
@@ -99,7 +112,7 @@ app.get("/api/update", (req, res) => {
 app.get("/api/delete", (req, res) => {
   const { PointInteretID } = req.query;
   const DELETE_INTEREST_POINT_QUERY = `DELETE FROM pointsinteret WHERE PointInteretID=${PointInteretID}`;
-  connection.query(DELETE_INTEREST_POINT_QUERY, (err, res) => {
+  connection.query(DELETE_INTEREST_POINT_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
     } else {
