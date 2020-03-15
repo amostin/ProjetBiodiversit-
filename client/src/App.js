@@ -63,7 +63,7 @@ function App() {
           />
           <Route path="/login" component={Login} />
           <PrivateRoute path="/admin" component={Admin} />
-          <Route path="/pointInteret/:idPoint" component={PointDetail} />
+          <Route path="/pointInteret/:PointInteretID" component={PointDetail} />
           <Route path="/itineraire" component={Itineraire} />
         </Switch>
       </div>
