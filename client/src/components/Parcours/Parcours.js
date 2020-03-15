@@ -8,7 +8,7 @@ import "./Categorie.css";
 
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
-class Categorie extends Component {
+class Parcours extends Component {
   state = {
     places: [],
     categorie: "nature"
@@ -38,42 +38,48 @@ class Categorie extends Component {
     const { places, categorie } = this.state;
     return (
       <div>
-
-      <label className="labelCategorie" htmlFor="categorie">Choisissez une catégorie : </label>
-      <div className="rechercheCategorie">
-        <select
-          name="categorie"
-          id="nom"
-          value={categorie}
-          onChange={e =>
-            this.setState(
-              {
-                categorie: e.target.value
-              },
-              this.getPlacesByCategory
-            )
-          }
-        >
-          <option value="nature">Nature</option>
-          <option value="animaux">Animaux</option>
-          <option value="batiment">Batiment</option>
-        </select>
-      </div>
-        <ul className='listeCategorie'>
+        <label className="labelCategorie" htmlFor="categorie">
+          Choisissez une catégorie :{" "}
+        </label>
+        <div className="rechercheCategorie">
+          <select
+            name="categorie"
+            id="nom"
+            value={categorie}
+            onChange={e =>
+              this.setState(
+                {
+                  categorie: e.target.value
+                },
+                this.getPlacesByCategory
+              )
+            }
+          >
+            <option value="nature">Nature</option>
+            <option value="animaux">Animaux</option>
+            <option value="batiment">Batiment</option>
+          </select>
+        </div>
+        <ul className="listeCategorie">
           {places.map(place => (
             <li key={place.idPoint}>
               <Link to={`/pointInteret/${place.idPoint}`}>{place.nom}</Link>
             </li>
           ))}
         </ul>
-        <Map id='map' zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
+        <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
           {places.map(place => (
-          <Marker key ={ place.idPoint} position={[place.longitude, place.latitude]}>
-            <Popup><Link to={`/pointInteret/${place.idPoint}`}>{place.nom}</Link></Popup>
+            <Marker
+              key={place.idPoint}
+              position={[place.longitude, place.latitude]}
+            >
+              <Popup>
+                <Link to={`/pointInteret/${place.idPoint}`}>{place.nom}</Link>
+              </Popup>
             </Marker>
           ))}
         </Map>
@@ -82,4 +88,4 @@ class Categorie extends Component {
   }
 }
 
-export default Categorie;
+export default Parcours;
