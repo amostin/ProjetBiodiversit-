@@ -7,8 +7,8 @@ const jwt = require("jsonwebtoken");
 const utils = require("./utils");
 
 const app = express();
-const SELECT_ALL_POINTS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom 
-  FROM pointsinteret pi, familles f, parcours p, categories c 
+const SELECT_ALL_POINTS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
+  FROM pointsinteret pi, familles f, parcours p, categories c
   WHERE pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID
   ORDER BY pi.PointInteretID`;
 const connection = mysql.createConnection({
@@ -37,8 +37,8 @@ app.get("/api/pointsInteret", (req, res) => {
 
 app.get("/api/get", (req, res) => {
   const { PointInteretID } = req.query;
-  const GET_ID_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom 
-  FROM pointsinteret pi, familles f, parcours p, categories c 
+  const GET_ID_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
+  FROM pointsinteret pi, familles f, parcours p, categories c
   WHERE pi.PointInteretID = ${PointInteretID} and pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID`;
   connection.query(GET_ID_QUERY, (err, results) => {
     if (err) {
@@ -51,7 +51,7 @@ app.get("/api/get", (req, res) => {
   });
 });
 
-app.get("/api/add", (req, results) => {
+app.get("/api/add", (req, res) => {
   const {
     NomScientifique,
     Nom,
@@ -64,7 +64,7 @@ app.get("/api/add", (req, results) => {
     Debut,
     Fin
   } = req.query;
-  const INSERT_PLACES_QUERY = `INSERT INTO Points (
+  const INSERT_PLACES_QUERY = `INSERT INTO pointsinteret (
     NomScientifique,
     Nom,
     FamilleID,
@@ -76,7 +76,7 @@ app.get("/api/add", (req, results) => {
     Debut,
     Fin
     ) VALUES('${NomScientifique}', '${Nom}', '${FamilleID}', '${ParcoursID}', '${Longitude}', '${Latitude}', '${CategorieID}', '${Accessibilite}', '${Debut}', '${Fin}')`;
-  connection.query(INSERT_PLACES_QUERY, (err, res) => {
+  connection.query(INSERT_PLACES_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
     } else {
@@ -99,7 +99,7 @@ app.get("/api/update", (req, res) => {
     Debut,
     Fin
   } = req.query;
-  const UPDATE_INTEREST_POINT_QUERY = `UPDATE pointsinteret SET NomScientifique = '${NomScientifique}', Nom = '${Nom}', nomLatin = '${nomLatin}', FamilleID = '${FamilleID}', ParcoursID = '${ParcoursID}', Longitude = '${Longitude}', Latitude = '${Latitude}', CategorieID = '${CategorieID}', Debut = '${Debut}', Fin = '${Fin}', Accessibilite = '${Accessibilite}' where PointInteretID = '${PointInteretID}'`;
+  const UPDATE_INTEREST_POINT_QUERY = `UPDATE pointsinteret SET NomScientifique = '${NomScientifique}', Nom = '${Nom}', FamilleID = '${FamilleID}', ParcoursID = '${ParcoursID}', Longitude = '${Longitude}', Latitude = '${Latitude}', CategorieID = '${CategorieID}', Debut = '${Debut}', Fin = '${Fin}', Accessibilite = '${Accessibilite}' where PointInteretID = '${PointInteretID}'`;
   connection.query(UPDATE_INTEREST_POINT_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
@@ -123,8 +123,8 @@ app.get("/api/delete", (req, res) => {
 
 app.get("/api/parcours", (req, res) => {
   const { ParcoursID } = req.query;
-  const SELECT_PARCOURS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom 
-  FROM pointsinteret pi, familles f, parcours p, categories c 
+  const SELECT_PARCOURS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
+  FROM pointsinteret pi, familles f, parcours p, categories c
   WHERE pi.ParcoursID = ${ParcoursID} and pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID
   ORDER BY pi.PointInteretID`;
   connection.query(SELECT_PARCOURS_QUERY, (err, results) => {
@@ -137,9 +137,7 @@ app.get("/api/parcours", (req, res) => {
     }
   });
 });
-const port = 5000;
 
-app.listen(port, () => console.log(`Server start on port ${port}`));
 
 //authentification testé sur postman
 
@@ -150,9 +148,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // static user details
 const userData = {
   userId: "789789",
-  password: "123456",
-  name: "Clue Mediator",
-  username: "cluemediator",
+  password: "noot123!",
+  name: "Newt",
+  username: "noot",
   isAdmin: true
 };
 
@@ -245,3 +243,7 @@ app.get("/", (req, res) => {
       .json({ success: false, message: "Invalid user to access it." });
   res.send("Welcome to the Node.js Tutorial! - " + req.user.name);
 });
+
+const port = 5000;
+
+app.listen(port, () => console.log(`Server start on port ${port}`));
