@@ -6,8 +6,8 @@ class PointDetail extends Component {
   };
 
   componentDidMount() {
-    const parametre = this.props.match.params.idPoint;
-    fetch(`/api/get?idPoint=${parametre}`)
+    const PointInteretID = this.props.match.params.PointInteretID;
+    fetch(`/api/get?PointInteretID=${PointInteretID}`)
       .then(res => res.json())
       .then(res => this.setState({ points: res.data }))
       .catch(err => console.log(err));
@@ -16,16 +16,19 @@ class PointDetail extends Component {
     return (
       <div className="center">
         {this.state.points.map(point => (
-          <div key={point.idPoint}>
-            <h1>{point.nom}</h1>
-            <h2>{point.nomLatin}</h2>
+          <div key={point.PointInteretID}>
+            <h1>{point.NomScientifique}</h1>
+            <h2>{point.Nom}</h2>
+            <p>Famille : {point.FamilleNom}</p>
             <p>
-              Le point se situe à : {point.adresse} ({point.longitude},
-              {point.latitude})
+              Le point se situe à : [{point.Longitude},{point.Latitude}]
             </p>
-            <p>Il est de catégorie {point.categorie}</p>
             <p>
-              Il est visitable entre le {point.debut} au {point.fin}
+              Il est de catégorie {point.CategorieNom} sur le{" "}
+              {point.ParcoursNom}
+            </p>
+            <p>
+              Il est visitable entre le {point.Debut} au {point.Fin}
             </p>
           </div>
         ))}

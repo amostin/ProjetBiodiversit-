@@ -6,16 +6,17 @@ class Admin extends Component {
   state = {
     places: [],
     point: {
-      idPoint: 36,
-      nom: "nom",
-      nomLatin: "nomLatin",
-      adresse: "adresse",
-      longitude: 50.6,
-      latitude: 4.6,
-      categorie: "nature",
-      debut: "2020-01-01",
-      fin: "2020-12-31",
-      accessibilite: 1
+      PointInteretID: 161,
+      NomScientifique: "nomScientifique",
+      Nom: "nom",
+      FamilleID: 99,
+      ParcoursID: 2,
+      Longitude: 50.665938,
+      Latitude: 4.612229,
+      CategorieID: 1,
+      Accessibilite: 1,
+      Debut: "2020-01-01",
+      Fin: "2020-12-31"
     }
   };
 
@@ -24,7 +25,7 @@ class Admin extends Component {
   }
 
   getPlaces = _ => {
-    fetch("/api/places")
+    fetch("/api/pointsInteret")
       .then(res => res.json())
       .then(res => this.setState({ places: res.data }))
       .catch(err => console.log(err));
@@ -33,56 +34,59 @@ class Admin extends Component {
   addPoint = _ => {
     const { point } = this.state;
     fetch(
-      `/api/add?nom=${point.nom}&nomLatin=${point.nomLatin}&adresse=${point.adresse}&longitude=${point.longitude}&latitude=${point.latitude}&categorie=${point.categorie}&debut=${point.debut}&fin=${point.fin}&accessibilite=${point.accessibilite}`
+      `/api/add?NomScientifique=${point.NomScientifique}&Nom=${point.Nom}&FamilleID=${point.FamilleID}&ParcoursID=${point.ParcoursID}&Longitude=${point.Longitude}&Latitude=${point.Latitude}&CategorieID=${point.CategorieID}&Accessibilite=${point.Accessibilite}&Debut=${point.Debut}&Fin=${point.Fin}`
     )
       .then(this.getPlaces)
       .catch(err => console.error(err));
   };
 
-  deletePoint = idPoint => {
-    console.log(idPoint.idPoint);
-    fetch(`/api/delete?idPoint=${idPoint.idPoint}`)
+  deletePoint = PointInteretID => {
+    console.log(PointInteretID.PointInteretID);
+    fetch(`/api/delete?PointInteretID=${PointInteretID.PointInteretID}`)
       .then(this.getPlaces)
       .catch(err => console.error(err));
   };
 
   updatePoint = _ => {
     const { point } = this.state;
-    console.log(point.idPoint);
+    console.log(point.PointInteretID);
     fetch(
-      `/api/update?nom=${point.nom}&nomLatin=${point.nomLatin}&adresse=${point.adresse}&longitude=${point.longitude}&latitude=${point.latitude}&categorie=${point.categorie}&debut=${point.debut}&fin=${point.fin}&accessibilite=${point.accessibilite}&idPoint=${point.idPoint}`
+      `/api/update?NomScientifique=${point.NomScientifique}&Nom=${point.Nom}&FamilleID=${point.FamilleID}&ParcoursID=${point.ParcoursID}&Longitude=${point.Longitude}&Latitude=${point.Latitude}&CategorieID=${point.CategorieID}&Accessibilite=${point.Accessibilite}&Debut=${point.Debut}&Fin=${point.Fin}&PointInteretID=${point.PointInteretID}`
     )
       .then(this.getPlaces)
       .catch(err => console.error(err));
   };
 
   renderPlaces = ({
-    idPoint,
-    nom,
-    nomLatin,
-    adresse,
-    longitude,
-    latitude,
-    categorie,
-    debut,
-    fin,
-    accessibilite
+    PointInteretID,
+    NomScientifique,
+    Nom,
+    FamilleNom,
+    ParcoursNom,
+    Longitude,
+    Latitude,
+    CategorieNom,
+    Accessibilite,
+    Debut,
+    Fin
   }) => (
-    <tr key={idPoint}>
-      <td>{idPoint}</td>
-      <td>{nom}</td>
-      <td>{nomLatin}</td>
-      <td>{adresse}</td>
-      <td>{longitude}</td>
-      <td>{latitude}</td>
-      <td>{categorie}</td>
-      <td>{debut}</td>
-      <td>{fin}</td>
-      <td>{accessibilite}</td>
+    <tr key={PointInteretID}>
+      <td>{PointInteretID}</td>
+      <td>{NomScientifique}</td>
+      <td>{Nom}</td>
+      <td>{FamilleNom}</td>
+      <td>{ParcoursNom}</td>
+      <td>{Longitude}</td>
+      <td>{Latitude}</td>
+      <td>{CategorieNom}</td>
+      <td>{Accessibilite}</td>
+      <td>{Debut}</td>
+      <td>{Fin}</td>
+
       <td>
         <button
           className="deleteButton"
-          onClick={() => this.deletePoint({ idPoint })}
+          onClick={() => this.deletePoint({ PointInteretID })}
         >
           Supprimer point
         </button>
@@ -103,7 +107,7 @@ class Admin extends Component {
     return (
       <div className="center">
         <h1>Page admin</h1>
-        <p>Welcome {user.name}!</p>
+        <p>Bienvenue {user.name}!</p>
         <button type="button" id="disconnectButton" onClick={handleLogout}>
           Se déconnecter
         </button>
@@ -112,16 +116,18 @@ class Admin extends Component {
         <table align="center">
           <thead>
             <tr>
-              <th>id</th>
-              <th>nom</th>
-              <th>nomLatin</th>
-              <th>adresse</th>
-              <th>longitude</th>
-              <th>latitude</th>
-              <th>catégorie</th>
-              <th>début</th>
-              <th>fin</th>
-              <th>accessible</th>
+              <th>ID</th>
+              <th>NomScientifique</th>
+              <th>Nom</th>
+              <th>Famille</th>
+              <th>Parcours</th>
+              <th>Longitude</th>
+              <th>Latitude</th>
+              <th>Catégorie</th>
+              <th>Accessible</th>
+              <th>Début</th>
+              <th>Fin</th>
+              <th>Supprimer</th>
             </tr>
           </thead>
           <tbody>{places.map(this.renderPlaces)}</tbody>
@@ -129,120 +135,136 @@ class Admin extends Component {
         <br />
         <div id="addUpdateEntry">
           <h3>Ajouter un point d'intérêt</h3>
-          <label htmlFor="nom">Nom</label>
+          <label htmlFor="addNomScientifique">NomScientifique</label>
           <input
-            name="nom"
-            id="nom"
+            id="addNomScientifique"
             type="text"
-            value={point.nom}
-            onChange={e =>
-              this.setState({ point: { ...point, nom: e.target.value } })
-            }
-          />
-          <br />
-          <label htmlFor="nomLatin">Nom latin</label>
-          <input
-            name="nomLatin"
-            id="nomLatin"
-            type="text"
-            value={point.nomLatin}
-            onChange={e =>
-              this.setState({ point: { ...point, nomLatin: e.target.value } })
-            }
-          />
-          <br />
-          <label htmlFor="adresse">Adresse</label>
-          <input
-            name="adresse"
-            id="adresse"
-            type="text"
-            value={point.adresse}
+            value={point.NomScientifique}
             onChange={e =>
               this.setState({
-                point: { ...point, adresse: e.target.value }
+                point: { ...point, NomScientifique: e.target.value }
               })
             }
           />
           <br />
-          <label htmlFor="longitude">Longitude</label>
+          <label htmlFor="addNom">Nom latin</label>
           <input
-            name="longitude"
-            id="longitude"
+            id="addNom"
+            type="text"
+            value={point.Nom}
+            onChange={e =>
+              this.setState({ point: { ...point, Nom: e.target.value } })
+            }
+          />
+          <br />
+          <label htmlFor="addFamille">Famille</label>
+          <select
+            id="addFamille"
+            type="text"
+            value={point.FamilleID}
+            onChange={e =>
+              this.setState({
+                point: { ...point, FamilleID: e.target.value }
+              })
+            }
+          >
+            <option value="1">Salix</option>
+            <option value="2">Acer</option>
+            <option value="3">Quercus</option>
+            <option value="99">Autre</option>
+          </select>
+          <br />
+          <label htmlFor="addParcours">Parcours</label>
+          <select
+            id="addParcours"
+            type="text"
+            value={point.ParcoursID}
+            onChange={e =>
+              this.setState({
+                point: { ...point, ParcoursID: e.target.value }
+              })
+            }
+          >
+            <option value="1">Parcours des Sciences</option>
+            <option value="2">Parcours du cyclotron</option>
+            <option value="3">Parcours du lac</option>
+            <option value="4">Parcours du jardin botanique</option>
+            <option value="5">Parcours du parc de Moulinsart</option>
+          </select>
+          <br />
+          <label htmlFor="addLongitude">Longitude</label>
+          <input
+            id="addLongitude"
             type="number"
             step="0.1"
-            value={point.longitude}
+            value={point.Longitude}
             onChange={e =>
               this.setState({
-                point: { ...point, longitude: e.target.value }
+                point: { ...point, Longitude: e.target.value }
               })
             }
           />
           <br />
-          <label htmlFor="latitude">Latitude</label>
+          <label htmlFor="addLatitude">Latitude</label>
           <input
-            name="latitude"
-            id="latitude"
+            id="addLatitude"
             type="number"
             step="0.1"
-            value={point.latitude}
+            value={point.Latitude}
             onChange={e =>
               this.setState({
-                point: { ...point, latitude: e.target.value }
+                point: { ...point, Latitude: e.target.value }
               })
             }
           />
           <br />
-          <label htmlFor="categorie" className="Right">
+          <label htmlFor="addCategorie" className="Right">
             Catégorie
           </label>
           <select
-            name="categorie"
-            id="categorie"
+            id="addCategorie"
             type="text"
-            value={point.categorie}
+            value={point.CategorieID}
             onChange={e =>
-              this.setState({ point: { ...point, categorie: e.target.value } })
+              this.setState({
+                point: { ...point, CategorieID: e.target.value }
+              })
             }
           >
-            <option value="nature">Nature</option>
-            <option value="animaux">Animaux</option>
-            <option value="batiment">Batiment</option>
+            <option value="1">Arbres remarquables</option>
           </select>
           <br />
-          <label htmlFor="debut">Début</label>
+          <label htmlFor="addDebut">Début</label>
           <input
-            name="debut"
-            id="debut"
+            id="addDebut"
             type="text"
-            value={point.debut}
+            value={point.Debut}
             onChange={e =>
               this.setState({
-                point: { ...point, debut: e.target.value }
+                point: { ...point, Debut: e.target.value }
               })
             }
           />
           <br />
-          <label htmlFor="fin">Fin</label>
+          <label htmlFor="addFin">Fin</label>
           <input
-            name="fin"
-            id="fin"
+            id="addFin"
             type="text"
-            value={point.fin}
+            value={point.Fin}
             onChange={e =>
               this.setState({
-                point: { ...point, fin: e.target.value }
+                point: { ...point, Fin: e.target.value }
               })
             }
           />
           <br />
-          <label htmlFor="accessibilite">Accessible</label>
+          <label htmlFor="addAccessibilite">Accessible</label>
           <select
-            name="accessibilite"
-            id="accessibilite"
-            value={point.accessibilite}
+            id="addAccessibilite"
+            value={point.Accessibilite}
             onChange={e =>
               this.setState({
-                point: { ...point, accessibilite: e.target.value }
+                point: { ...point, Accessibilite: e.target.value }
               })
             }
           >
@@ -256,133 +278,148 @@ class Admin extends Component {
 
           <div id="FormModifyEntry">
             <h3>Modifier point d'intérêt</h3>
-            <label htmlFor="identifiant">Identifiant</label>
+            <label htmlFor="updateID">Identifiant</label>
             <input
-              name="identifiant"
-              id="identifiant"
-              type="text"
-              value={point.idPoint}
-              onChange={e =>
-                this.setState({ point: { ...point, idPoint: e.target.value } })
-              }
-            />
-            <br />
-            <label htmlFor="nom">Nom</label>
-            <input
-              name="nom"
-              id="nom"
-              type="text"
-              value={point.nom}
-              onChange={e =>
-                this.setState({ point: { ...point, nom: e.target.value } })
-              }
-            />
-            <br />
-            <label htmlFor="nomLatin">Nom latin</label>
-            <input
-              name="nomLatin"
-              id="nomLatin"
-              type="text"
-              value={point.nomLatin}
-              onChange={e =>
-                this.setState({ point: { ...point, nomLatin: e.target.value } })
-              }
-            />
-            <br />
-            <label htmlFor="adresse">Adresse</label>
-            <input
-              name="adresse"
-              id="adresse"
-              type="text"
-              value={point.adresse}
-              onChange={e =>
-                this.setState({
-                  point: { ...point, adresse: e.target.value }
-                })
-              }
-            />
-            <br />
-            <label htmlFor="longitude">Longitude</label>
-            <input
-              name="longitude"
-              id="longitude"
+              id="updateID"
               type="number"
-              step="0.1"
-              value={point.longitude}
+              value={point.PointInteretID}
               onChange={e =>
                 this.setState({
-                  point: { ...point, longitude: e.target.value }
+                  point: { ...point, PointInteretID: e.target.value }
                 })
               }
             />
             <br />
-            <label htmlFor="latitude">Latitude</label>
+            <label htmlFor="updateNomScientifique">NomScientifique</label>
             <input
-              name="latitude"
-              id="latitude"
-              type="number"
-              step="0.1"
-              value={point.latitude}
+              id="updateNomScientifique"
+              type="text"
+              value={point.NomScientifique}
               onChange={e =>
                 this.setState({
-                  point: { ...point, latitude: e.target.value }
+                  point: { ...point, NomScientifique: e.target.value }
                 })
               }
             />
             <br />
-            <label htmlFor="categorie" className="Right">
-              Catégorie
-            </label>
+            <label htmlFor="updateNom">Nom</label>
+            <input
+              id="updateNom"
+              type="text"
+              value={point.Nom}
+              onChange={e =>
+                this.setState({ point: { ...point, Nom: e.target.value } })
+              }
+            />
+            <br />
+            <label htmlFor="updateFamille">Famille</label>
             <select
-              name="categorie"
-              id="categorie"
+              id="updateFamille"
               type="text"
-              value={point.categorie}
+              value={point.FamilleID}
               onChange={e =>
                 this.setState({
-                  point: { ...point, categorie: e.target.value }
+                  point: { ...point, FamilleID: e.target.value }
                 })
               }
             >
-              <option value="nature">Nature</option>
-              <option value="animaux">Animaux</option>
-              <option value="batiment">Batiment</option>
+              <option value="1">Salix</option>
+              <option value="2">Acer</option>
+              <option value="3">Quercus</option>
+              <option value="99">Autre</option>
             </select>
             <br />
-            <label htmlFor="debut">Début</label>
-            <input
-              name="debut"
-              id="debut"
-              type="text"
-              value={point.debut}
-              onChange={e =>
-                this.setState({
-                  point: { ...point, debut: e.target.value }
-                })
-              }
-            />
-            <br />
-            <label htmlFor="fin">Fin</label>
-            <input
-              name="fin"
-              id="fin"
-              type="text"
-              value={point.fin}
-              onChange={e =>
-                this.setState({
-                  point: { ...point, fin: e.target.value }
-                })
-              }
-            />
-            <br />
-            <label htmlFor="accessibilite">Accessible</label>
+            <label htmlFor="updateParcours">Parcours</label>
             <select
-              name="accessibilite"
-              id="accessibilite"
-              value={point.accessibilite}
+              id="updateParcours"
+              type="text"
+              value={point.ParcoursID}
               onChange={e =>
                 this.setState({
-                  point: { ...point, accessibilite: e.target.value }
+                  point: { ...point, ParcoursID: e.target.value }
+                })
+              }
+            >
+              <option value="1">Parcours des Sciences</option>
+              <option value="2">Parcours du cyclotron</option>
+              <option value="3">Parcours du lac</option>
+              <option value="4">Parcours du jardin botanique</option>
+              <option value="5">Parcours du parc de Moulinsart</option>
+            </select>
+            <br />
+            <label htmlFor="updateLongitude">Longitude</label>
+            <input
+              id="updateLongitude"
+              type="number"
+              step="0.1"
+              value={point.Longitude}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, Longitude: e.target.value }
+                })
+              }
+            />
+            <br />
+            <label htmlFor="updateLatitude">Latitude</label>
+            <input
+              id="updateLatitude"
+              type="number"
+              step="0.1"
+              value={point.Latitude}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, Latitude: e.target.value }
+                })
+              }
+            />
+            <br />
+            <label htmlFor="updateCategorie" className="Right">
+              Catégorie
+            </label>
+            <select
+              id="updateCategorie"
+              type="text"
+              value={point.CategorieID}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, CategorieID: e.target.value }
+                })
+              }
+            >
+              <option value="1">Arbres remarquables</option>
+            </select>
+            <br />
+            <label htmlFor="updateDebut">Début</label>
+            <input
+              id="updateDebut"
+              type="text"
+              value={point.Debut}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, Debut: e.target.value }
+                })
+              }
+            />
+            <br />
+            <label htmlFor="updateFin">Fin</label>
+            <input
+              id="updateFin"
+              type="text"
+              value={point.Fin}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, Fin: e.target.value }
+                })
+              }
+            />
+            <br />
+            <label htmlFor="updateAccessibilite">Accessible</label>
+            <select
+              id="updateAccessibilite"
+              value={point.Accessibilite}
+              onChange={e =>
+                this.setState({
+                  point: { ...point, Accessibilite: e.target.value }
                 })
               }
             >

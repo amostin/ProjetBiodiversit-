@@ -7,31 +7,31 @@
   margin-right: auto;
   text-align: center;
 }
-ul{
+ul {
   text-align: center;
   margin: 10px;
   margin-left: auto;
   margin-right: auto;
   padding: 3px;
   list-style-type: square;
-  width: 15%;
-  border:1px solid grey;
+  width: 70vw;
+  border: 1px solid grey;
   border-radius: 4px;
 }
-.rechercheCategorie{
+.rechercheParcours {
   font-size: 20px;
   text-align: center;
 }
-.labelCategorie{
+.labelParcours {
   font-size: 18px;
   font-weight: bold;
   text-align: center;
 }
-select{
+select {
   padding: 5px;
   margin: 10px;
   border-radius: 4px;
-  background-color: #4CAF50; /* Green */
+  background-color: #4caf50; /* Green */
   color: white;
   border: 2px solid lightgreen;
   transition-duration: 0.4s;
