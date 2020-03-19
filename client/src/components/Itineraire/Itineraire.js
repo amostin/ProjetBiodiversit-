@@ -1,32 +1,64 @@
-import React from "react";
+import React, { Component } from "react";
 import "./../../App.css";
-import "./../Parcours/Parcours.css";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import { Link } from "react-router-dom";
 import L from "leaflet";
+import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import "./Itineraire.css";
+
 L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
-function Itineraire() {
-  const center = ["50.668081", "4.6118324"];
-  var zoom = 14;
-  return (
-    <div>
-      <h3>
-        Grâce à cette page, calculez un itinéraire pour visiter les points
-        d'intérêts
-      </h3>
-      <div className="center">
-        <Map zoom={zoom} center={center}>
+
+class Itineraire extends Component {
+  state = {
+    places: []
+  };
+  componentDidMount() {
+    this.getPlaces();
+  }
+  getPlaces = _ => {
+    fetch(`/api/pointsInteret`)
+      .then(res => res.json())
+      .then(res => this.setState({ places: res.data }))
+      .catch(err => console.log(err));
+  };
+
+  render() {
+    const center = ["50.665938", "4.612229"];
+    var zoom = 14;
+    const { places } = this.state;
+    return (
+      <div>
+        
+        <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-
-          <Marker position={center}>
-            <Popup>Premier marqueur</Popup>
-          </Marker>
+          {places.map(place => (
+            <Marker
+              key={place.PointInteretID}
+              position={[place.Longitude, place.Latitude]}
+            >
+              <Popup>
+                <Link to={`/pointInteret/${place.PointInteretID}`}>
+                  {place.NomScientifique}
+                </Link>
+              </Popup>
+            </Marker>
+          ))}
+          <br />
         </Map>
+        <ul className="listeParcours">
+          {places.map(place => (
+            <li key={place.PointInteretID}>
+              <Link to={`/pointInteret/${place.PointInteretID}`}>
+                {place.NomScientifique}
+              </Link>
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
-  );
+    );
+  }
 }
 
 export default Itineraire;
