@@ -17,7 +17,7 @@ class Parcours extends Component {
   }
   getPlacesByParcours = _ => {
     const { ParcoursID } = this.state;
-    fetch(`/api/parcours?ParcoursID=${ParcoursID}`)
+    fetch(`/api/parcours/${ParcoursID}`)
       .then(res => res.json())
       .then(res => this.setState({ places: res.data }))
       .catch(err => console.log(err));

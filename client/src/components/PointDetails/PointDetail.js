@@ -7,7 +7,7 @@ class PointDetail extends Component {
 
   componentDidMount() {
     const PointInteretID = this.props.match.params.PointInteretID;
-    fetch(`/api/get?PointInteretID=${PointInteretID}`)
+    fetch(`/api/pointsInteret/${PointInteretID}`)
       .then(res => res.json())
       .then(res => this.setState({ points: res.data }))
       .catch(err => console.log(err));

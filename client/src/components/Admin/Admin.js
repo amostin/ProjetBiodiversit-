@@ -34,7 +34,10 @@ class Admin extends Component {
   addPoint = _ => {
     const { point } = this.state;
     fetch(
-      `/api/add?NomScientifique=${point.NomScientifique}&Nom=${point.Nom}&FamilleID=${point.FamilleID}&ParcoursID=${point.ParcoursID}&Longitude=${point.Longitude}&Latitude=${point.Latitude}&CategorieID=${point.CategorieID}&Accessibilite=${point.Accessibilite}&Debut=${point.Debut}&Fin=${point.Fin}`
+      `/api/pointsInteret?NomScientifique=${point.NomScientifique}&Nom=${point.Nom}&FamilleID=${point.FamilleID}&ParcoursID=${point.ParcoursID}&Longitude=${point.Longitude}&Latitude=${point.Latitude}&CategorieID=${point.CategorieID}&Accessibilite=${point.Accessibilite}&Debut=${point.Debut}&Fin=${point.Fin}`,
+      {
+        method: "post"
+      }
     )
       .then(this.getPlaces)
       .catch(err => console.error(err));
@@ -42,7 +45,9 @@ class Admin extends Component {
 
   deletePoint = PointInteretID => {
     console.log(PointInteretID.PointInteretID);
-    fetch(`/api/delete?PointInteretID=${PointInteretID.PointInteretID}`)
+    fetch(`/api/pointsInteret/${PointInteretID.PointInteretID}`, {
+      method: "delete"
+    })
       .then(this.getPlaces)
       .catch(err => console.error(err));
   };
@@ -51,7 +56,10 @@ class Admin extends Component {
     const { point } = this.state;
     console.log(point.PointInteretID);
     fetch(
-      `/api/update?NomScientifique=${point.NomScientifique}&Nom=${point.Nom}&FamilleID=${point.FamilleID}&ParcoursID=${point.ParcoursID}&Longitude=${point.Longitude}&Latitude=${point.Latitude}&CategorieID=${point.CategorieID}&Accessibilite=${point.Accessibilite}&Debut=${point.Debut}&Fin=${point.Fin}&PointInteretID=${point.PointInteretID}`
+      `/api/pointsInteret/${point.PointInteretID}?NomScientifique=${point.NomScientifique}&Nom=${point.Nom}&FamilleID=${point.FamilleID}&ParcoursID=${point.ParcoursID}&Longitude=${point.Longitude}&Latitude=${point.Latitude}&CategorieID=${point.CategorieID}&Accessibilite=${point.Accessibilite}&Debut=${point.Debut}&Fin=${point.Fin}`,
+      {
+        method: "put"
+      }
     )
       .then(this.getPlaces)
       .catch(err => console.error(err));
