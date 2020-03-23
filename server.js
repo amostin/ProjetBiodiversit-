@@ -7,10 +7,6 @@ const jwt = require("jsonwebtoken");
 const utils = require("./utils");
 
 const app = express();
-const SELECT_ALL_POINTS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
-  FROM pointsinteret pi, familles f, parcours p, categories c
-  WHERE pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID
-  ORDER BY pi.PointInteretID`;
 const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
@@ -25,7 +21,12 @@ connection.connect(err => {
   console.log("connecté");
 });
 
+// Obtenir tous les point d'intérêts
 app.get("/api/pointsInteret", (req, res) => {
+  const SELECT_ALL_POINTS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
+  FROM pointsinteret pi, familles f, parcours p, categories c
+  WHERE pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID
+  ORDER BY pi.PointInteretID`;
   connection.query(SELECT_ALL_POINTS_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
@@ -35,8 +36,9 @@ app.get("/api/pointsInteret", (req, res) => {
   });
 });
 
-app.get("/api/get", (req, res) => {
-  const { PointInteretID } = req.query;
+// Obtenir un point d'intérêt précis avec le paramètre id donné
+app.get("/api/pointsInteret/:id", (req, res) => {
+  const PointInteretID = req.params.id;
   const GET_ID_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
   FROM pointsinteret pi, familles f, parcours p, categories c
   WHERE pi.PointInteretID = ${PointInteretID} and pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID`;
@@ -51,7 +53,7 @@ app.get("/api/get", (req, res) => {
   });
 });
 
-app.get("/api/add", (req, res) => {
+app.post("/api/pointsInteret", (req, res) => {
   const {
     NomScientifique,
     Nom,
@@ -64,6 +66,7 @@ app.get("/api/add", (req, res) => {
     Debut,
     Fin
   } = req.query;
+
   const INSERT_PLACES_QUERY = `INSERT INTO pointsinteret (
     NomScientifique,
     Nom,
@@ -80,14 +83,14 @@ app.get("/api/add", (req, res) => {
     if (err) {
       return res.send(err);
     } else {
-      return res.send("successfully added place");
+      return res.send("Successfully added place");
     }
   });
 });
 
-app.get("/api/update", (req, res) => {
+app.put("/api/pointsInteret/:id", (req, res) => {
+  const PointInteretID = req.params.id;
   const {
-    PointInteretID,
     NomScientifique,
     Nom,
     FamilleID,
@@ -104,25 +107,25 @@ app.get("/api/update", (req, res) => {
     if (err) {
       return res.send(err);
     } else {
-      return res.send("successfully updated place");
+      return res.send("Successfully updated place");
     }
   });
 });
 
-app.get("/api/delete", (req, res) => {
-  const { PointInteretID } = req.query;
+app.delete("/api/pointsInteret/:id", (req, res) => {
+  const PointInteretID = req.params.id;
   const DELETE_INTEREST_POINT_QUERY = `DELETE FROM pointsinteret WHERE PointInteretID=${PointInteretID}`;
   connection.query(DELETE_INTEREST_POINT_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
     } else {
-      return res.send("successfully deleted place");
+      return res.send("Successfully deleted place");
     }
   });
 });
 
-app.get("/api/parcours", (req, res) => {
-  const { ParcoursID } = req.query;
+app.get("/api/parcours/:id", (req, res) => {
+  const ParcoursID = req.params.id;
   const SELECT_PARCOURS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
   FROM pointsinteret pi, familles f, parcours p, categories c
   WHERE pi.ParcoursID = ${ParcoursID} and pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID
@@ -137,7 +140,6 @@ app.get("/api/parcours", (req, res) => {
     }
   });
 });
-
 
 //authentification testé sur postman
 
