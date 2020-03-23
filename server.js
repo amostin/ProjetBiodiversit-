@@ -53,6 +53,7 @@ app.get("/api/pointsInteret/:id", (req, res) => {
   });
 });
 
+// Crée un point d'intérêt avec les valeurs données
 app.post("/api/pointsInteret", (req, res) => {
   const {
     NomScientifique,
@@ -88,6 +89,7 @@ app.post("/api/pointsInteret", (req, res) => {
   });
 });
 
+// Modifie le point d'intérêt identifié par l'id donné avec les valeurs données
 app.put("/api/pointsInteret/:id", (req, res) => {
   const PointInteretID = req.params.id;
   const {
@@ -112,6 +114,7 @@ app.put("/api/pointsInteret/:id", (req, res) => {
   });
 });
 
+// Supprime le point d'intérêt dont l'id est donné
 app.delete("/api/pointsInteret/:id", (req, res) => {
   const PointInteretID = req.params.id;
   const DELETE_INTEREST_POINT_QUERY = `DELETE FROM pointsinteret WHERE PointInteretID=${PointInteretID}`;
@@ -124,6 +127,7 @@ app.delete("/api/pointsInteret/:id", (req, res) => {
   });
 });
 
+// Obtenir les points d'intérêt d'un parcours donné
 app.get("/api/parcours/:id", (req, res) => {
   const ParcoursID = req.params.id;
   const SELECT_PARCOURS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
