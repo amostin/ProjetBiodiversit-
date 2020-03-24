@@ -39,10 +39,10 @@ app.get("/api/pointsInteret", (req, res) => {
 // Obtenir un point d'intérêt précis avec le paramètre id donné
 app.get("/api/pointsInteret/:id", (req, res) => {
   const PointInteretID = req.params.id;
-  const GET_ID_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
+  const GET_POINTS_BY_ID_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
   FROM pointsinteret pi, familles f, parcours p, categories c
   WHERE pi.PointInteretID = ${PointInteretID} and pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID`;
-  connection.query(GET_ID_QUERY, (err, results) => {
+  connection.query(GET_POINTS_BY_ID_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
     } else {
@@ -128,13 +128,100 @@ app.delete("/api/pointsInteret/:id", (req, res) => {
 });
 
 // Obtenir les points d'intérêt d'un parcours donné
-app.get("/api/parcours/:id", (req, res) => {
+app.get("/api/pointsInteret/parcours/:id", (req, res) => {
   const ParcoursID = req.params.id;
-  const SELECT_PARCOURS_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
+  const SELECT_PARCOURS_BY_ID_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
   FROM pointsinteret pi, familles f, parcours p, categories c
   WHERE pi.ParcoursID = ${ParcoursID} and pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID
   ORDER BY pi.PointInteretID`;
-  connection.query(SELECT_PARCOURS_QUERY, (err, results) => {
+  connection.query(SELECT_PARCOURS_BY_ID_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.json({
+        data: results
+      });
+    }
+  });
+});
+
+// Obtenir tous les parcours
+app.get("/api/parcours", (req, res) => {
+  const SELECT_ALL_PARCOURS_QUERY = "SELECT * from parcours";
+  connection.query(SELECT_ALL_PARCOURS_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.json({
+        data: results
+      });
+    }
+  });
+});
+
+// Obtenir le parcours avec l'id donné
+app.get("/api/parcours/:id", (req, res) => {
+  const ParcoursID = req.params.id;
+  const SELECT_ALL_PARCOURS_QUERY = `SELECT * from parcours WHERE ParcoursID=${ParcoursID}`;
+  connection.query(SELECT_ALL_PARCOURS_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.json({
+        data: results
+      });
+    }
+  });
+});
+
+// Obtenir toutes les catégories
+app.get("/api/categories", (req, res) => {
+  const SELECT_ALL_CATEGORIES_QUERY = "SELECT * from categories";
+  connection.query(SELECT_ALL_CATEGORIES_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.json({
+        data: results
+      });
+    }
+  });
+});
+
+// Obtenir la catégorie avec l'id donné
+app.get("/api/categories/:id", (req, res) => {
+  const CategorieID = req.params.id;
+  const SELECT_CATEGORY_BY_ID_QUERY = `SELECT * from categories WHERE CategorieID=${CategorieID}`;
+  connection.query(SELECT_CATEGORY_BY_ID_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.json({
+        data: results
+      });
+    }
+  });
+});
+
+// Obtenir toutes les familles
+app.get("/api/familles", (req, res) => {
+  const SELECT_ALL_FAMILLES_QUERY = "SELECT * from familles";
+  connection.query(SELECT_ALL_FAMILLES_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.json({
+        data: results
+      });
+    }
+  });
+});
+
+// Obtenir la famille avec l'id donné
+app.get("/api/familles/:id", (req, res) => {
+  const FamilleID = req.params.id;
+  const SELECT_FAMILLE_BY_ID_QUERY = `SELECT * from familles WHERE FamilleID=${FamilleID}`;
+  connection.query(SELECT_FAMILLE_BY_ID_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
     } else {
