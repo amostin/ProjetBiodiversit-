@@ -2,7 +2,7 @@
 
 #map {
   height: 60vh;
-  width: 70vw;
+  width: 90vw;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
@@ -14,7 +14,7 @@ ul {
   margin-right: auto;
   padding: 3px;
   list-style-type: square;
-  width: 70vw;
+  width: 90vw;
   border: 1px solid grey;
   border-radius: 4px;
 }
@@ -37,4 +37,24 @@ select {
   transition-duration: 0.4s;
   font-size: 16px;
   font-weight: bold;
+}
+
+@media only screen and (min-width: 600px) {
+  #map {
+    width: 70vw;
+  }
+
+  ul {
+    width: 70vw;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  #map {
+    width: 90vw;
+  }
+
+  ul {
+    width: 90vw;
+  }
 }
