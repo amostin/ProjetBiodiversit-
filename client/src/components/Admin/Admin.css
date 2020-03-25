@@ -61,15 +61,6 @@ input {
   text-align: center;
   width: 80%;
 }
-#addUpdateEntry {
-  column-count: 2;
-  column-gap: 10px;
-  column-width: auto;
-  width: 50%;
-  margin-left: auto;
-  margin-right: auto;
-  text-align: justify;
-}
 .deleteButton {
   padding: 5px;
   border-radius: 4px;
@@ -104,4 +95,17 @@ input {
   color: black;
   font-weight: lighter;
   color: grey;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+@media only screen and (min-width: 600px) {
+  .container {
+    flex-direction: row;
+    justify-content: center;
+  }
 }
