@@ -8,7 +8,7 @@ const utils = require("./utils");
 
 const app = express();
 const connection = mysql.createConnection({
-  host: "127.0.0.1",
+  host: "localhost",
   user: "root",
   password: "Jslmdpmlrdc3419$",
   database: "probio"
@@ -252,7 +252,7 @@ app.post("/users/signin", function(req, res) {
   const user = req.body.username;
   const pwd = req.body.password;
 
-  // return 400 status if username/password is not exist
+  // return 400 status if username/password does not exist
   if (!user || !pwd) {
     return res.status(400).json({
       error: true,
@@ -260,7 +260,7 @@ app.post("/users/signin", function(req, res) {
     });
   }
 
-  // return 401 status if the credential is not match.
+  // return 401 status if the credential does not match.
   if (user !== userData.username || pwd !== userData.password) {
     return res.status(401).json({
       error: true,
