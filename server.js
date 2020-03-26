@@ -5,8 +5,9 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
 const utils = require("./utils");
-
 const app = express();
+
+// Informations pour la connexion à la DB
 const connection = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -14,11 +15,12 @@ const connection = mysql.createConnection({
   database: "probio"
 });
 
+//Connexion à la DB et vérification
 connection.connect(err => {
   if (err) {
     return err;
   }
-  console.log("connecté");
+  console.log("DB : Connecté");
 });
 
 // Obtenir tous les point d'intérêts
@@ -232,13 +234,13 @@ app.get("/api/familles/:id", (req, res) => {
   });
 });
 
-//authentification testé sur postman
+//Authentification testé sur postman
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// static user details
+// Informations statiques de l'utilisateur
 const userData = {
   userId: "789789",
   password: "noot123!",
@@ -247,12 +249,12 @@ const userData = {
   isAdmin: true
 };
 
-// validate the user credentials
+// valider les informations d'identification de l'utilisateur
 app.post("/users/signin", function(req, res) {
   const user = req.body.username;
   const pwd = req.body.password;
 
-  // return 400 status if username/password does not exist
+  // retourner l'état 400 si le nom d'utilisateur / mot de passe n'existe pas
   if (!user || !pwd) {
     return res.status(400).json({
       error: true,
@@ -260,7 +262,7 @@ app.post("/users/signin", function(req, res) {
     });
   }
 
-  // return 401 status if the credential does not match.
+  // retourner l'état 401 si les informations d'identification ne correspondent pas.
   if (user !== userData.username || pwd !== userData.password) {
     return res.status(401).json({
       error: true,
@@ -268,15 +270,15 @@ app.post("/users/signin", function(req, res) {
     });
   }
 
-  // generate token
+  // générer token
   const token = utils.generateToken(userData);
-  // get basic user details
+  // obtenir les détails de l'utilisateur de base
   const userObj = utils.getCleanUser(userData);
-  // return the token along with user details
+  // retourner le token avec les détails de l'utilisateur
   return res.json({ user: userObj, token });
 });
 
-// verify the token and return it if it's valid
+// vérifier le jeton et le renvoyer s'il est valide
 app.get("/verifyToken", function(req, res) {
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token;
@@ -333,10 +335,13 @@ app.get("/", (req, res) => {
   if (!req.user)
     return res
       .status(401)
-      .json({ success: false, message: "Invalid user to access it." });
-  res.send("Welcome to the Node.js Tutorial! - " + req.user.name);
+      .json({
+        success: false,
+        message: "Utilisateur non valide pour y accéder."
+      });
+  res.send("Bienvenue - " + req.user.name);
 });
 
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server start on port ${port}`));
