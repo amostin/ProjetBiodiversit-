@@ -130,11 +130,11 @@ app.delete("/api/pointsInteret/:id", (req, res) => {
 // Obtenir les points d'intérêt d'un parcours donné
 app.get("/api/pointsInteret/parcours/:id", (req, res) => {
   const ParcoursID = req.params.id;
-  const SELECT_PARCOURS_BY_ID_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
+  const SELECT_POINTS_BY_PARCOURS_ID_QUERY = `SELECT pi.PointInteretID, pi.NomScientifique, pi.Nom, pi.Longitude, pi.Latitude, pi.Accessibilite, DATE_FORMAT(pi.Debut, '%d/%m/%Y') AS Debut, DATE_FORMAT(pi.Fin, '%d/%m/%Y') AS Fin, f.FamilleNom, p.ParcoursNom, c.CategorieNom
   FROM pointsinteret pi, familles f, parcours p, categories c
   WHERE pi.ParcoursID = ${ParcoursID} and pi.FamilleID = f.FamilleID and pi.ParcoursID = p.ParcoursID and pi.CategorieID = c.CategorieID
   ORDER BY pi.PointInteretID`;
-  connection.query(SELECT_PARCOURS_BY_ID_QUERY, (err, results) => {
+  connection.query(SELECT_POINTS_BY_PARCOURS_ID_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
     } else {
@@ -162,8 +162,8 @@ app.get("/api/parcours", (req, res) => {
 // Obtenir le parcours avec l'id donné
 app.get("/api/parcours/:id", (req, res) => {
   const ParcoursID = req.params.id;
-  const SELECT_ALL_PARCOURS_QUERY = `SELECT * from parcours WHERE ParcoursID=${ParcoursID}`;
-  connection.query(SELECT_ALL_PARCOURS_QUERY, (err, results) => {
+  const SELECT_PARCOURS_BY_ID_QUERY = `SELECT * from parcours WHERE ParcoursID=${ParcoursID}`;
+  connection.query(SELECT_PARCOURS_BY_ID_QUERY, (err, results) => {
     if (err) {
       return res.send(err);
     } else {
