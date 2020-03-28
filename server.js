@@ -4,6 +4,7 @@ const mysql = require("mysql");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const utils = require("./utils");
 const app = express();
 
@@ -249,6 +250,36 @@ const userData = {
   isAdmin: true
 };
 
+// Enregister un utilisateur
+app.post("/users/register", (req, res) => {
+  const userData = {
+    Nom: req.body.Nom,
+    Pseudo: req.body.Pseudo,
+    MdP: req.body.MdP
+  };
+  const FIND_USER = `SELECT * FROM users WHERE Pseudo ='${userData.Pseudo}'`;
+  connection.query(FIND_USER, (err, rows) => {
+    if (err) {
+      return res.send(err);
+    } else if (rows != 0) {
+      return res.send("l'utilisateur existe déjà");
+    } else {
+      bcrypt.hash(req.body.MdP, 10, (err, hash) => {
+        userData.MdP = hash;
+        const CREATE_USER = `INSERT INTO users(Nom, Pseudo, MdP) 
+        VALUES('${userData.Nom}', '${userData.Pseudo}', '${userData.MdP}')`;
+        connection.query(CREATE_USER, (err, results) => {
+          if (err) {
+            return res.send(err);
+          } else {
+            return res.send("Utilisateur ajouté");
+          }
+        });
+      });
+    }
+  });
+});
+/*
 // valider les informations d'identification de l'utilisateur
 app.post("/users/signin", function(req, res) {
   const user = req.body.username;
@@ -333,15 +364,13 @@ app.use(function(req, res, next) {
 // request handlers
 app.get("/", (req, res) => {
   if (!req.user)
-    return res
-      .status(401)
-      .json({
-        success: false,
-        message: "Utilisateur non valide pour y accéder."
-      });
+    return res.status(401).json({
+      success: false,
+      message: "Utilisateur non valide pour y accéder."
+    });
   res.send("Bienvenue - " + req.user.name);
 });
-
+*/
 const port = process.env.PORT || 5000;
 
 app.listen(port, () => console.log(`Server start on port ${port}`));
