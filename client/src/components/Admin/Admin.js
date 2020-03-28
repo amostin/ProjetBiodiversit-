@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "./Admin.css";
 import { getUser, removeUserSession } from "./../../Utils/Common";
+import { Link } from "react-router-dom";
 
 class Admin extends Component {
   state = {
@@ -115,10 +116,13 @@ class Admin extends Component {
     return (
       <div className="center">
         <h1>Page admin</h1>
-        <p>Bienvenue {user.Nom}!</p>
+        <p>Bienvenue {user.Nom}!</p>{" "}
         <button type="button" id="disconnectButton" onClick={handleLogout}>
           Se déconnecter
         </button>
+        <Link to="/newUser">
+          <button id="newUser">Ajouter un utilisateur</button>
+        </Link>
         <br />
         <br />
         <table align="center">

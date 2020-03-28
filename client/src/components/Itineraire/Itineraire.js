@@ -27,7 +27,6 @@ class Itineraire extends Component {
     const { places } = this.state;
     return (
       <div>
-        
         <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

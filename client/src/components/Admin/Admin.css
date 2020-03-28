@@ -83,6 +83,19 @@ input {
   font-size: auto;
   font-weight: bold;
 }
+
+#newUser {
+  margin-left: 10px;
+  padding: 5px;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  border: 2px solid blue; /* Green */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  font-size: auto;
+  font-weight: bold;
+}
 select {
   background-color: white;
   font-size: 14px;

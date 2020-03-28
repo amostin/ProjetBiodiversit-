@@ -51,12 +51,7 @@ function Login(props) {
         <div style={{ marginTop: 10 }}>
           <label htmlFor="mdp">Mot de passe</label>
           <br />
-          <input
-            type="password"
-            id="mdp"
-            {...MdP}
-            autoComplete="new-password"
-          />
+          <input type="password" id="mdp" {...MdP} autoComplete="username" />
         </div>
         {error && (
           <>
