@@ -115,7 +115,7 @@ class Admin extends Component {
     return (
       <div className="center">
         <h1>Page admin</h1>
-        <p>Bienvenue {user.name}!</p>
+        <p>Bienvenue {user.Nom}!</p>
         <button type="button" id="disconnectButton" onClick={handleLogout}>
           Se déconnecter
         </button>
