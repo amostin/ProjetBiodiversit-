@@ -2,7 +2,7 @@
   text-align: center;
   border-radius: 5px;
   border: 2px solid black;
-  width: 20vw;
+  width: 60vw;
   display: inline-block;
 }
 #loginButton {
@@ -26,5 +26,27 @@
 
 input[type="text"],
 input[type="password"] {
-  width: 10vw;
+  width: 40vw;
+}
+
+@media only screen and (min-width: 600px) {
+  #connectBox {
+    width: 50vw;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 30vw;
+  }
+}
+
+@media only screen and (min-width: 900px) {
+  #connectBox {
+    width: 20vw;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    width: 10vw;
+  }
 }
