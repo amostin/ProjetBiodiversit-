@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import "./../../App.css";
 import { Link } from "react-router-dom";
-import L from "leaflet";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import "./Parcours.css";
-
-L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
 class Parcours extends Component {
   state = {

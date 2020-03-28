@@ -4,6 +4,7 @@ const mysql = require("mysql");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const utils = require("./utils");
 const app = express();
 
@@ -249,33 +250,76 @@ const userData = {
   isAdmin: true
 };
 
+// Enregister un utilisateur
+app.post("/users/register", (req, res) => {
+  const userData = {
+    Nom: req.body.Nom,
+    Pseudo: req.body.Pseudo,
+    MdP: req.body.MdP
+  };
+  const FIND_USER = `SELECT * FROM users WHERE Pseudo ='${userData.Pseudo}'`;
+  connection.query(FIND_USER, (err, rows) => {
+    if (err) {
+      return res.send(err);
+    } else if (rows != 0) {
+      return res.send("l'utilisateur existe déjà");
+    } else {
+      bcrypt.hash(req.body.MdP, 10, (err, hash) => {
+        userData.MdP = hash;
+        const CREATE_USER = `INSERT INTO users(Nom, Pseudo, MdP) 
+        VALUES('${userData.Nom}', '${userData.Pseudo}', '${userData.MdP}')`;
+        connection.query(CREATE_USER, (err, results) => {
+          if (err) {
+            return res.send(err);
+          } else {
+            return res.send("Utilisateur ajouté");
+          }
+        });
+      });
+    }
+  });
+});
+
 // valider les informations d'identification de l'utilisateur
 app.post("/users/signin", function(req, res) {
-  const user = req.body.username;
-  const pwd = req.body.password;
+  const userDetails = {
+    Pseudo: req.body.Pseudo,
+    MdP: req.body.MdP
+  };
 
   // retourner l'état 400 si le nom d'utilisateur / mot de passe n'existe pas
-  if (!user || !pwd) {
+  if (!userDetails.Pseudo || !userDetails.MdP) {
     return res.status(400).json({
       error: true,
       message: "Le pseudo et le mot de passe sont obligatoires."
     });
   }
-
-  // retourner l'état 401 si les informations d'identification ne correspondent pas.
-  if (user !== userData.username || pwd !== userData.password) {
-    return res.status(401).json({
-      error: true,
-      message: "Le pseudo et le mot de passe sont incorrects."
-    });
-  }
-
-  // générer token
-  const token = utils.generateToken(userData);
-  // obtenir les détails de l'utilisateur de base
-  const userObj = utils.getCleanUser(userData);
-  // retourner le token avec les détails de l'utilisateur
-  return res.json({ user: userObj, token });
+  const FIND_USER = `SELECT * FROM users WHERE Pseudo ='${userDetails.Pseudo}'`;
+  connection.query(FIND_USER, (err, rows) => {
+    if (err) {
+      return res.send(err);
+    } else if (rows == 0) {
+      return res.status(400).json({ error: "L'utilisateur n'existe pas" });
+    } else if (!bcrypt.compareSync(userDetails.MdP, rows[0].MdP)) {
+      return res.status(401).json({
+        error: true,
+        message: "Le pseudo et/ou le mot de passe sont incorrects."
+      });
+    } else if (bcrypt.compareSync(userDetails.MdP, rows[0].MdP)) {
+      const userData = {
+        UserID: rows[0].UserID,
+        Nom: rows[0].Nom,
+        Pseudo: rows[0].Pseudo,
+        Admin: rows[0].Admin
+      };
+      // générer token
+      const token = utils.generateToken(userData);
+      // obtenir les détails de l'utilisateur de base
+      const userObj = utils.getCleanUser(userData);
+      // retourner le token avec les détails de l'utilisateur
+      return res.json({ user: userObj, token });
+    }
+  });
 });
 
 // vérifier le jeton et le renvoyer s'il est valide
@@ -295,17 +339,30 @@ app.get("/verifyToken", function(req, res) {
         error: true,
         message: "Token non valide."
       });
-
-    // return 401 status if the userId does not match.
-    if (user.userId !== userData.userId) {
-      return res.status(401).json({
-        error: true,
-        message: "Utilisateur non valide."
-      });
-    }
-    // get basic user details
-    var userObj = utils.getCleanUser(userData);
-    return res.json({ user: userObj, token });
+    const USER_BY_ID = `SELECT * FROM users WHERE UserID=${user.UserID}`;
+    connection.query(USER_BY_ID, (err, rows) => {
+      // return 401 status if the userId does not match.
+      if (err)
+        return res.status(401).json({
+          error: true,
+          message: "Erreur dans la requête"
+        });
+      if (user.UserID !== rows[0].UserID) {
+        return res.status(401).json({
+          error: true,
+          message: "Utilisateur non valide."
+        });
+      }
+      const userData = {
+        UserID: rows[0].UserID,
+        Nom: rows[0].Nom,
+        Pseudo: rows[0].Pseudo,
+        Admin: rows[0].Admin
+      };
+      // get basic user details
+      var userObj = utils.getCleanUser(userData);
+      return res.json({ user: userObj, token });
+    });
   });
 });
 
@@ -333,13 +390,11 @@ app.use(function(req, res, next) {
 // request handlers
 app.get("/", (req, res) => {
   if (!req.user)
-    return res
-      .status(401)
-      .json({
-        success: false,
-        message: "Utilisateur non valide pour y accéder."
-      });
-  res.send("Bienvenue - " + req.user.name);
+    return res.status(401).json({
+      success: false,
+      message: "Utilisateur non valide pour y accéder."
+    });
+  res.send("Bienvenue - " + req.user.Nom);
 });
 
 const port = process.env.PORT || 5000;

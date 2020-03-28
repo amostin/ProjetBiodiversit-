@@ -7,8 +7,8 @@ import { setUserSession } from "../../Utils/Common";
 
 function Login(props) {
   const [loading, setLoading] = useState(false);
-  const username = useFormInput("");
-  const password = useFormInput("");
+  const Pseudo = useFormInput("");
+  const MdP = useFormInput("");
   const [error, setError] = useState(null);
 
   // handle button click of login form
@@ -17,8 +17,8 @@ function Login(props) {
     setLoading(true);
     axios
       .post("http://localhost:5000/users/signin", {
-        username: username.value,
-        password: password.value
+        Pseudo: Pseudo.value,
+        MdP: MdP.value
       })
       .then(response => {
         setLoading(false);
@@ -44,19 +44,14 @@ function Login(props) {
           <input
             type="text"
             id="pseudo"
-            {...username}
+            {...Pseudo}
             autoComplete="new-password"
           />
         </div>
         <div style={{ marginTop: 10 }}>
           <label htmlFor="mdp">Mot de passe</label>
           <br />
-          <input
-            type="password"
-            id="mdp"
-            {...password}
-            autoComplete="new-password"
-          />
+          <input type="password" id="mdp" {...MdP} autoComplete="username" />
         </div>
         {error && (
           <>
