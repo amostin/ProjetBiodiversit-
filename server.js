@@ -56,67 +56,6 @@ app.get("/api/pointsInteret/:id", (req, res) => {
   });
 });
 
-// Crée un point d'intérêt avec les valeurs données
-app.post("/api/pointsInteret", (req, res) => {
-  const {
-    NomScientifique,
-    Nom,
-    FamilleID,
-    ParcoursID,
-    Longitude,
-    Latitude,
-    CategorieID,
-    Accessibilite,
-    Debut,
-    Fin
-  } = req.query;
-
-  const INSERT_PLACES_QUERY = `INSERT INTO pointsinteret (
-    NomScientifique,
-    Nom,
-    FamilleID,
-    ParcoursID,
-    Longitude,
-    Latitude,
-    CategorieID,
-    Accessibilite,
-    Debut,
-    Fin
-    ) VALUES('${NomScientifique}', '${Nom}', '${FamilleID}', '${ParcoursID}', '${Longitude}', '${Latitude}', '${CategorieID}', '${Accessibilite}', '${Debut}', '${Fin}')`;
-  connection.query(INSERT_PLACES_QUERY, (err, results) => {
-    if (err) {
-      return res.send(err);
-    } else {
-      return res.send("Successfully added place");
-    }
-  });
-});
-
-// Modifie le point d'intérêt identifié par l'id donné avec les valeurs données
-app.put("/api/pointsInteret/:id", (req, res) => {
-  const PointInteretID = req.params.id;
-  const {
-    NomScientifique,
-    Nom,
-    FamilleID,
-    ParcoursID,
-    Longitude,
-    Latitude,
-    CategorieID,
-    Accessibilite,
-    Debut,
-    Fin
-  } = req.query;
-  const UPDATE_INTEREST_POINT_QUERY = `UPDATE pointsinteret SET NomScientifique = '${NomScientifique}', Nom = '${Nom}', FamilleID = '${FamilleID}', ParcoursID = '${ParcoursID}', Longitude = '${Longitude}', Latitude = '${Latitude}', CategorieID = '${CategorieID}', Debut = '${Debut}', Fin = '${Fin}', Accessibilite = '${Accessibilite}' where PointInteretID = '${PointInteretID}'`;
-  connection.query(UPDATE_INTEREST_POINT_QUERY, (err, results) => {
-    if (err) {
-      return res.send(err);
-    } else {
-      return res.send("Successfully updated place");
-    }
-  });
-});
-
 // Supprime le point d'intérêt dont l'id est donné
 app.delete("/api/pointsInteret/:id", (req, res) => {
   const PointInteretID = req.params.id;
@@ -241,14 +180,67 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// Informations statiques de l'utilisateur
-const userData = {
-  userId: "789789",
-  password: "noot123!",
-  name: "Newt",
-  username: "noot",
-  isAdmin: true
-};
+// Crée un point d'intérêt avec les valeurs données
+app.post("/api/pointsInteret", (req, res) => {
+  const pointData = {
+    NomScientifique: req.body.NomScientifique,
+    Nom: req.body.Nom,
+    FamilleID: req.body.FamilleID,
+    ParcoursID: req.body.ParcoursID,
+    Longitude: req.body.Longitude,
+    Latitude: req.body.Latitude,
+    CategorieID: req.body.CategorieID,
+    Accessibilite: req.body.Accessibilite,
+    Debut: req.body.Debut,
+    Fin: req.body.Fin
+  };
+
+  const INSERT_PLACES_QUERY = `INSERT INTO pointsinteret (
+    NomScientifique,
+    Nom,
+    FamilleID,
+    ParcoursID,
+    Longitude,
+    Latitude,
+    CategorieID,
+    Accessibilite,
+    Debut,
+    Fin
+    ) VALUES('${pointData.NomScientifique}', '${pointData.Nom}', '${pointData.FamilleID}', '${pointData.ParcoursID}', '${pointData.Longitude}', '${pointData.Latitude}', '${pointData.CategorieID}', '${pointData.Accessibilite}', '${pointData.Debut}', '${pointData.Fin}')`;
+  connection.query(INSERT_PLACES_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.send("Successfully added place");
+    }
+  });
+});
+
+// Modifie le point d'intérêt identifié par l'id donné avec les valeurs données
+app.put("/api/pointsInteret/:id", (req, res) => {
+  const PointInteretID = req.params.id;
+  const pointData = {
+    NomScientifique: req.body.NomScientifique,
+    Nom: req.body.Nom,
+    FamilleID: req.body.FamilleID,
+    ParcoursID: req.body.ParcoursID,
+    Longitude: req.body.Longitude,
+    Latitude: req.body.Latitude,
+    CategorieID: req.body.CategorieID,
+    Accessibilite: req.body.Accessibilite,
+    Debut: req.body.Debut,
+    Fin: req.body.Fin
+  };
+
+  const UPDATE_INTEREST_POINT_QUERY = `UPDATE pointsinteret SET NomScientifique = '${pointData.NomScientifique}', Nom = '${pointData.Nom}', FamilleID = '${pointData.FamilleID}', ParcoursID = '${pointData.ParcoursID}', Longitude = '${pointData.Longitude}', Latitude = '${pointData.Latitude}', CategorieID = '${pointData.CategorieID}', Debut = '${pointData.Debut}', Fin = '${pointData.Fin}', Accessibilite = '${pointData.Accessibilite}' where PointInteretID = '${PointInteretID}'`;
+  connection.query(UPDATE_INTEREST_POINT_QUERY, (err, results) => {
+    if (err) {
+      return res.send(err);
+    } else {
+      return res.send("Successfully updated place");
+    }
+  });
+});
 
 // Enregister un utilisateur
 app.post("/users/register", (req, res) => {
