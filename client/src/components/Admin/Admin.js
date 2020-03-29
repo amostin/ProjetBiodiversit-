@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./Admin.css";
 import { getUser, removeUserSession } from "./../../Utils/Common";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 class Admin extends Component {
   state = {
@@ -33,15 +34,23 @@ class Admin extends Component {
   };
 
   addPoint = _ => {
-    const { point } = this.state;
-    fetch(
-      `/api/pointsInteret?NomScientifique=${point.NomScientifique}&Nom=${point.Nom}&FamilleID=${point.FamilleID}&ParcoursID=${point.ParcoursID}&Longitude=${point.Longitude}&Latitude=${point.Latitude}&CategorieID=${point.CategorieID}&Accessibilite=${point.Accessibilite}&Debut=${point.Debut}&Fin=${point.Fin}`,
-      {
-        method: "post"
-      }
-    )
+    axios
+      .post("/api/pointsInteret", {
+        NomScientifique: this.state.point.NomScientifique,
+        Nom: this.state.point.Nom,
+        FamilleID: this.state.point.FamilleID,
+        ParcoursID: this.state.point.ParcoursID,
+        Longitude: this.state.point.Longitude,
+        Latitude: this.state.point.Latitude,
+        CategorieID: this.state.point.CategorieID,
+        Accessibilite: this.state.point.Accessibilite,
+        Debut: this.state.point.Debut,
+        Fin: this.state.point.Fin
+      })
       .then(this.getPlaces)
-      .catch(err => console.error(err));
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   deletePoint = PointInteretID => {
@@ -54,16 +63,23 @@ class Admin extends Component {
   };
 
   updatePoint = _ => {
-    const { point } = this.state;
-    console.log(point.PointInteretID);
-    fetch(
-      `/api/pointsInteret/${point.PointInteretID}?NomScientifique=${point.NomScientifique}&Nom=${point.Nom}&FamilleID=${point.FamilleID}&ParcoursID=${point.ParcoursID}&Longitude=${point.Longitude}&Latitude=${point.Latitude}&CategorieID=${point.CategorieID}&Accessibilite=${point.Accessibilite}&Debut=${point.Debut}&Fin=${point.Fin}`,
-      {
-        method: "put"
-      }
-    )
+    axios
+      .put(`/api/pointsInteret/${this.state.point.PointInteretID}`, {
+        NomScientifique: this.state.point.NomScientifique,
+        Nom: this.state.point.Nom,
+        FamilleID: this.state.point.FamilleID,
+        ParcoursID: this.state.point.ParcoursID,
+        Longitude: this.state.point.Longitude,
+        Latitude: this.state.point.Latitude,
+        CategorieID: this.state.point.CategorieID,
+        Accessibilite: this.state.point.Accessibilite,
+        Debut: this.state.point.Debut,
+        Fin: this.state.point.Fin
+      })
       .then(this.getPlaces)
-      .catch(err => console.error(err));
+      .catch(error => {
+        console.log(error);
+      });
   };
 
   renderPlaces = ({
@@ -107,6 +123,7 @@ class Admin extends Component {
 
   render() {
     const { places, point } = this.state;
+    const PointInteretID = this.state.point.PointInteretID;
     const user = getUser();
     const handleLogout = () => {
       removeUserSession();
