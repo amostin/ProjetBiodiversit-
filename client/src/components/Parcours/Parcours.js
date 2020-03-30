@@ -11,6 +11,9 @@ class Parcours extends Component {
   };
   componentDidMount() {
     this.getPlacesByParcours();
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position);
+    });
   }
   getPlacesByParcours = _ => {
     const { ParcoursID } = this.state;
