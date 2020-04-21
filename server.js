@@ -10,7 +10,7 @@ const app = express();
 
 // Informations pour la connexion à la DB
 const connection = mysql.createConnection({
-  host: "localhost",
+  host: "51.75.126.58",
   user: "root",
   password: "Jslmdpmlrdc3419$",
   database: "probio"
@@ -258,7 +258,7 @@ app.post("/users/register", (req, res) => {
     } else {
       bcrypt.hash(req.body.MdP, 10, (err, hash) => {
         userData.MdP = hash;
-        const CREATE_USER = `INSERT INTO users(Nom, Pseudo, MdP) 
+        const CREATE_USER = `INSERT INTO users(Nom, Pseudo, MdP)
         VALUES('${userData.Nom}', '${userData.Pseudo}', '${userData.MdP}')`;
         connection.query(CREATE_USER, (err, results) => {
           if (err) {
