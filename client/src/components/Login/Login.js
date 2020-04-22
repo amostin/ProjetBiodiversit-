@@ -16,7 +16,7 @@ function Login(props) {
     setError(null);
     setLoading(true);
     axios
-      .post("http://localhost:5000/users/signin", {
+      .post("/users/signin", {
         Pseudo: Pseudo.value,
         MdP: MdP.value
       })
