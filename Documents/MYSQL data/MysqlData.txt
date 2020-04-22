@@ -1,0 +1,234 @@
+#######################
+CREATE TABLES         #
+#######################
+
+CREATE TABLE `parcours` (
+  `ParcoursID` int NOT NULL AUTO_INCREMENT,
+  `ParcoursNom` varchar(45) DEFAULT NULL,
+  `ParcoursLongueur` float DEFAULT NULL,
+  PRIMARY KEY (`ParcoursID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4_general_ci;
+
+CREATE TABLE `familles` (
+  `FamilleID` int NOT NULL AUTO_INCREMENT,
+  `FamilleNom` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`FamilleID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4_general_ci;
+
+CREATE TABLE `categories` (
+  `CategorieID` int NOT NULL AUTO_INCREMENT,
+  `CategorieNom` varchar(45) DEFAULT NULL,
+  PRIMARY KEY (`CategorieID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4_general_ci;
+
+CREATE TABLE `pointsinteret` (
+  `PointInteretID` int NOT NULL AUTO_INCREMENT,
+  `NomScientifique` varchar(45) DEFAULT NULL,
+  `Nom` varchar(45) DEFAULT NULL,
+  `FamilleID` int DEFAULT NULL,
+  `ParcoursID` int DEFAULT NULL,
+  `Longitude` float DEFAULT NULL,
+  `Latitude` float DEFAULT NULL,
+  `CategorieID` int DEFAULT NULL,
+  `Accessibilite` tinyint DEFAULT '1',
+  `Debut` date DEFAULT NULL,
+  `Fin` date DEFAULT NULL,
+  PRIMARY KEY (`PointInteretID`),
+  KEY `FK_Parcours_ParcoursID_idx` (`ParcoursID`),
+  KEY `FK_Categories_CategorieID_idx` (`CategorieID`),
+  KEY `FK_Familles_FamilleID_idx` (`FamilleID`),
+  CONSTRAINT `FK_Categories_CategorieID` FOREIGN KEY (`CategorieID`) REFERENCES `categories` (`CategorieID`),
+  CONSTRAINT `FK_Familles_FamilleID` FOREIGN KEY (`FamilleID`) REFERENCES `familles` (`FamilleID`),
+  CONSTRAINT `FK_Parcours_ParcoursID` FOREIGN KEY (`ParcoursID`) REFERENCES `parcours` (`ParcoursID`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+CREATE TABLE `users` (
+  `UserID` int NOT NULL AUTO_INCREMENT,
+  `Nom` varchar(45) DEFAULT NULL,
+  `Pseudo` varchar(45) DEFAULT NULL,
+  `MdP` longtext,
+  `Admin` tinyint DEFAULT '0',
+  PRIMARY KEY (`UserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+#######################
+INSERT DATA           #
+#######################
+
+INSERT INTO `users` (`UserID`,`Nom`,`Pseudo`,`MdP`,`Admin`) VALUES (1,'Newt','noot','$2b$10$0hurfnzZkPxiHO4SBWCtbOF5KmEf8HmqX/hYolubJvesPJiYDpbry',0);
+
+INSERT INTO `categories` (`CategorieID`,`CategorieNom`) VALUES (1,'Arbres remarquables');
+
+
+INSERT INTO `familles` (`FamilleID`,`FamilleNom`) VALUES (1,'Salix');
+INSERT INTO `familles` (`FamilleID`,`FamilleNom`) VALUES (2,'Acer');
+INSERT INTO `familles` (`FamilleID`,`FamilleNom`) VALUES (3,'Quercus');
+INSERT INTO `familles` (`FamilleID`,`FamilleNom`) VALUES (99,'Autre');
+
+
+INSERT INTO `parcours` (`ParcoursID`,`ParcoursNom`,`ParcoursLongueur`) VALUES (1,'Parcours des Sciences',2.1);
+INSERT INTO `parcours` (`ParcoursID`,`ParcoursNom`,`ParcoursLongueur`) VALUES (2,'Parcours du cyclotron',1);
+INSERT INTO `parcours` (`ParcoursID`,`ParcoursNom`,`ParcoursLongueur`) VALUES (3,'Parcours du lac',1.9);
+INSERT INTO `parcours` (`ParcoursID`,`ParcoursNom`,`ParcoursLongueur`) VALUES (4,'Parcours du jardin botanique',1);
+INSERT INTO `parcours` (`ParcoursID`,`ParcoursNom`,`ParcoursLongueur`) VALUES (5,'Parcours du parc de Moulinsart',1.6);
+
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (1,'Salix alba cv. tristis',NULL,1,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (2,'Acer pensylvanicum',NULL,2,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (3,'Cupressus Sempervirens',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (4,'Carya illinonensis',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (5,'Taxus baccata',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (6,'Picea omorika',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (7,'Ulmus minor',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (8,'Acer capillipes',NULL,2,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (9,'Quercus robur cv. fastigiata',NULL,3,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (10,'Ulmus minor cv. variegata',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (11,'Parrotia persica',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (12,'Carpinus betulus','Charme commun',99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (13,'Corylus avellana',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (14,'Juglans nigra',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (15,'Zone de Fagus sylvatica',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (16,'Quercus robur - arbre de la continuité',NULL,3,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (17,'Salix alba','Saule blanc',1,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (18,'Populus nigra subsp. pyramidalis',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (19,'Robinia pseudoacacia cv. Frisia',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (20,'Robinia pseudoacacia','Robinier faux-acacia',99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (21,'Sorbus aucuparia',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (22,'Ginkgo biloba',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (23,'Crataegus crus-galli',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (24,'Sequoiadendron giganteum',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (25,'Alnus incana',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (26,'Tilia tomentosa',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (27,'Tilia mongolica',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (28,'Tilia cordata',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (29,'Zelkova serrata',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (30,'Populus x interamericana cv. UNAL',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (31,'Fagus sylvatica cv. laciniata',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (32,'Betula pendula','Bouleau verruqueux',99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (33,'Juniperus chinensis cv. Hetzii',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (34,'Metasequoia glyptostroboides',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (35,'Crataegus x lavallei',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (36,'Liquidambar styraciflua','Copalme d\'Amérique',99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (37,'Acer platanoides',NULL,2,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (38,'Acer campestre',NULL,2,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (39,'Betula nigra cv. Héritage',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (40,'Betula pendula','Bouleau verruqueux',99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (41,'Pinus nigra ssp. Nigricans',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (42,'Pinus nigra ssp. Nigricans',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (43,'Pinus nigra ssp. Nigricans',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (44,'Liriodendron tulipifera cv. aureomarginatum',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (45,'Quercus macrocarpa',NULL,3,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (46,'Platanus x acerifolia',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (47,'Sorbus aria',NULL,99,1,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (48,'Carpinus betulus cv. fastigiata',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (49,'Acer negundo',NULL,2,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (50,'Aesculus hippocastanum',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (51,'Acer palmatum cv. dissectum \"Filigree\"',NULL,2,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (52,'Ailanthus glandulosa',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (53,'Tilia tomentosa',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (54,'Catalpa bignonioides',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (55,'Acer palmatum cv. dissectum',NULL,2,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (56,'Acer campestre',NULL,2,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (57,'Elaeagnus angustifolia',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (58,'Cercidiphyllum japonicum',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (59,'Cornus mas',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (60,'Liriodendron tulipifera',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (61,'Liriodendron tulipifera',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (62,'Liriodendron tulipifera',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (63,'Liriodendron tulipifera',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (64,'Liriodendron tulipifera',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (65,'Liriodendron tulipifera',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (66,'Liriodendron tulipifera',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (67,'Liriodendron tulipifera',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (68,'Liriodendron tulipifera',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (69,'Sequoidadendron giganteum',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (70,'Populus x canescens - groupe',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (71,'Salix fragilis',NULL,1,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (72,'Quercus rubra',NULL,3,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (73,'Acer pseudoplatanus',NULL,2,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (74,'Fagus sylvatica cv. tortuosa',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (75,'Acer saccharinum','Érable argenté',2,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (76,'Platanus x acerifolia',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (77,'Ginkgo biloba',NULL,99,2,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (78,'Quercus robur','Chêne pédonculé',3,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (79,'Alnus glutinosa','Aulne glutineux',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (80,'Salix caprea','Saule marsault',1,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (81,'Betula pendula','Bouleau verruqueux',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (82,'Salix alba cv. tristis','Saule blanc',1,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (83,'Juglans nigra','Noyer d\'Amérique',1,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (84,'Juglans regia','Noyer commun',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (85,'Salix cinerea','Saule cendré',1,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (86,'Pterocarya fraxinifolia','Noyer du Caucase',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (87,'Liquidambar styraciflua','Copalme d\'Amérique',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (88,'Phellodendron amurense','Arbre au liège de l\'Amour',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (89,'Euonymus europaeus','Fusain d\'Europe',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (90,'Acer platanoides cv. Crimson King','Erable platane Crimson King',2,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (91,'Acer platanoides cv. Crimson King','Erable platane Crimson King',2,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (92,'Acer platanoides cv. Crimson King','Erable platane Crimson King',2,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (93,'Catalpa bignonioides','Catalpa commun',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (94,'Carpinus betulus','Charme commun',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (95,'Carpinus betulus','Charme commun',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (96,'Carpinus betulus','Charme commun',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (97,'Viburnum opulus','Viorne obier',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (98,'Pterocarya fraxinifolia','Noyer du Caucase',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (99,'Tilia americana','Tilleul d\'Amérique',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (100,'Acer rufinerve cv. limbatum','Érable à feuilles de vigne',2,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (101,'Alnus x spaethii (japonica x subcordata)','L’aulne de Spaeth',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (102,'Prunus avium','Merisier',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (103,'Quercus velutina','Chêne noir',3,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (104,'Quercus palustris','Chêne des marais',3,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (105,'Acer davidii','Erable du Père David',2,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (106,'Sorbus torminalis','Alisier torminal',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (107,'Quercus x rosacea (Q.petraea x Q.robur)','Chêne hybride',3,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (108,'Ulmus x hollandica cv. Klemmer','Orme doré',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (109,'Salix alba','Saule blanc',1,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (110,'Alnus x spaethii (japonica x subcordata)','Aulne de Spaeth',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (111,'Cormus alba cv. Sibirica','Cornouiller blanc',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (112,'Quercus alba','Chêne blanc',3,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (113,'Quercus palustris','Chêne des marais',3,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (114,'Acer opalus','Érable à feuilles d\'obier',2,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (115,'Thuja plicata','Thuya géant',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (116,'Larix Kaempferi','Mélèze du Japon',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (117,'Quercus robur','Chêne pédonculé',3,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (118,'Castanea sativa','Châtaignier commun',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (119,'Robinia pseudoacacia','Robinier faux-acacia',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (120,'Salix vinimalis','Saule des vanniers',1,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (121,'Alnus cordata','Aulne de Corse',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (122,'Salix alba','Saule blanc',1,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (123,'Acer saccharinum','Érable argenté',2,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (124,'Ulmus carpinifolia','Orme champêtre',99,3,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (125,'Acer pseudoplatanus',NULL,2,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (126,'Gleditsia triacanthos cv. Elegantissima',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (127,'Aesculus parviflora',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (128,'Sequoiadendron giganteum cv. pygmaeum',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (129,'Carpinus betulus','Charme commun',99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (130,'Pseudotsuga menziesii  Var. menziesii Franco',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (131,'Lindera benzoin',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (132,'Salix alba','Saule blanc',1,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (133,'Metasequoia glyptostroboides',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (134,'Pinus nigra ssp. Laricio Poiret',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (135,'Taxus baccata',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (136,'Abies grandis',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (137,'Nyssa sylvatica',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (138,'Acer negundo',NULL,2,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (139,'Quercus robur','Chêne pédonculé',3,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (140,'Cedrus libani',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (141,'Acer pseudoplatanus cv. Leopoldii',NULL,2,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (142,'Fraxinus longicuspis',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (143,'Sorbus aria',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (144,'Sorbus aria',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (145,'Populus x interamericana UNAL',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (146,'Liquidambar styraciflua','Copalme d\'Amérique',99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (147,'Aesculus turbinata',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (148,'Betula pendula','Bouleau verruqueux',99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (149,'Betula pendula','Bouleau verruqueux',99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (150,'Betula pendula','Bouleau verruqueux',99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (151,'Betula pendula','Bouleau verruqueux',99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (152,'Salix alba cv. tristis',NULL,1,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (153,'Corylus maxima cv. purpurea',NULL,99,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (154,'Quercus cerris',NULL,3,4,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (155,'Ginkgo biloba',NULL,99,5,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (156,'Aesculus x carnea',NULL,99,5,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (157,'Ulmus minor',NULL,99,5,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (158,'Sequoiadendron giganteum',NULL,99,5,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (159,'Quercus dentata cv. yunnanensis',NULL,3,5,NULL,NULL,1,1,'2020-01-01','2020-12-31');
+INSERT INTO `pointsinteret` (`PointInteretID`,`NomScientifique`,`Nom`,`FamilleID`,`ParcoursID`,`Longitude`,`Latitude`,`CategorieID`,`Accessibilite`,`Debut`,`Fin`) VALUES (160,'Robinia pseudoacacia','Robinier faux-acacia',99,5,NULL,NULL,1,1,'2020-01-01','2020-12-31');
