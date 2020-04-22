@@ -10,7 +10,7 @@ const app = express();
 
 // Informations pour la connexion à la DB
 const connection = mysql.createConnection({
-  host: "localhost",
+  host: "51.75.126.58",
   user: "root",
   password: "Jslmdpmlrdc3419$",
   database: "probio"
@@ -243,7 +243,7 @@ app.put("/api/pointsInteret/:id", (req, res) => {
 });
 
 // Enregister un utilisateur
-app.post("51.75.126.58:5000/users/register", (req, res) => {
+app.post("/users/register", (req, res) => {
   const userData = {
     Nom: req.body.Nom,
     Pseudo: req.body.Pseudo,
@@ -273,7 +273,7 @@ app.post("51.75.126.58:5000/users/register", (req, res) => {
 });
 
 // valider les informations d'identification de l'utilisateur
-app.post("51.75.126.58:5000/users/signin", function(req, res) {
+app.post("/users/signin", function(req, res) {
   const userDetails = {
     Pseudo: req.body.Pseudo,
     MdP: req.body.MdP
@@ -315,7 +315,7 @@ app.post("51.75.126.58:5000/users/signin", function(req, res) {
 });
 
 // vérifier le jeton et le renvoyer s'il est valide
-app.get("51.75.126.58:5000/verifyToken", function(req, res) {
+app.get("/verifyToken", function(req, res) {
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token;
   if (!token) {
