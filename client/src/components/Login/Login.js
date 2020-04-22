@@ -18,18 +18,18 @@ function Login(props) {
     axios
       .post("/users/signin", {
         Pseudo: Pseudo.value,
-        MdP: MdP.value
+        MdP: MdP.value,
       })
-      .then(response => {
+      .then((response) => {
         setLoading(false);
         setUserSession(response.data.token, response.data.user);
         props.history.push("/admin");
       })
-      .catch(error => {
+      .catch((error) => {
         setLoading(false);
-        if (error.response && error.response.status === 401)
-          setError(error.response.data.message);
-        else setError("Something went wrong. Please try again later.");
+        if (error.response.status === 401)
+          setError("Le pseudo et/ou le mot de passe sont incorrects");
+        else setError("Des données sont manquantes ou incorrects");
       });
   };
 
@@ -45,13 +45,20 @@ function Login(props) {
             type="text"
             id="pseudo"
             {...Pseudo}
-            autoComplete="new-password"
+            autoComplete="username"
+            required
           />
         </div>
         <div style={{ marginTop: 10 }}>
           <label htmlFor="mdp">Mot de passe</label>
           <br />
-          <input type="password" id="mdp" {...MdP} autoComplete="username" />
+          <input
+            type="password"
+            id="mdp"
+            {...MdP}
+            autoComplete="new-password"
+            required
+          />
         </div>
         {error && (
           <>
@@ -61,7 +68,7 @@ function Login(props) {
         )}
         <input
           type="button"
-          value={loading ? "Loading..." : "Login"}
+          value={loading ? "Chargement..." : "Connexion"}
           onClick={handleLogin}
           id="loginButton"
           disabled={loading}
@@ -72,15 +79,15 @@ function Login(props) {
   );
 }
 
-const useFormInput = initialValue => {
+const useFormInput = (initialValue) => {
   const [value, setValue] = useState(initialValue);
 
-  const handleChange = e => {
+  const handleChange = (e) => {
     setValue(e.target.value);
   };
   return {
     value,
-    onChange: handleChange
+    onChange: handleChange,
   };
 };
 

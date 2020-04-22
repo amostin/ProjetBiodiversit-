@@ -13,11 +13,11 @@ const connection = mysql.createConnection({
   host: "127.0.0.1",
   user: "root",
   password: "Jslmdpmlrdc3419$",
-  database: "probio"
+  database: "probio",
 });
 
 //Connexion à la DB et vérification
-connection.connect(err => {
+connection.connect((err) => {
   if (err) {
     return err;
   }
@@ -50,7 +50,7 @@ app.get("/api/pointsInteret/:id", (req, res) => {
       return res.send(err);
     } else {
       return res.json({
-        data: results
+        data: results,
       });
     }
   });
@@ -81,7 +81,7 @@ app.get("/api/pointsInteret/parcours/:id", (req, res) => {
       return res.send(err);
     } else {
       return res.json({
-        data: results
+        data: results,
       });
     }
   });
@@ -95,7 +95,7 @@ app.get("/api/parcours", (req, res) => {
       return res.send(err);
     } else {
       return res.json({
-        data: results
+        data: results,
       });
     }
   });
@@ -110,7 +110,7 @@ app.get("/api/parcours/:id", (req, res) => {
       return res.send(err);
     } else {
       return res.json({
-        data: results
+        data: results,
       });
     }
   });
@@ -124,7 +124,7 @@ app.get("/api/categories", (req, res) => {
       return res.send(err);
     } else {
       return res.json({
-        data: results
+        data: results,
       });
     }
   });
@@ -139,7 +139,7 @@ app.get("/api/categories/:id", (req, res) => {
       return res.send(err);
     } else {
       return res.json({
-        data: results
+        data: results,
       });
     }
   });
@@ -153,7 +153,7 @@ app.get("/api/familles", (req, res) => {
       return res.send(err);
     } else {
       return res.json({
-        data: results
+        data: results,
       });
     }
   });
@@ -168,7 +168,7 @@ app.get("/api/familles/:id", (req, res) => {
       return res.send(err);
     } else {
       return res.json({
-        data: results
+        data: results,
       });
     }
   });
@@ -192,7 +192,7 @@ app.post("/api/pointsInteret", (req, res) => {
     CategorieID: req.body.CategorieID,
     Accessibilite: req.body.Accessibilite,
     Debut: req.body.Debut,
-    Fin: req.body.Fin
+    Fin: req.body.Fin,
   };
 
   const INSERT_PLACES_QUERY = `INSERT INTO pointsinteret (
@@ -229,7 +229,7 @@ app.put("/api/pointsInteret/:id", (req, res) => {
     CategorieID: req.body.CategorieID,
     Accessibilite: req.body.Accessibilite,
     Debut: req.body.Debut,
-    Fin: req.body.Fin
+    Fin: req.body.Fin,
   };
 
   const UPDATE_INTEREST_POINT_QUERY = `UPDATE pointsinteret SET NomScientifique = '${pointData.NomScientifique}', Nom = '${pointData.Nom}', FamilleID = '${pointData.FamilleID}', ParcoursID = '${pointData.ParcoursID}', Longitude = '${pointData.Longitude}', Latitude = '${pointData.Latitude}', CategorieID = '${pointData.CategorieID}', Debut = '${pointData.Debut}', Fin = '${pointData.Fin}', Accessibilite = '${pointData.Accessibilite}' where PointInteretID = '${PointInteretID}'`;
@@ -247,14 +247,14 @@ app.post("/users/register", (req, res) => {
   const userData = {
     Nom: req.body.Nom,
     Pseudo: req.body.Pseudo,
-    MdP: req.body.MdP
+    MdP: req.body.MdP,
   };
   const FIND_USER = `SELECT * FROM users WHERE Pseudo ='${userData.Pseudo}'`;
   connection.query(FIND_USER, (err, rows) => {
     if (err) {
       return res.send(err);
     } else if (rows != 0) {
-      return res.send("l'utilisateur existe déjà");
+      return res.status(400).json({ error: "L'utilisateur n'existe pas" });
     } else {
       bcrypt.hash(req.body.MdP, 10, (err, hash) => {
         userData.MdP = hash;
@@ -262,7 +262,7 @@ app.post("/users/register", (req, res) => {
         VALUES('${userData.Nom}', '${userData.Pseudo}', '${userData.MdP}')`;
         connection.query(CREATE_USER, (err, results) => {
           if (err) {
-            return res.send(err);
+            return res.status(401).json({ error: "Autre erreur" });
           } else {
             return res.send("Utilisateur ajouté");
           }
@@ -273,17 +273,17 @@ app.post("/users/register", (req, res) => {
 });
 
 // valider les informations d'identification de l'utilisateur
-app.post("/users/signin", function(req, res) {
+app.post("/users/signin", function (req, res) {
   const userDetails = {
     Pseudo: req.body.Pseudo,
-    MdP: req.body.MdP
+    MdP: req.body.MdP,
   };
 
   // retourner l'état 400 si le nom d'utilisateur / mot de passe n'existe pas
   if (!userDetails.Pseudo || !userDetails.MdP) {
     return res.status(400).json({
       error: true,
-      message: "Le pseudo et le mot de passe sont obligatoires."
+      message: "Le pseudo et le mot de passe sont obligatoires.",
     });
   }
   const FIND_USER = `SELECT * FROM users WHERE Pseudo ='${userDetails.Pseudo}'`;
@@ -295,14 +295,14 @@ app.post("/users/signin", function(req, res) {
     } else if (!bcrypt.compareSync(userDetails.MdP, rows[0].MdP)) {
       return res.status(401).json({
         error: true,
-        message: "Le pseudo et/ou le mot de passe sont incorrects."
+        message: "Le pseudo et/ou le mot de passe sont incorrects.",
       });
     } else if (bcrypt.compareSync(userDetails.MdP, rows[0].MdP)) {
       const userData = {
         UserID: rows[0].UserID,
         Nom: rows[0].Nom,
         Pseudo: rows[0].Pseudo,
-        Admin: rows[0].Admin
+        Admin: rows[0].Admin,
       };
       // générer token
       const token = utils.generateToken(userData);
@@ -315,21 +315,21 @@ app.post("/users/signin", function(req, res) {
 });
 
 // vérifier le jeton et le renvoyer s'il est valide
-app.get("/verifyToken", function(req, res) {
+app.get("/verifyToken", function (req, res) {
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token;
   if (!token) {
     return res.status(400).json({
       error: true,
-      message: "Token est nécessaire."
+      message: "Token est nécessaire.",
     });
   }
   // check token that was passed by decoding token using secret
-  jwt.verify(token, process.env.JWT_SECRET, function(err, user) {
+  jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
     if (err)
       return res.status(401).json({
         error: true,
-        message: "Token non valide."
+        message: "Token non valide.",
       });
     const USER_BY_ID = `SELECT * FROM users WHERE UserID=${user.UserID}`;
     connection.query(USER_BY_ID, (err, rows) => {
@@ -337,19 +337,19 @@ app.get("/verifyToken", function(req, res) {
       if (err)
         return res.status(401).json({
           error: true,
-          message: "Erreur dans la requête"
+          message: "Erreur dans la requête",
         });
       if (user.UserID !== rows[0].UserID) {
         return res.status(401).json({
           error: true,
-          message: "Utilisateur non valide."
+          message: "Utilisateur non valide.",
         });
       }
       const userData = {
         UserID: rows[0].UserID,
         Nom: rows[0].Nom,
         Pseudo: rows[0].Pseudo,
-        Admin: rows[0].Admin
+        Admin: rows[0].Admin,
       };
       // get basic user details
       var userObj = utils.getCleanUser(userData);
@@ -360,17 +360,17 @@ app.get("/verifyToken", function(req, res) {
 
 //middleware that checks if JWT token exists and verifies it if it does exist.
 //In all future routes, this helps to know if the request is authenticated or not.
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   // check header or url parameters or post parameters for token
   var token = req.headers["authorization"];
   if (!token) return next(); //if no token, continue
 
   token = token.replace("Bearer ", "");
-  jwt.verify(token, process.env.JWT_SECRET, function(err, user) {
+  jwt.verify(token, process.env.JWT_SECRET, function (err, user) {
     if (err) {
       return res.status(401).json({
         error: true,
-        message: "Utilisateur non valide."
+        message: "Utilisateur non valide.",
       });
     } else {
       req.user = user; //set the user to req so other routes can use it
@@ -384,7 +384,7 @@ app.get("/", (req, res) => {
   if (!req.user)
     return res.status(401).json({
       success: false,
-      message: "Utilisateur non valide pour y accéder."
+      message: "Utilisateur non valide pour y accéder.",
     });
   res.send("Bienvenue - " + req.user.Nom);
 });

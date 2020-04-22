@@ -9,8 +9,7 @@ class NewUser extends Component {
       Nom: "",
       Pseudo: "",
       MdP: "",
-      error: null,
-      setError: null
+      setError: null,
     };
   }
 
@@ -19,11 +18,17 @@ class NewUser extends Component {
       .post("/users/register", {
         Nom: this.state.Nom,
         Pseudo: this.state.Pseudo,
-        MdP: this.state.MdP
+        MdP: this.state.MdP,
       })
-      .then(this.props.history.push("/admin"))
-      .catch(error => {
-        console.log(error);
+      .then((response) => {
+        this.props.history.push("/admin");
+      })
+      .catch((error) => {
+        if (error.response.status === 400) {
+          this.setState({
+            setError: "L'utilisateur existe déjà",
+          });
+        } else this.setState({ setError: "Veuillez remplir tous les champs" });
       });
   };
   render() {
@@ -38,12 +43,13 @@ class NewUser extends Component {
               type="text"
               id="Nom"
               value={this.state.Nom}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  Nom: e.target.value
+                  Nom: e.target.value,
                 })
               }
               autoComplete="name"
+              required
             />
           </div>
           <div>
@@ -53,12 +59,13 @@ class NewUser extends Component {
               type="text"
               id="Pseudo"
               value={this.state.Pseudo}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  Pseudo: e.target.value
+                  Pseudo: e.target.value,
                 })
               }
               autoComplete="new-password"
+              required
             />
           </div>
           <div style={{ marginTop: 10 }}>
@@ -68,17 +75,18 @@ class NewUser extends Component {
               type="password"
               id="MdP"
               value={this.state.MdP}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  MdP: e.target.value
+                  MdP: e.target.value,
                 })
               }
               autoComplete="new-password"
+              required
             />
           </div>
-          {this.state.error && (
+          {this.state.setError && (
             <>
-              <small style={{ color: "red" }}>{this.state.error}</small>
+              <small style={{ color: "red" }}>{this.state.setError}</small>
               <br />
             </>
           )}
