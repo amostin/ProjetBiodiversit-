@@ -10,7 +10,7 @@ const app = express();
 
 // Informations pour la connexion à la DB
 const connection = mysql.createConnection({
-  host: "localhost",
+  host: "127.0.0.1",
   user: "root",
   password: "Jslmdpmlrdc3419$",
   database: "probio"
