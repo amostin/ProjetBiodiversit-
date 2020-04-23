@@ -249,12 +249,18 @@ app.post("/users/register", (req, res) => {
     Pseudo: req.body.Pseudo,
     MdP: req.body.MdP,
   };
+  if (!userData.Nom || !userData.Pseudo || !userData.MdP) {
+    return res.status(400).json({
+      error: true,
+      message: "Le pseudo et le mot de passe sont obligatoires.",
+    });
+  }
   const FIND_USER = `SELECT * FROM users WHERE Pseudo ='${userData.Pseudo}'`;
   connection.query(FIND_USER, (err, rows) => {
     if (err) {
       return res.send(err);
     } else if (rows != 0) {
-      return res.status(400).json({ error: "L'utilisateur n'existe pas" });
+      return res.status(401).json({ error: "L'utilisateur n'existe pas" });
     } else {
       bcrypt.hash(req.body.MdP, 10, (err, hash) => {
         userData.MdP = hash;
@@ -262,7 +268,7 @@ app.post("/users/register", (req, res) => {
         VALUES('${userData.Nom}', '${userData.Pseudo}', '${userData.MdP}')`;
         connection.query(CREATE_USER, (err, results) => {
           if (err) {
-            return res.status(401).json({ error: "Autre erreur" });
+            return res.status(400).json({ error: "Autre erreur" });
           } else {
             return res.send("Utilisateur ajouté");
           }

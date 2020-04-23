@@ -24,11 +24,12 @@ class NewUser extends Component {
         this.props.history.push("/admin");
       })
       .catch((error) => {
-        if (error.response.status === 400) {
+        if (error.response.status === 401) {
           this.setState({
             setError: "L'utilisateur existe déjà",
           });
-        } else this.setState({ setError: "Veuillez remplir tous les champs" });
+        } else
+          this.setState({ setError: "Un ou plusieurs champs sont manquants" });
       });
   };
   render() {
