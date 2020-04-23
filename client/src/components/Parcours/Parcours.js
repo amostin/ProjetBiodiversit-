@@ -12,7 +12,10 @@ class Parcours extends Component {
   componentDidMount() {
     this.getPlacesByParcours();
     navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position);
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
     });
   }
   getPlacesByParcours = _ => {
@@ -25,7 +28,7 @@ class Parcours extends Component {
 
   render() {
     const center = ["50.665938", "4.612229"];
-    var zoom = 15;
+    var zoom = 8;
     const { places, ParcoursID } = this.state;
     return (
       <div>
@@ -52,6 +55,14 @@ class Parcours extends Component {
             <option value="4">Parcours du jardin botanique</option>
             <option value="5">Parcours du parc de Moulinsart</option>
           </select>
+        </div>
+        <div>
+        <button
+          className="geoloc"
+          
+        >
+          Ma position
+        </button>
         </div>
         <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
           <TileLayer
