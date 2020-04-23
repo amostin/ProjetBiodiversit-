@@ -12,13 +12,6 @@ class Parcours extends Component {
   };
   componentDidMount() {
     this.getPlacesByParcours();
-    navigator.geolocation.getCurrentPosition((position) => {
-      console.log(position.coords.latitude);
-      console.log(position.coords.longitude);
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      this.setState({userLoc: [latitude, longitude]});
-    });
   }
   getPlacesByParcours = _ => {
     const { ParcoursID } = this.state;
@@ -42,7 +35,7 @@ class Parcours extends Component {
   render() {
     const center = ["50.665938", "4.612229"];
     var zoom = 8;
-    const { places, ParcoursID } = this.state;
+    const { places, ParcoursID, userLoc } = this.state;
     return (
       <div>
         <label className="labelParcours" htmlFor="parcours">
@@ -72,7 +65,7 @@ class Parcours extends Component {
         <div>
         <button
           className="geoloc"
-
+          onClick={this.getUserLocalisation}
         >
           Ma position
         </button>
@@ -96,6 +89,10 @@ class Parcours extends Component {
           ))}
           <br />
 
+          <Marker position={center}>
+            <Popup>
+            </Popup>
+          </Marker>
 
         </Map>
         <ul className="listeParcours">
