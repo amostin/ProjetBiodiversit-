@@ -8,7 +8,7 @@ class Parcours extends Component {
   state = {
     places: [],
     ParcoursID: "5",
-    userLoc: []
+    userLoc: ["50.665938", "4.612229"]
   };
   componentDidMount() {
     this.getPlacesByParcours();
@@ -89,8 +89,9 @@ class Parcours extends Component {
           ))}
           <br />
 
-          <Marker position={center}>
+          <Marker position={userLoc}>
             <Popup>
+
             </Popup>
           </Marker>
 
