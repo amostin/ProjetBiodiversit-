@@ -7,7 +7,8 @@ import "./Parcours.css";
 class Parcours extends Component {
   state = {
     places: [],
-    ParcoursID: "5"
+    ParcoursID: "5",
+    userLoc: []
   };
   componentDidMount() {
     this.getPlacesByParcours();
@@ -16,6 +17,7 @@ class Parcours extends Component {
       console.log(position.coords.longitude);
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
+      this.setState({userLoc: [latitude, longitude]});
     });
   }
   getPlacesByParcours = _ => {
@@ -25,6 +27,17 @@ class Parcours extends Component {
       .then(res => this.setState({ places: res.data }))
       .catch(err => console.log(err));
   };
+
+  getUserLocalisation = _ => {
+    navigator.geolocation.getCurrentPosition((position) => {
+      console.log(position.coords.latitude);
+      console.log(position.coords.longitude);
+      const latitude = position.coords.latitude;
+      const longitude = position.coords.longitude;
+      this.setState({userLoc: [latitude, longitude]});
+    });
+
+  }
 
   render() {
     const center = ["50.665938", "4.612229"];
@@ -59,7 +72,7 @@ class Parcours extends Component {
         <div>
         <button
           className="geoloc"
-          
+
         >
           Ma position
         </button>
@@ -82,6 +95,8 @@ class Parcours extends Component {
             </Marker>
           ))}
           <br />
+
+
         </Map>
         <ul className="listeParcours">
           {places.map(place => (
