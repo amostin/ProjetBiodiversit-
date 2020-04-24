@@ -33,6 +33,11 @@ function Login(props) {
       });
   };
 
+  const home = () => {
+    props.history.push("/");
+  };
+
+
   return (
     <div className="center">
       <h1>Se connecter</h1>
@@ -73,6 +78,9 @@ function Login(props) {
           id="loginButton"
           disabled={loading}
         />
+        <button type="button" id="homeButton" onClick={home}>
+          Retour accueil
+        </button>
       </form>
       <br />
     </div>
