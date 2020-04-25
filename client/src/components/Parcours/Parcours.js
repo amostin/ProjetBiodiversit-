@@ -71,7 +71,7 @@ class Parcours extends Component {
           id="positionButton"
         />
         </div>
-        <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
+        <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18" minZoom="8">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
