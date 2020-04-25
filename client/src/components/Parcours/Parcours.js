@@ -22,9 +22,20 @@ class Parcours extends Component {
   };
 
   getUserLocalisation = _ => {
-    navigator.geolocation.getCurrentPosition((position) => {
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0
+    };
+
+    function error(err) {
+      console.warn(`ERREUR (${err.code}): ${err.message}`);
+    }
+
+    navigator.geolocation.getCurrentPosition((position, error, options) => {
       console.log(position.coords.latitude);
       console.log(position.coords.longitude);
+      console.log(`La précision est de ${position.coords.accuracy} mètres.`);
       const latitude = position.coords.latitude;
       const longitude = position.coords.longitude;
       this.setState({userLoc: [latitude, longitude]});
