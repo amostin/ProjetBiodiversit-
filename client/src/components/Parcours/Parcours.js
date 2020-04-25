@@ -8,35 +8,35 @@ class Parcours extends Component {
   state = {
     places: [],
     ParcoursID: "5",
-    userLoc: ["50.665938", "4.612229"]
+    userLoc: ["50.665938", "4.612229"],
   };
   componentDidMount() {
     this.getPlacesByParcours();
   }
-  getPlacesByParcours = _ => {
+  getPlacesByParcours = (_) => {
     const { ParcoursID } = this.state;
     fetch(`/api/pointsInteret/parcours/${ParcoursID}`)
-      .then(res => res.json())
-      .then(res => this.setState({ places: res.data }))
-      .catch(err => console.log(err));
+      .then((res) => res.json())
+      .then((res) => this.setState({ places: res.data }))
+      .catch((err) => console.log(err));
   };
 
-  getUserLocalisation = _ => {
-
-    navigator.geolocation.getCurrentPosition((position, options={enableHighAccuracy: true}) => {
-      console.log(position.coords.latitude);
-      console.log(position.coords.longitude);
-      console.log(`La précision est de ${position.coords.accuracy} mètres.`);
-      const latitude = position.coords.latitude;
-      const longitude = position.coords.longitude;
-      this.setState({userLoc: [latitude, longitude]});
-    });
-
-  }
+  getUserLocalisation = (_) => {
+    navigator.geolocation.getCurrentPosition(
+      (position, options = { enableHighAccuracy: true }) => {
+        console.log(position.coords.latitude);
+        console.log(position.coords.longitude);
+        console.log(`La précision est de ${position.coords.accuracy} mètres.`);
+        const latitude = position.coords.latitude;
+        const longitude = position.coords.longitude;
+        this.setState({ userLoc: [latitude, longitude] });
+      }
+    );
+  };
 
   render() {
     const center = ["50.665938", "4.612229"];
-    var zoom = 12;
+    var zoom = 14;
     const { places, ParcoursID, userLoc } = this.state;
     return (
       <div>
@@ -48,10 +48,10 @@ class Parcours extends Component {
           <select
             id="parcours"
             value={ParcoursID}
-            onChange={e =>
+            onChange={(e) =>
               this.setState(
                 {
-                  ParcoursID: e.target.value
+                  ParcoursID: e.target.value,
                 },
                 this.getPlacesByParcours
               )
@@ -65,20 +65,20 @@ class Parcours extends Component {
           </select>
         </div>
         <div>
-        <input
-          type="button"
-          className="geoloc"
-          onClick={this.getUserLocalisation}
-          value={"Ma position"}
-          id="positionButton"
-        />
+          <input
+            type="button"
+            className="geoloc"
+            onClick={this.getUserLocalisation}
+            value={"Ma position"}
+            id="positionButton"
+          />
         </div>
-        <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18" minZoom="8">
+        <Map id="map" zoom={zoom} center={center} maxZoom="18" minZoom="8">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
-          {places.map(place => (
+          {places.map((place) => (
             <Marker
               key={place.PointInteretID}
               position={[place.Longitude, place.Latitude]}
@@ -93,14 +93,11 @@ class Parcours extends Component {
           <br />
 
           <Marker position={userLoc}>
-            <Popup>
-
-            </Popup>
+            <Popup></Popup>
           </Marker>
-
         </Map>
         <ul className="listeParcours">
-          {places.map(place => (
+          {places.map((place) => (
             <li key={place.PointInteretID}>
               <Link to={`/pointInteret/${place.PointInteretID}`}>
                 {place.NomScientifique}
