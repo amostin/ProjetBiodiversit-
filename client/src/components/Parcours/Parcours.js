@@ -34,7 +34,7 @@ class Parcours extends Component {
 
   render() {
     const center = ["50.665938", "4.612229"];
-    var zoom = 8;
+    var zoom = 12;
     const { places, ParcoursID, userLoc } = this.state;
     return (
       <div>
@@ -63,12 +63,13 @@ class Parcours extends Component {
           </select>
         </div>
         <div>
-        <button
+        <input
+          type="button"
           className="geoloc"
           onClick={this.getUserLocalisation}
-        >
-          Ma position
-        </button>
+          value={"Ma position"}
+          id="positionButton"
+        />
         </div>
         <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
           <TileLayer

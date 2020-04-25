@@ -78,9 +78,12 @@ function Login(props) {
           id="loginButton"
           disabled={loading}
         />
-        <button type="button" id="homeButton" onClick={home}>
-          Retour accueil
-        </button>
+        <input
+          type="button"
+          value={"Page d'accueil"}
+          onClick={home}
+          id="homeButton"
+        />
       </form>
       <br />
     </div>
