@@ -22,17 +22,8 @@ class Parcours extends Component {
   };
 
   getUserLocalisation = _ => {
-    var options = {
-      enableHighAccuracy: true,
-      timeout: 5000,
-      maximumAge: 0
-    };
 
-    function error(err) {
-      console.warn(`ERREUR (${err.code}): ${err.message}`);
-    }
-
-    navigator.geolocation.getCurrentPosition((position, error, options) => {
+    navigator.geolocation.getCurrentPosition((position, options={enableHighAccuracy: true}) => {
       console.log(position.coords.latitude);
       console.log(position.coords.longitude);
       console.log(`La précision est de ${position.coords.accuracy} mètres.`);
