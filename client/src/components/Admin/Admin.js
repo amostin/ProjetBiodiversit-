@@ -18,22 +18,22 @@ class Admin extends Component {
       CategorieID: 1,
       Accessibilite: 1,
       Debut: "2020-01-01",
-      Fin: "2020-12-31"
-    }
+      Fin: "2020-12-31",
+    },
   };
 
   componentDidMount() {
     this.getPlaces();
   }
 
-  getPlaces = _ => {
+  getPlaces = (_) => {
     fetch("/api/pointsInteret")
-      .then(res => res.json())
-      .then(res => this.setState({ places: res.data }))
-      .catch(err => console.log(err));
+      .then((res) => res.json())
+      .then((res) => this.setState({ places: res.data }))
+      .catch((err) => console.log(err));
   };
 
-  addPoint = _ => {
+  addPoint = (_) => {
     axios
       .post("/api/pointsInteret", {
         NomScientifique: this.state.point.NomScientifique,
@@ -45,24 +45,24 @@ class Admin extends Component {
         CategorieID: this.state.point.CategorieID,
         Accessibilite: this.state.point.Accessibilite,
         Debut: this.state.point.Debut,
-        Fin: this.state.point.Fin
+        Fin: this.state.point.Fin,
       })
       .then(this.getPlaces)
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
 
-  deletePoint = PointInteretID => {
+  deletePoint = (PointInteretID) => {
     console.log(PointInteretID.PointInteretID);
     fetch(`/api/pointsInteret/${PointInteretID.PointInteretID}`, {
-      method: "delete"
+      method: "delete",
     })
       .then(this.getPlaces)
-      .catch(err => console.error(err));
+      .catch((err) => console.error(err));
   };
 
-  updatePoint = _ => {
+  updatePoint = (_) => {
     axios
       .put(`/api/pointsInteret/${this.state.point.PointInteretID}`, {
         NomScientifique: this.state.point.NomScientifique,
@@ -74,10 +74,10 @@ class Admin extends Component {
         CategorieID: this.state.point.CategorieID,
         Accessibilite: this.state.point.Accessibilite,
         Debut: this.state.point.Debut,
-        Fin: this.state.point.Fin
+        Fin: this.state.point.Fin,
       })
       .then(this.getPlaces)
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
       });
   };
@@ -93,7 +93,7 @@ class Admin extends Component {
     CategorieNom,
     Accessibilite,
     Debut,
-    Fin
+    Fin,
   }) => (
     <tr key={PointInteretID}>
       <td>{PointInteretID}</td>
@@ -123,7 +123,6 @@ class Admin extends Component {
 
   render() {
     const { places, point } = this.state;
-    const PointInteretID = this.state.point.PointInteretID;
     const user = getUser();
     const handleLogout = () => {
       removeUserSession();
@@ -170,9 +169,9 @@ class Admin extends Component {
               id="addNomScientifique"
               type="text"
               value={point.NomScientifique}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, NomScientifique: e.target.value }
+                  point: { ...point, NomScientifique: e.target.value },
                 })
               }
             />
@@ -182,7 +181,7 @@ class Admin extends Component {
               id="addNom"
               type="text"
               value={point.Nom}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({ point: { ...point, Nom: e.target.value } })
               }
             />
@@ -192,9 +191,9 @@ class Admin extends Component {
               id="addFamille"
               type="text"
               value={point.FamilleID}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, FamilleID: e.target.value }
+                  point: { ...point, FamilleID: e.target.value },
                 })
               }
             >
@@ -209,9 +208,9 @@ class Admin extends Component {
               id="addParcours"
               type="text"
               value={point.ParcoursID}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, ParcoursID: e.target.value }
+                  point: { ...point, ParcoursID: e.target.value },
                 })
               }
             >
@@ -228,9 +227,9 @@ class Admin extends Component {
               type="number"
               step="0.1"
               value={point.Longitude}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, Longitude: e.target.value }
+                  point: { ...point, Longitude: e.target.value },
                 })
               }
             />
@@ -241,9 +240,9 @@ class Admin extends Component {
               type="number"
               step="0.1"
               value={point.Latitude}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, Latitude: e.target.value }
+                  point: { ...point, Latitude: e.target.value },
                 })
               }
             />
@@ -255,9 +254,9 @@ class Admin extends Component {
               id="addCategorie"
               type="text"
               value={point.CategorieID}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, CategorieID: e.target.value }
+                  point: { ...point, CategorieID: e.target.value },
                 })
               }
             >
@@ -269,9 +268,9 @@ class Admin extends Component {
               id="addDebut"
               type="text"
               value={point.Debut}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, Debut: e.target.value }
+                  point: { ...point, Debut: e.target.value },
                 })
               }
             />
@@ -281,9 +280,9 @@ class Admin extends Component {
               id="addFin"
               type="text"
               value={point.Fin}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, Fin: e.target.value }
+                  point: { ...point, Fin: e.target.value },
                 })
               }
             />
@@ -292,9 +291,9 @@ class Admin extends Component {
             <select
               id="addAccessibilite"
               value={point.Accessibilite}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, Accessibilite: e.target.value }
+                  point: { ...point, Accessibilite: e.target.value },
                 })
               }
             >
@@ -314,9 +313,9 @@ class Admin extends Component {
               id="updateID"
               type="number"
               value={point.PointInteretID}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, PointInteretID: e.target.value }
+                  point: { ...point, PointInteretID: e.target.value },
                 })
               }
             />
@@ -326,9 +325,9 @@ class Admin extends Component {
               id="updateNomScientifique"
               type="text"
               value={point.NomScientifique}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, NomScientifique: e.target.value }
+                  point: { ...point, NomScientifique: e.target.value },
                 })
               }
             />
@@ -338,7 +337,7 @@ class Admin extends Component {
               id="updateNom"
               type="text"
               value={point.Nom}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({ point: { ...point, Nom: e.target.value } })
               }
             />
@@ -348,9 +347,9 @@ class Admin extends Component {
               id="updateFamille"
               type="text"
               value={point.FamilleID}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, FamilleID: e.target.value }
+                  point: { ...point, FamilleID: e.target.value },
                 })
               }
             >
@@ -365,9 +364,9 @@ class Admin extends Component {
               id="updateParcours"
               type="text"
               value={point.ParcoursID}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, ParcoursID: e.target.value }
+                  point: { ...point, ParcoursID: e.target.value },
                 })
               }
             >
@@ -384,9 +383,9 @@ class Admin extends Component {
               type="number"
               step="0.1"
               value={point.Longitude}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, Longitude: e.target.value }
+                  point: { ...point, Longitude: e.target.value },
                 })
               }
             />
@@ -397,9 +396,9 @@ class Admin extends Component {
               type="number"
               step="0.1"
               value={point.Latitude}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, Latitude: e.target.value }
+                  point: { ...point, Latitude: e.target.value },
                 })
               }
             />
@@ -411,9 +410,9 @@ class Admin extends Component {
               id="updateCategorie"
               type="text"
               value={point.CategorieID}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, CategorieID: e.target.value }
+                  point: { ...point, CategorieID: e.target.value },
                 })
               }
             >
@@ -425,9 +424,9 @@ class Admin extends Component {
               id="updateDebut"
               type="text"
               value={point.Debut}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, Debut: e.target.value }
+                  point: { ...point, Debut: e.target.value },
                 })
               }
             />
@@ -437,9 +436,9 @@ class Admin extends Component {
               id="updateFin"
               type="text"
               value={point.Fin}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, Fin: e.target.value }
+                  point: { ...point, Fin: e.target.value },
                 })
               }
             />
@@ -448,9 +447,9 @@ class Admin extends Component {
             <select
               id="updateAccessibilite"
               value={point.Accessibilite}
-              onChange={e =>
+              onChange={(e) =>
                 this.setState({
-                  point: { ...point, Accessibilite: e.target.value }
+                  point: { ...point, Accessibilite: e.target.value },
                 })
               }
             >
