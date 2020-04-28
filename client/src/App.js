@@ -22,7 +22,7 @@ function App() {
     }
 
     axios
-      .get(`/verifyToken?token=${token}`)
+      .get(`/api/verifyToken?token=${token}`)
       .then((response) => {
         setUserSession(response.data.token, response.data.user);
         setAuthLoading(false);

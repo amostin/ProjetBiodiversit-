@@ -15,7 +15,7 @@ class NewUser extends Component {
 
   register = () => {
     axios
-      .post("/users/register", {
+      .post("/api/users/register", {
         Nom: this.state.Nom,
         Pseudo: this.state.Pseudo,
         MdP: this.state.MdP,

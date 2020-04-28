@@ -243,7 +243,7 @@ app.put("/api/pointsInteret/:id", (req, res) => {
 });
 
 // Enregister un utilisateur
-app.post("/users/register", (req, res) => {
+app.post("/api/users/register", (req, res) => {
   const userData = {
     Nom: req.body.Nom,
     Pseudo: req.body.Pseudo,
@@ -279,7 +279,7 @@ app.post("/users/register", (req, res) => {
 });
 
 // valider les informations d'identification de l'utilisateur
-app.post("/users/signin", function (req, res) {
+app.post("/api/users/signin", function (req, res) {
   const userDetails = {
     Pseudo: req.body.Pseudo,
     MdP: req.body.MdP,
@@ -321,7 +321,7 @@ app.post("/users/signin", function (req, res) {
 });
 
 // vérifier le jeton et le renvoyer s'il est valide
-app.get("/verifyToken", function (req, res) {
+app.get("/api/verifyToken", function (req, res) {
   // check header or url parameters or post parameters for token
   var token = req.body.token || req.query.token;
   if (!token) {
