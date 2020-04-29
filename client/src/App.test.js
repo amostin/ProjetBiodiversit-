@@ -1,47 +1,37 @@
 import {
   getUser,
   getToken,
-  /*removeUserSession,*/
+  removeUserSession,
   setUserSession,
 } from "./Utils/Common";
-import axios from "axios";
 
 test("Fake test", () => {
   expect(true).toBeTruthy();
 });
 
-test("getUser", () => {
-  const Pseudo = "noot";
-  const MdP = "noot123!";
-  axios
-    .post("/users/signin", {
-      Pseudo: Pseudo.value,
-      MdP: MdP.value,
-    })
-    .then((response) => {
-      setUserSession(response.data.token, response.data.user);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+test("Test getUser", () => {
+  const user = '{"UserID": 99,"Nom": "test","Pseudo": "test","Admin": 1 }';
+  sessionStorage.setItem("user", JSON.stringify(user));
   const userResponse = getUser();
-  expect(userResponse).toBe(null);
+  expect(userResponse).toBe(
+    '{"UserID": 99,"Nom": "test","Pseudo": "test","Admin": 1 }'
+  );
 });
 
-test("getToken", () => {
-  const Pseudo = "noot";
-  const MdP = "noot123!";
-  axios
-    .post("/users/signin", {
-      Pseudo: Pseudo.value,
-      MdP: MdP.value,
-    })
-    .then((response) => {
-      setUserSession(response.data.token, response.data.user);
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+test("Test getToken", () => {
+  const token = '"token": "tokenExample151fsza"';
+  sessionStorage.setItem("token", token);
+  const tokenResponse = getToken();
+  expect(tokenResponse).toBe('"token": "tokenExample151fsza"');
+});
+/*
+test("Test setUserSession", () => {
   const tokenResponse = getToken();
   expect(tokenResponse).toBe(null);
 });
+
+test("Test removeUserSession", () => {
+  const tokenResponse = getToken();
+  expect(tokenResponse).toBe(null);
+});
+*/
