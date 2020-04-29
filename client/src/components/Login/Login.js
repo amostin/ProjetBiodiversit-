@@ -27,7 +27,7 @@ function Login(props) {
       })
       .catch((error) => {
         setLoading(false);
-        if (error.response && error.response.status === 401)
+        if (error.response)
           setError("Le pseudo et/ou le mot de passe sont incorrects");
         else setError("Des données sont manquantes ou incorrects");
       });
