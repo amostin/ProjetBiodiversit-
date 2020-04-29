@@ -140,27 +140,6 @@ class Admin extends Component {
           <button id="newUser">Ajouter un utilisateur</button>
         </Link>
         <br />
-        <br />
-        <table align="center">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>NomScientifique</th>
-              <th>Nom</th>
-              <th>Famille</th>
-              <th>Parcours</th>
-              <th>Longitude</th>
-              <th>Latitude</th>
-              <th>Catégorie</th>
-              <th>Accessible</th>
-              <th>Début</th>
-              <th>Fin</th>
-              <th>Supprimer</th>
-            </tr>
-          </thead>
-          <tbody>{places.map(this.renderPlaces)}</tbody>
-        </table>
-        <br />
         <div className="container">
           <div id="FormAddEntry" className="item">
             <h3>Ajouter un point d'intérêt</h3>
@@ -462,6 +441,27 @@ class Admin extends Component {
             </button>
           </div>
         </div>
+        <br />
+        <table align="center">
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>NomScientifique</th>
+              <th>Nom</th>
+              <th>Famille</th>
+              <th>Parcours</th>
+              <th>Longitude</th>
+              <th>Latitude</th>
+              <th>Catégorie</th>
+              <th>Accessible</th>
+              <th>Début</th>
+              <th>Fin</th>
+              <th>Supprimer</th>
+            </tr>
+          </thead>
+          <tbody>{places.map(this.renderPlaces)}</tbody>
+        </table>
+        <br />
       </div>
     );
   }
