@@ -1,8 +1,4 @@
-#!/usr/bin/env groovy
-pipeline {
-  agent any
-  tools {nodejs "latest"}
-  stages {
+node () {
     stage('preflight') {
       steps {
         echo sh(returnStdout: true, script: 'env')
@@ -22,4 +18,3 @@ pipeline {
       }
     }
   }
-}
