@@ -1,13 +1,30 @@
-node {
-  try {
-    stage('Build test'){
-     sh 'npm run build'
+pipeline {
+  agent any
+
+  tools {nodejs "node"}
+
+  stages {
+
+    stage('Cloning Git') {
+      steps {
+        git 'https://github.com/Cyril-Etyk/ProjetBiodiversit-'
+      }
     }
-    stage('Test'){
-      sh 'npm test'
+
+    stage('Install dependencies') {
+      steps {
+        sh 'npm install'
+      }
     }
-  }
-  catch (err) {
-    throw err
+
+    stage('Test') {
+      steps {
+         sh 'npm test'
+      }
+      stage('Deploy') {
+        steps {
+           sh 'npm run deploy'
+        }
+    }
   }
 }
