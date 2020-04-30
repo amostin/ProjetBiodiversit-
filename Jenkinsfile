@@ -1,30 +1,25 @@
+#!/usr/bin/env groovy
 pipeline {
   agent any
-
-  tools {nodejs "node"}
-
+  tools {nodejs "latest"}
   stages {
-
-    stage('Cloning Git') {
+    stage('preflight') {
       steps {
-        git 'https://github.com/Cyril-Etyk/ProjetBiodiversit-'
+        echo sh(returnStdout: true, script: 'env')
+        sh 'node -v'
       }
     }
-
-    stage('Install dependencies') {
+    stage('build') {
       steps {
-        sh 'npm install'
+        sh 'npm --version'
+        sh 'git log --reverse -1'
+        sh 'npm run deploy'
       }
     }
-
-    stage('Test') {
+    stage('test') {
       steps {
-         sh 'npm test'
+        sh 'npm test'
       }
-      stage('Deploy') {
-        steps {
-           sh 'npm run deploy'
-        }
     }
   }
 }
