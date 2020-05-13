@@ -35,7 +35,7 @@ class Itineraire extends Component {
           {places.map(place => (
             <Marker
               key={place.PointInteretID}
-              position={[place.Longitude, place.Latitude]}
+              position={[place.Latitude, place.Longitude]}
             >
               <Popup>
                 <Link to={`/pointInteret/${place.PointInteretID}`}>

@@ -13,8 +13,8 @@ class Admin extends Component {
       Nom: "nom",
       FamilleID: 99,
       ParcoursID: 2,
-      Longitude: 50.665938,
-      Latitude: 4.612229,
+      Latitude: 50.665938,
+      Longitude: 4.612229,
       CategorieID: 1,
       Accessibilite: 1,
       Debut: "2020-01-01",
@@ -40,8 +40,8 @@ class Admin extends Component {
         Nom: this.state.point.Nom,
         FamilleID: this.state.point.FamilleID,
         ParcoursID: this.state.point.ParcoursID,
-        Longitude: this.state.point.Longitude,
         Latitude: this.state.point.Latitude,
+        Longitude: this.state.point.Longitude,
         CategorieID: this.state.point.CategorieID,
         Accessibilite: this.state.point.Accessibilite,
         Debut: this.state.point.Debut,
@@ -69,8 +69,8 @@ class Admin extends Component {
         Nom: this.state.point.Nom,
         FamilleID: this.state.point.FamilleID,
         ParcoursID: this.state.point.ParcoursID,
-        Longitude: this.state.point.Longitude,
         Latitude: this.state.point.Latitude,
+        Longitude: this.state.point.Longitude,
         CategorieID: this.state.point.CategorieID,
         Accessibilite: this.state.point.Accessibilite,
         Debut: this.state.point.Debut,
@@ -88,8 +88,8 @@ class Admin extends Component {
     Nom,
     FamilleNom,
     ParcoursNom,
-    Longitude,
     Latitude,
+    Longitude,
     CategorieNom,
     Accessibilite,
     Debut,
@@ -101,8 +101,8 @@ class Admin extends Component {
       <td>{Nom}</td>
       <td>{FamilleNom}</td>
       <td>{ParcoursNom}</td>
-      <td>{Longitude}</td>
       <td>{Latitude}</td>
+      <td>{Longitude}</td>
       <td>{CategorieNom}</td>
       <td>{Accessibilite}</td>
       <td>{Debut}</td>
@@ -200,19 +200,6 @@ class Admin extends Component {
               <option value="5">Parcours du parc de Moulinsart</option>
             </select>
             <br />
-            <label htmlFor="addLongitude">Longitude</label>
-            <input
-              id="addLongitude"
-              type="number"
-              step="0.1"
-              value={point.Longitude}
-              onChange={(e) =>
-                this.setState({
-                  point: { ...point, Longitude: e.target.value },
-                })
-              }
-            />
-            <br />
             <label htmlFor="addLatitude">Latitude</label>
             <input
               id="addLatitude"
@@ -222,6 +209,19 @@ class Admin extends Component {
               onChange={(e) =>
                 this.setState({
                   point: { ...point, Latitude: e.target.value },
+                })
+              }
+            />
+            <br />
+            <label htmlFor="addLongitude">Longitude</label>
+            <input
+              id="addLongitude"
+              type="number"
+              step="0.1"
+              value={point.Longitude}
+              onChange={(e) =>
+                this.setState({
+                  point: { ...point, Longitude: e.target.value },
                 })
               }
             />
@@ -356,19 +356,6 @@ class Admin extends Component {
               <option value="5">Parcours du parc de Moulinsart</option>
             </select>
             <br />
-            <label htmlFor="updateLongitude">Longitude</label>
-            <input
-              id="updateLongitude"
-              type="number"
-              step="0.1"
-              value={point.Longitude}
-              onChange={(e) =>
-                this.setState({
-                  point: { ...point, Longitude: e.target.value },
-                })
-              }
-            />
-            <br />
             <label htmlFor="updateLatitude">Latitude</label>
             <input
               id="updateLatitude"
@@ -378,6 +365,19 @@ class Admin extends Component {
               onChange={(e) =>
                 this.setState({
                   point: { ...point, Latitude: e.target.value },
+                })
+              }
+            />
+            <br />
+            <label htmlFor="updateLongitude">Longitude</label>
+            <input
+              id="updateLongitude"
+              type="number"
+              step="0.1"
+              value={point.Longitude}
+              onChange={(e) =>
+                this.setState({
+                  point: { ...point, Longitude: e.target.value },
                 })
               }
             />
@@ -450,8 +450,8 @@ class Admin extends Component {
               <th>Nom</th>
               <th>Famille</th>
               <th>Parcours</th>
-              <th>Longitude</th>
               <th>Latitude</th>
+              <th>Longitude</th>
               <th>Catégorie</th>
               <th>Accessible</th>
               <th>Début</th>

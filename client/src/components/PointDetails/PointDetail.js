@@ -21,7 +21,7 @@ class PointDetail extends Component {
             <h2>{point.Nom}</h2>
             <p>Famille : {point.FamilleNom}</p>
             <p>
-              Le point se situe à : [{point.Longitude}, {point.Latitude}]
+              Le point se situe à : [{point.Latitude}, {point.Longitude}]
             </p>
             <p>
               Il est de catégorie : {point.CategorieNom} et se trouve sur le{" "}
