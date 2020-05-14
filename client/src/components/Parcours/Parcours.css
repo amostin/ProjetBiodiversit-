@@ -79,3 +79,21 @@ select {
 .listeParcours{
   background-color: white;
 }
+a, .leaflet-container a, .leaflet-container{
+  color: #6cb873;
+  font-family: "Constantia", serif;
+  text-decoration: none;
+}
+
+a:hover, .leaflet-container:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a:active, .leaflet-container:active {
+  color: black;
+}
+
+a:visited, .leaflet-container:visited {
+  color: darkgreen;
+}

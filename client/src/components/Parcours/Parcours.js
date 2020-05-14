@@ -93,7 +93,7 @@ class Parcours extends Component {
           <br />
 
           <Marker position={userLoc}>
-            <Popup></Popup>
+            <Popup>Ma position</Popup>
           </Marker>
         </Map>
         <ul className="listeParcours">
