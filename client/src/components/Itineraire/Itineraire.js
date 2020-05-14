@@ -32,6 +32,11 @@ class Itineraire extends Component {
 
     return (
       <div>
+
+      <button type="button" id="homeButton" onClick={home}>
+        Retour accueil
+      </button>
+
         <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -60,9 +65,7 @@ class Itineraire extends Component {
             </li>
           ))}
         </ul>
-        <button type="button" id="homeButton" onClick={home}>
-          Retour accueil
-        </button>
+
       </div>
     );
   }
