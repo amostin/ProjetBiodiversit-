@@ -2,14 +2,14 @@
 
 #map {
   height: 60vh;
-  width: 90vw;
+  width: 70vw;
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
 ul {
   text-align: center;
-  margin: 10px;
+  margin: 5px;
   margin-left: auto;
   margin-right: auto;
   padding: 3px;
@@ -29,7 +29,7 @@ ul {
 }
 select {
   padding: 5px;
-  margin: 10px;
+  margin: 5px;
   border-radius: 4px;
   background-color: #4caf50; /* Green */
   color: white;
@@ -51,17 +51,17 @@ select {
 
 @media only screen and (min-width: 900px) {
   #map {
-    width: 90vw;
+    width: 70vw;
   }
 
   ul {
-    width: 90vw;
+    width: 70vw;
   }
 }
 #positionButton {
-  padding: 5px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  padding: 3px;
+  margin-top: 5px;
+  margin-bottom: 5px;
   border-radius: 4px;
   background-color: white;
   color: black;

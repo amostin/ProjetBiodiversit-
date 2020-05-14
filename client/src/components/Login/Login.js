@@ -73,7 +73,7 @@ function Login(props) {
         )}
         <input
           type="button"
-          value={loading ? "Chargement..." : "Connexion"}
+          value={loading ? "Chargement..." : "Se connecter"}
           onClick={handleLogin}
           id="loginButton"
           disabled={loading}

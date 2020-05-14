@@ -48,7 +48,7 @@ function App() {
               <div>
                 <div className="right">
                   <Link to="login">
-                    <img id="login" src={login} alt="" title="Connexion" />
+                    <button id="zoneAdmin">Zone administrateur</button>
                   </Link>
                 </div>
 

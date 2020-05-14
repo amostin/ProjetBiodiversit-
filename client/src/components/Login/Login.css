@@ -6,9 +6,9 @@
   display: inline-block;
 }
 #loginButton, #homeButton {
-  padding: 5px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  padding: 3px;
+  margin-top: 15px;
+  margin-bottom: 15px;
   border-radius: 4px;
   background-color: white;
   color: black;

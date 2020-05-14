@@ -25,7 +25,6 @@ nav {
 
 #login {
   width: 5%;
-  margin: 5px 5px 0 0;
 }
 
 #calcul {
@@ -35,10 +34,7 @@ nav {
 ul li {
   list-style: none;
 }
-#newItinerary {
-  padding: 5px;
-  margin-top: 5px;
-  margin-bottom: 40px;
+#newItinerary, #zoneAdmin {
   border-radius: 4px;
   background-color: white;
   color: black;
@@ -47,8 +43,16 @@ ul li {
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;
+  margin-bottom: 20px;
+  padding: 3px;
 }
-#newItinerary:hover {
+#zoneAdmin{
+  font-size: 12px;
+  margin-right: 10px;
+  margin-top: 10px;
+  padding: 3px;
+}
+#newItinerary:hover, #zoneAdmin:hover {
   background-color: #4caf50; /* Green */
   color: white;
   border: 2px solid lightgreen;
@@ -59,4 +63,34 @@ ul li {
 }
 .App{
   background-color: #edf1f3;
+}
+a {
+  color: lightgreen;
+  font-family: "Constantia", serif;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+a:active {
+  color: black;
+}
+
+a:visited {
+  color: darkgreen;
+}
+body{
+  font-family: "Constantia", serif;
+}
+input{
+  font-family: "Constantia", serif;
+}
+select{
+  font-family: "Constantia", serif;
+}
+button{
+  font-family: "Constantia", serif;
 }
