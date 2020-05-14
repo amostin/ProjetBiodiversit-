@@ -25,6 +25,11 @@ class Itineraire extends Component {
     const center = ["50.665938", "4.612229"];
     var zoom = 14;
     const { places } = this.state;
+
+    const home = () => {
+       this.props.history.push("/");
+     };
+
     return (
       <div>
         <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
@@ -55,6 +60,9 @@ class Itineraire extends Component {
             </li>
           ))}
         </ul>
+        <button type="button" id="homeButton" onClick={home}>
+          Retour accueil
+        </button>
       </div>
     );
   }
