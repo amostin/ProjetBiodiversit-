@@ -5,7 +5,6 @@ import Admin from "./components/Admin/Admin";
 import NewUser from "./components/NewUser/NewUser";
 import Login from "./components/Login/Login";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import login from "./login.png";
 import PointDetail from "./components/PointDetails/PointDetail";
 import Itineraire from "./components/Itineraire/Itineraire";
 import PrivateRoute from "./Utils/PrivateRoute";

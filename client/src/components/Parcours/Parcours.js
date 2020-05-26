@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Map, TileLayer, Marker, Popup } from "react-leaflet";
 import "./Parcours.css";
 
+
 class Parcours extends Component {
   state = {
     places: [],
@@ -13,6 +14,7 @@ class Parcours extends Component {
   };
   componentDidMount() {
     this.getPlacesByParcours();
+    this.getUserLocalisation();
   }
   getPlacesByParcours = (_) => {
     const { ParcoursID } = this.state;
@@ -38,9 +40,8 @@ class Parcours extends Component {
   };
 
   render() {
-    const center = this.state.userLoc;
     var zoom = 14;
-    const { places, ParcoursID, userLoc } = this.state;
+    const { places, ParcoursID } = this.state;
     return (
       <div>
         <label className="labelParcours" htmlFor="parcours">
@@ -95,7 +96,7 @@ class Parcours extends Component {
           ))}
           <br />
 
-          <Marker position={this.state.userLoc}>
+          <Marker position={this.state.userLoc} >
             <Popup>Ma position</Popup>
           </Marker>
         </Map>
