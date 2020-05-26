@@ -42,7 +42,7 @@ function Login(props) {
     <div className="center">
       <h1>Se connecter</h1>
       <br />
-      <form id="connectBox">
+      <form id="connectBox" onSubmit={handleLogin} noValidate>
         <div>
           <label htmlFor="pseudo">Pseudo</label>
           <br />
@@ -72,7 +72,7 @@ function Login(props) {
           </>
         )}
         <input
-          type="button"
+          type="submit"
           value={loading ? "Chargement..." : "Se connecter"}
           onClick={handleLogin}
           id="loginButton"
