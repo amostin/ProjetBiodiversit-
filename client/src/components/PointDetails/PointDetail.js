@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 
 class PointDetail extends Component {
   state = {
@@ -19,17 +20,22 @@ class PointDetail extends Component {
           <div key={point.PointInteretID}>
             <h1>{point.NomScientifique}</h1>
             <h2>{point.Nom}</h2>
-            <p>Famille : {point.FamilleNom}</p>
-            <p>
-              Le point se situe à : [{point.Latitude}, {point.Longitude}]
+            <p>Famille : <b>{point.FamilleNom}</b></p>
+            <p><br/>
+              Le point se situe aux coordonnées suivantes : <br/><br/>Latitude de <b>{point.Latitude}</b> et Longitude de <b>{point.Longitude}</b>
             </p>
-            <p>
-              Il est de catégorie : {point.CategorieNom} et se trouve sur le{" "}
-              {point.ParcoursNom}
+            <p><br/>
+              Il est de catégorie : <b>{point.CategorieNom}</b> et se trouve sur le <b>
+              {point.ParcoursNom}</b>
             </p>
-            <p>
-              Il est accessible entre le {point.Debut} au {point.Fin}
+            <p><br/>
+              Il est accessible entre le <b>{point.Debut}</b> au <b>{point.Fin}</b>
             </p>
+            <Link to="/">
+            <button type="button" id='returnButton'>
+              Retour accueil
+            </button>
+            </Link>
           </div>
         ))}
       </div>
