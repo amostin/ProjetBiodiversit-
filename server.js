@@ -11,7 +11,7 @@ const app = express();
 // Informations pour la connexion à la DB
 const connection = mysql.createConnection({
   host: "127.0.0.1",
-  user: "root",
+  user: "mysql",
   password: "Jslmdpmlrdc3419$",
   database: "probio",
 });

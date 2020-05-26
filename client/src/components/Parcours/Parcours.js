@@ -9,6 +9,7 @@ class Parcours extends Component {
     places: [],
     ParcoursID: "5",
     userLoc: ["50.665938", "4.612229"],
+    ephec:["50.665938", "4.612229"],
   };
   componentDidMount() {
     this.getPlacesByParcours();
@@ -24,18 +25,20 @@ class Parcours extends Component {
   getUserLocalisation = (_) => {
     navigator.geolocation.getCurrentPosition(
       (position, options = { enableHighAccuracy: true }) => {
-        console.log(position.coords.latitude);
-        console.log(position.coords.longitude);
-        console.log(`La précision est de ${position.coords.accuracy} mètres.`);
         const latitude = position.coords.latitude;
         const longitude = position.coords.longitude;
-        this.setState({ userLoc: [latitude, longitude] });
+        if (this.state.userLoc===this.state.ephec) {
+          this.setState({ userLoc: [latitude, longitude] });
+        }
+        else {
+          this.setState({ userLoc: this.state.ephec });
+        }
       }
     );
   };
 
   render() {
-    const center = ["50.665938", "4.612229"];
+    const center = this.state.userLoc;
     var zoom = 14;
     const { places, ParcoursID, userLoc } = this.state;
     return (
@@ -73,7 +76,7 @@ class Parcours extends Component {
             id="positionButton"
           />
         </div>
-        <Map id="map" zoom={zoom} center={center} maxZoom="18" minZoom="8">
+        <Map id="map" zoom={zoom} center={this.state.userLoc} maxZoom="18" minZoom="8">
           <TileLayer
             attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -92,7 +95,7 @@ class Parcours extends Component {
           ))}
           <br />
 
-          <Marker position={userLoc}>
+          <Marker position={this.state.userLoc}>
             <Popup>Ma position</Popup>
           </Marker>
         </Map>
