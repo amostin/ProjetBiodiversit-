@@ -17,6 +17,9 @@ td {
   float: left;
   text-align: left;
 }
+#addFamille, #addFamille, #addParcours, #addCategorie, #addAccessibilite{
+  border: 1px solid lightblue;
+}
 input {
   font-size: 16px;
   font-weight: bold;
