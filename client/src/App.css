@@ -37,7 +37,7 @@ ul li {
 #adminItineraryGroup{
   text-align: right;
   justify-content: space-around;
-  width: 85%;
+  width: 100%;
   margin-bottom: 15px;
 }
 #itineraryButton{

@@ -23,22 +23,6 @@ input {
   font-size: 16px;
   font-weight: bold;
 }
-#ajouterPoint {
-  padding: 5px;
-  margin-top: 10px;
-  margin-bottom: 40px;
-  border-radius: 4px;
-  background-color: white;
-  color: black;
-  border: 2px solid #4caf50; /* Green */
-  transition-duration: 0.4s;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-  text-align: center;
-  width: 80%;
-}
-
 #disconnectButton {
   border: 2px solid #4caf50; /* Green */
   transition-duration: 0.4s;
@@ -77,6 +61,26 @@ input {
   text-align: center;
   justify-content: space-around;
 }
+#ajouterPoint {
+  padding: 5px;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  border: 2px solid #00214e; /* Green */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  width: 80%;
+}
+#ajouterPoint:hover{
+  background-color: #00214e; /* Green */
+  color: white;
+  border: 2px solid lightblue;
+}
 #modifyEntry {
   padding: 5px;
   margin-top: 10px;
@@ -92,17 +96,26 @@ input {
   text-align: center;
   width: 80%;
 }
-
+#modifyEntry:hover{
+  background-color: green; /* Green */
+  color: white;
+  border: 2px solid lightgreen;
+}
 .deleteButton {
   padding: 5px;
   border-radius: 4px;
   background-color: white;
   color: black;
-  border: 2px solid #4caf50; /* Green */
+  border: 2px solid red; /* Green */
   transition-duration: 0.4s;
   cursor: pointer;
   font-size: auto;
   font-weight: bold;
+}
+.deleteButton:hover{
+  background-color: red; /* Green */
+  color: white;
+  border: 2px solid #ffcccb;
 }
 .modifyButton {
   padding: 5px;

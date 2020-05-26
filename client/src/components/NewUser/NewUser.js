@@ -1,6 +1,8 @@
 import React, { Component } from "react";
 import "./../../App.css";
 import axios from "axios";
+import { Link } from "react-router-dom";
+import "./NewUser.css";
 
 class NewUser extends Component {
   constructor() {
@@ -33,6 +35,7 @@ class NewUser extends Component {
       });
   };
   render() {
+
     return (
       <div className="center">
         <h1>Ajouter un utilisateur</h1>
@@ -97,6 +100,9 @@ class NewUser extends Component {
             onClick={this.register}
             id="loginButton"
           />
+          <Link to="/admin">
+            <button id="Retour">Annuler</button>
+          </Link>
         </form>
       </div>
     );
