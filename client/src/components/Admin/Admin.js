@@ -133,16 +133,18 @@ class Admin extends Component {
       <div className="center">
         <h1>Page admin</h1>
         <p>Bienvenue {user.Nom}!</p>{" "}
-        <button type="button" id="disconnectButton" onClick={handleLogout}>
-          Se déconnecter
-        </button>
-        <Link to="/newUser">
-          <button id="newUser">Ajouter un utilisateur</button>
-        </Link>
+        <div id='addDisconnectGroup'>
+          <Link to="/newUser">
+            <button id="newUser">Ajouter un utilisateur</button>
+          </Link>
+          <button type="button" id="disconnectButton" onClick={handleLogout}>
+            Se déconnecter
+          </button>
+        </div>
         <br />
         <div className="container">
           <div id="FormAddEntry" className="item">
-            <h3>Ajouter un point d'intérêt</h3>
+            <h3 id="titreAdd">Ajouter un point d'intérêt</h3>
             <label htmlFor="addNomScientifique">NomScientifique</label>
             <input
               id="addNomScientifique"
@@ -286,7 +288,7 @@ class Admin extends Component {
           </div>
 
           <div id="FormModifyEntry" className="item">
-            <h3>Modifier point d'intérêt</h3>
+            <h3 id="titreModify">Modifier point d'intérêt</h3>
             <label htmlFor="updateID">Identifiant</label>
             <input
               id="updateID"

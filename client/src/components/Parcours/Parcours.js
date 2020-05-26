@@ -14,7 +14,7 @@ class Parcours extends Component {
   };
   componentDidMount() {
     this.getPlacesByParcours();
-    this.getUserLocalisation();
+
   }
   getPlacesByParcours = (_) => {
     const { ParcoursID } = this.state;
@@ -22,6 +22,7 @@ class Parcours extends Component {
       .then((res) => res.json())
       .then((res) => this.setState({ places: res.data }))
       .catch((err) => console.log(err));
+      this.setState({ userLoc: this.state.ephec });
   };
 
   getUserLocalisation = (_) => {
