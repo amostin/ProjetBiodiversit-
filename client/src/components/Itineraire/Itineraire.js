@@ -32,8 +32,9 @@ class Itineraire extends Component {
      };
 
     return (
-      /* Partie navigation, retour vers l'écran principal */
+
       <div>
+      {/* Partie navigation, retour vers l'écran principal */}
         <div id="buttonGroup">
           <button type="button" id='returnButton' onClick={home}>
             Retour accueil
