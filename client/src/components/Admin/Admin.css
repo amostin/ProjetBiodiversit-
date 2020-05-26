@@ -1,7 +1,5 @@
 .container {
-  width: auto;
   text-align: justify;
-  justify-content: space-around;
 }
 
 table,
@@ -59,7 +57,6 @@ input {
 }
 .addDisconnectGroup{
   text-align: center;
-  justify-content: space-around;
 }
 #ajouterPoint {
   padding: 5px;
@@ -74,7 +71,8 @@ input {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  width: 80%;
+  width: 100%;
+  justify-content: center;
 }
 #ajouterPoint:hover{
   background-color: #00214e; /* Green */
@@ -94,7 +92,7 @@ input {
   font-size: 16px;
   font-weight: bold;
   text-align: center;
-  width: 80%;
+  width: 100%;
 }
 #modifyEntry:hover{
   background-color: green; /* Green */
