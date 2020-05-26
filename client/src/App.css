@@ -34,25 +34,26 @@ nav {
 ul li {
   list-style: none;
 }
-#newItinerary, #zoneAdmin {
+#adminItineraryGroup{
+  text-align: right;
+  justify-content: space-around;
+  width: 85%;
+  margin-bottom: 15px;
+}
+#itineraryButton, #adminZoneButton {
   border-radius: 4px;
   background-color: white;
   color: black;
   border: 2px solid #4caf50; /* Green */
   transition-duration: 0.4s;
   cursor: pointer;
-  font-size: 16px;
+  font-size: 13px;
   font-weight: bold;
-  margin-bottom: 20px;
-  padding: 3px;
+  padding: 0.5%;
+  margin: 0.5%;
+  justify-content: space-around;
 }
-#zoneAdmin{
-  font-size: 12px;
-  margin-right: 10px;
-  margin-top: 10px;
-  padding: 3px;
-}
-#newItinerary:hover, #zoneAdmin:hover {
+#itineraryButton:hover, #adminZoneButton:hover {
   background-color: #4caf50; /* Green */
   color: white;
   border: 2px solid lightgreen;

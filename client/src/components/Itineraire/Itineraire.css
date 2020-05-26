@@ -1,0 +1,24 @@
+#buttonGroup {
+  text-align: right;
+  justify-content: space-around;
+  width: 85%;
+  margin-bottom: 15px;
+}
+#returnButton{
+  border-radius: 4px;
+  background-color: white;
+  color: black;
+  border: 2px solid #4caf50; /* Green */
+  transition-duration: 0.4s;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: bold;
+  padding: 0.5%;
+  margin: 0.5%;
+  justify-content: space-around;
+}
+#returnButton:hover{
+  background-color: #4caf50; /* Green */
+  color: white;
+  border: 2px solid lightgreen;
+}

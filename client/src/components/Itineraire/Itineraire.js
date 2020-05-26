@@ -9,6 +9,7 @@ L.Icon.Default.imagePath = "https://unpkg.com/leaflet@1.5.0/dist/images/";
 
 class Itineraire extends Component {
   state = {
+    isMapInit: false,
     places: []
   };
   componentDidMount() {
@@ -31,38 +32,45 @@ class Itineraire extends Component {
      };
 
     return (
+      /* Partie navigation, retour vers l'écran principal */
       <div>
-        <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
-          <TileLayer
-            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {places.map(place => (
-            <Marker
-              key={place.PointInteretID}
-              position={[place.Latitude, place.Longitude]}
-            >
-              <Popup>
-                <Link to={`/pointInteret/${place.PointInteretID}`}>
-                  {place.NomScientifique}
-                </Link>
-              </Popup>
-            </Marker>
-          ))}
-          <br />
-        </Map>
-        <ul className="listeParcours">
-          {places.map(place => (
-            <li key={place.PointInteretID}>
-              <Link to={`/pointInteret/${place.PointInteretID}`}>
-                {place.NomScientifique}
-              </Link>
-            </li>
-          ))}
-        </ul>
-        <button type="button" id="homeButton" onClick={home}>
-          Retour accueil
-        </button>
+        <div id="buttonGroup">
+          <button type="button" id='returnButton' onClick={home}>
+            Retour accueil
+          </button>
+        </div>
+
+      {/* Affichage de la carte, des marqueurs et des popups */}
+      <Map id="map" zoom={zoom} center={center} minZoom={zoom} maxZoom="18">
+        <TileLayer
+          attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+        {places.map(place => (
+          <Marker
+            key={place.PointInteretID}
+            position={[place.Latitude, place.Longitude]}
+          >
+          <Popup>
+            <Link to={`/pointInteret/${place.PointInteretID}`}>
+              {place.NomScientifique}
+            </Link>
+          </Popup>
+          </Marker>
+        ))}
+        <br />
+      </Map>
+
+      {/* Affichage de la liste des points d'intérêt */}
+      <ul className="listeParcours">
+        {places.map(place => (
+          <li key={place.PointInteretID}>
+            <Link to={`/pointInteret/${place.PointInteretID}`}>
+              {place.NomScientifique}
+            </Link>
+          </li>
+        ))}
+      </ul>
       </div>
     );
   }

@@ -46,18 +46,19 @@ function App() {
             exact
             render={() => (
               <div>
-                <div className="right">
+                <div id="adminItineraryGroup">
+                  <Link to="/itineraire">
+                    <button id="itineraryButton">Calculer un itinéraire</button>
+                  </Link>
                   <Link to="login">
-                    <button id="zoneAdmin">Zone administrateur</button>
+                    <button id="adminZoneButton">Zone administrateur</button>
                   </Link>
                 </div>
 
                 <div className="center">
                   <Parcours />
                   <br />
-                  <Link to="/itineraire">
-                    <button id="newItinerary">Calculer un itinéraire</button>
-                  </Link>
+
                 </div>
               </div>
             )}
