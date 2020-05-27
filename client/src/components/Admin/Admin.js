@@ -9,16 +9,16 @@ class Admin extends Component {
     places: [],
     point: {
       PointInteretID: 161,
-      NomScientifique: "nomScientifique",
-      Nom: "nom",
+      NomScientifique: "",
+      Nom: "",
       FamilleID: 99,
       ParcoursID: 2,
       Latitude: 50.665938,
       Longitude: 4.612229,
       CategorieID: 1,
       Accessibilite: 1,
-      Debut: "2020-01-01",
-      Fin: "2020-12-31",
+      Debut: "",
+      Fin: "",
     },
   };
 
@@ -147,6 +147,7 @@ class Admin extends Component {
             <h3 id="titreAdd">Ajouter un point d'intérêt</h3>
             <label htmlFor="addNomScientifique">NomScientifique</label>
             <input
+              placeholder="Nom scientifique"
               id="addNomScientifique"
               type="text"
               value={point.NomScientifique}
@@ -159,6 +160,7 @@ class Admin extends Component {
             <br />
             <label htmlFor="addNom">Nom latin</label>
             <input
+              placeholder="Nom français"
               id="addNom"
               type="text"
               value={point.Nom}
@@ -246,6 +248,7 @@ class Admin extends Component {
             <br />
             <label htmlFor="addDebut">Début</label>
             <input
+              placeholder="2000-01-01"
               id="addDebut"
               type="text"
               value={point.Debut}
@@ -258,6 +261,7 @@ class Admin extends Component {
             <br />
             <label htmlFor="addFin">Fin</label>
             <input
+              placeholder="2020-01-01"
               id="addFin"
               type="text"
               value={point.Fin}
@@ -303,6 +307,7 @@ class Admin extends Component {
             <br />
             <label htmlFor="updateNomScientifique">NomScientifique</label>
             <input
+              placeholder="Nom scientifique"
               id="updateNomScientifique"
               type="text"
               value={point.NomScientifique}
@@ -315,6 +320,7 @@ class Admin extends Component {
             <br />
             <label htmlFor="updateNom">Nom</label>
             <input
+              placeholder="Nom français"
               id="updateNom"
               type="text"
               value={point.Nom}
@@ -402,6 +408,7 @@ class Admin extends Component {
             <br />
             <label htmlFor="updateDebut">Début</label>
             <input
+              placeholder="2000-01-01"
               id="updateDebut"
               type="text"
               value={point.Debut}
@@ -414,6 +421,7 @@ class Admin extends Component {
             <br />
             <label htmlFor="updateFin">Fin</label>
             <input
+              placeholder="2020-01-01"
               id="updateFin"
               type="text"
               value={point.Fin}
